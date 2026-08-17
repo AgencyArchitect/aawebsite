@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getPublishedArticles, getLiveTopics } from '../../lib/site';
+
+const articles = await getPublishedArticles();
+const topics = await getLiveTopics();
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Inzichten', url: '/inzichten/' },
+];
+---
+
+<BaseLayout
+  title="Inzichten"
+  description="Analyses en denkkaders over e-commerce Meta marketing: creative strategy, advertising, funnels en copywriting. Geschreven vanuit de praktijk, niet vanuit een template."
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <header class="container insights-header">
+    <h1>Inzichten</h1>
+    <p class="lede">
+      Analyses en denkkaders over e-commerce Meta marketing. Geen samenvattingen van andermans
+      blogs; observaties uit accounts, merken en gesprekken met founders.
+    </p>
+  </header>
+
+  <div class="container section--tight">
+    {
+      articles.map((article) => (
+        <ArticleCard {article} topic={topics.find((t) => t.id === article.data.topic.id)} />
+      ))
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .insights-header {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  .insights-header .lede {
+    margin-block-start: var(--space-md);
+    max-inline-size: 52ch;
+  }
+</style>

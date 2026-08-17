@@ -1,0 +1,63 @@
+---
+interface Props {
+  trail: { name: string; url: string }[];
+}
+
+const { trail } = Astro.props;
+const siteUrl = 'https://www.agencyarchitect.nl';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((crumb, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: crumb.name,
+    item: new URL(crumb.url, siteUrl).href,
+  })),
+};
+---
+
+<nav aria-label="Kruimelpad" class="breadcrumbs">
+  <ol>
+    {
+      trail.map((crumb, i) => (
+        <li>
+          {i < trail.length - 1 ? (
+            <a href={crumb.url}>{crumb.name}</a>
+          ) : (
+            <span aria-current="page">{crumb.name}</span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+<style>
+  .breadcrumbs ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+  }
+
+  .breadcrumbs li:not(:last-child)::after {
+    content: '/';
+    margin-inline-start: var(--space-xs);
+    color: var(--color-accent-warm);
+  }
+
+  .breadcrumbs a {
+    color: var(--color-ink-soft);
+  }
+
+  .breadcrumbs [aria-current] {
+    color: var(--color-ink);
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuditCTA from '../components/AuditCTA.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { render } from 'astro:content';
+import {
+  getLiveTopics,
+  getPublishedArticles,
+  topicSegments,
+  topicUrl,
+  childrenOf,
+  siblingsOf,
+  breadcrumbTrail,
+  formatDate,
+} from '../lib/site';
+
+export async function getStaticPaths() {
+  const topics = await getLiveTopics();
+  return topics.map((topic) => ({
+    params: { topic: topicSegments(topic).join('/') },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+const allTopics = await getLiveTopics();
+const children = childrenOf(topic, allTopics);
+const siblings = siblingsOf(topic, allTopics);
+const trail = breadcrumbTrail(topic, allTopics);
+
+const articles = (await getPublishedArticles()).filter((a) => a.data.topic.id === topic.id);
+const { Content } = await render(topic);
+---
+
+<BaseLayout
+  title={topic.data.seoTitle ?? topic.data.title}
+  description={topic.data.description}
+  jsonLdNodes={[
+    {
+      '@type': 'WebPage',
+      '@id': `https://www.agencyarchitect.nl${topicUrl(topic)}#webpage`,
+      url: `https://www.agencyarchitect.nl${topicUrl(topic)}`,
+      name: topic.data.title,
+      description: topic.data.description,
+      inLanguage: 'nl-NL',
+      isPartOf: { '@id': 'https://www.agencyarchitect.nl/#website' },
+      dateModified: topic.data.updatedAt.toISOString().slice(0, 10),
+    },
+  ]}
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <header class="container topic-header">
+    <h1>{topic.data.title}</h1>
+    <p class="lede">{topic.data.summary}</p>
+    <p class="text-meta">Laatst bijgewerkt: {formatDate(topic.data.updatedAt)}</p>
+  </header>
+
+  <div class="container section--tight">
+    <div class="prose">
+      <Content />
+    </div>
+  </div>
+
+  {
+    children.length > 0 && (
+      <section class="container section--tight" aria-labelledby="children-heading">
+        <h2 id="children-heading" class="branch-heading">
+          Verdieping binnen {topic.data.title.toLowerCase()}
+        </h2>
+        <ul class="statement-list">
+          {children.map((child) => (
+            <li>
+              <a href={topicUrl(child)}>{child.data.title}</a>
+              <p class="text-soft branch-summary">{child.data.description}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    articles.length > 0 && (
+      <section class="container section--tight" aria-labelledby="articles-heading">
+        <h2 id="articles-heading" class="branch-heading">
+          Inzichten over dit onderwerp
+        </h2>
+        {articles.map((article) => (
+          <ArticleCard {article} />
+        ))}
+      </section>
+    )
+  }
+
+  {
+    siblings.length > 0 && (
+      <section class="container section--tight" aria-labelledby="siblings-heading">
+        <h2 id="siblings-heading" class="text-meta sibling-heading">
+          Verwant
+        </h2>
+        <ul class="sibling-list">
+          {siblings.map((sibling) => (
+            <li>
+              <a href={topicUrl(sibling)}>{sibling.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <AuditCTA />
+</BaseLayout>
+
+<style>
+  .topic-header {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  .topic-header .lede {
+    margin-block-start: var(--space-md);
+    max-inline-size: var(--width-content);
+  }
+
+  .topic-header .text-meta {
+    margin-block-start: var(--space-sm);
+  }
+
+  .branch-heading {
+    font-size: var(--text-xl);
+    margin-block-end: var(--space-md);
+  }
+
+  .branch-summary {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    margin-block-start: var(--space-2xs);
+  }
+
+  .sibling-heading {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .sibling-list {
+    list-style: none;
+    padding: 0;
+    margin-block-start: var(--space-sm);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+</style>

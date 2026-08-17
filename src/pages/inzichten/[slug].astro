@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AuditCTA from '../../components/AuditCTA.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { render, getEntry } from 'astro:content';
+import {
+  SITE,
+  getPublishedArticles,
+  getLiveTopics,
+  topicUrl,
+  formatDate,
+  readingMinutes,
+} from '../../lib/site';
+
+export async function getStaticPaths() {
+  const articles = await getPublishedArticles();
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const author = await getEntry(article.data.author);
+const topics = await getLiveTopics();
+const topic = topics.find((t) => t.id === article.data.topic.id);
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Inzichten', url: '/inzichten/' },
+  { name: article.data.title, url: `/inzichten/${article.id}/` },
+];
+
+const related = (await getPublishedArticles())
+  .filter((a) => a.id !== article.id)
+  .filter((a) =>
+    article.data.relatedSlugs.length > 0
+      ? article.data.relatedSlugs.includes(a.id)
+      : a.data.topic.id === article.data.topic.id,
+  )
+  .slice(0, 3);
+
+const { Content } = await render(article);
+const minutes = readingMinutes(article.body);
+const canonicalUrl = `${SITE.url}/inzichten/${article.id}/`;
+
+const articleJsonLd = {
+  '@type': 'Article',
+  '@id': `${canonicalUrl}#article`,
+  headline: article.data.title,
+  description: article.data.description,
+  url: canonicalUrl,
+  inLanguage: 'nl-NL',
+  datePublished: article.data.publishedAt.toISOString().slice(0, 10),
+  dateModified: (article.data.updatedAt ?? article.data.publishedAt).toISOString().slice(0, 10),
+  author: {
+    '@type': 'Person',
+    '@id': `${SITE.url}/#thomas`,
+    name: author?.data.name,
+    jobTitle: author?.data.role,
+    worksFor: { '@id': `${SITE.url}/#organization` },
+  },
+  publisher: { '@id': `${SITE.url}/#organization` },
+  isPartOf: { '@id': `${SITE.url}/#website` },
+};
+---
+
+<BaseLayout
+  title={article.data.seoTitle ?? article.data.title}
+  description={article.data.description}
+  canonical={article.data.canonical}
+  ogType="article"
+  jsonLdNodes={[articleJsonLd]}
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <article class="container">
+    <header class="article-header">
+      <h1>{article.data.title}</h1>
+      <p class="lede">{article.data.summary}</p>
+      <p class="text-meta article-meta">
+        {author?.data.name} ·
+        <time datetime={article.data.publishedAt.toISOString().slice(0, 10)}>
+          {formatDate(article.data.publishedAt)}
+        </time>
+        {
+          article.data.updatedAt && (
+            <>
+              {' '}· Bijgewerkt:{' '}
+              <time datetime={article.data.updatedAt.toISOString().slice(0, 10)}>
+                {formatDate(article.data.updatedAt)}
+              </time>
+            </>
+          )
+        }
+        · {minutes} min leestijd
+        {topic && <> · <a href={topicUrl(topic)}>{topic.data.title}</a></>}
+      </p>
+    </header>
+
+    <div class="prose article-body">
+      <Content />
+    </div>
+
+    {
+      article.data.sources.length > 0 && (
+        <footer class="article-sources">
+          <h2 class="text-meta sources-heading">Bronnen</h2>
+          <ul>
+            {article.data.sources.map((source) => (
+              <li>
+                <a href={source.url} rel="noopener">
+                  {source.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </footer>
+      )
+    }
+  </article>
+
+  {
+    related.length > 0 && (
+      <section class="container section--tight" aria-labelledby="related-heading">
+        <h2 id="related-heading" class="related-heading">
+          Verder lezen
+        </h2>
+        {related.map((rel) => (
+          <ArticleCard article={rel} />
+        ))}
+      </section>
+    )
+  }
+
+  {article.data.cta && <AuditCTA />}
+</BaseLayout>
+
+<style>
+  .article-header {
+    padding-block: var(--space-lg) var(--space-xl);
+    max-inline-size: var(--width-content);
+  }
+
+  .article-header .lede {
+    margin-block-start: var(--space-md);
+  }
+
+  .article-meta {
+    margin-block-start: var(--space-md);
+  }
+
+  .article-body {
+    padding-block-end: var(--space-xl);
+  }
+
+  .article-sources {
+    border-block-start: var(--border-hairline);
+    padding-block: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+
+  .sources-heading {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+
+  .related-heading {
+    font-size: var(--text-xl);
+    margin-block-end: var(--space-md);
+  }
+</style>

@@ -1,17 +1,233 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AuditCTA from '../components/AuditCTA.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { SITE, getLiveTopics, getPublishedArticles, topicUrl } from '../lib/site';
 
+const topics = await getLiveTopics();
+const platforms = topics.filter((t) => t.data.level === 'platform');
+const articles = (await getPublishedArticles()).filter((a) => a.data.featured).slice(0, 3);
+
+const variables = [
+  'markt',
+  'product',
+  'persona',
+  'offer',
+  'awareness',
+  'angle',
+  'concept',
+  'format',
+  'testhypothese',
+  'spend',
+  'analyse',
+  'learnings',
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Agency Architect"
+  description="Growth consultancy voor creative Meta advertising. Voor founders van gezonde e-commerce merken die willen schalen zonder te gokken op de volgende creative."
+>
+  <!-- Hero -->
+  <section class="section hero">
+    <div class="container">
+      <p class="eyebrow">E-commerce Meta marketing</p>
+      <h1 class="hero__heading">
+        Je hebt niet méér creatives nodig.<br />Je moet weten wat je volgende goede beslissing is.
+      </h1>
+      <p class="lede hero__lede">
+        Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen, schaalbare
+        creative strategy voor Meta opbouwen. Geen gokwerk, geen eenheidsworst, geen permanente
+        afhankelijkheid van een externe partij.
+      </p>
+      <a class="button button--primary" href="/creative-scale-audit/">{SITE.cta}</a>
+    </div>
+  </section>
+
+  <!-- Probleemherkenning -->
+  <section class="section section--wash" aria-labelledby="patterns-heading">
+    <div class="container">
+      <h2 id="patterns-heading">Herken je dit?</h2>
+      <ul class="statement-list patterns">
+        <li>Je CPA loopt op, terwijl je harder werkt dan ooit.</li>
+        <li>ROAS beweegt alle kanten op en niemand kan precies zeggen waarom.</li>
+        <li>Eén creative houdt het hele account overeind.</li>
+        <li>Iedere week moet er iets nieuws live, zonder dat je weet waarom dít het moet zijn.</li>
+        <li>Oude winnaars worden steeds opnieuw verpakt.</li>
+        <li>Meer budget voelt niet als opschalen, maar als risico.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Reframe -->
+  <section class="section" aria-labelledby="reframe-heading">
+    <div class="container split">
+      <div>
+        <h2 id="reframe-heading">Het probleem is niet automatisch Meta</h2>
+        <div class="prose reframe-prose">
+          <p>
+            Meta kan alleen reageren op de input die het krijgt. Uitgeputte creative input,
+            onduidelijke hypotheses, te weinig marktkennis en een testproces zonder leeropbouw los
+            je niet op door harder aan campagneknoppen te draaien.
+          </p>
+          <p>
+            Natuurlijk spelen platformdynamiek, je landingspagina en je marges ook een rol. Maar de
+            vraag die aan alles voorafgaat is een andere: weet jij welke hypothese je aan het testen
+            bent, en wat je van de vorige geleerd hebt?
+          </p>
+        </div>
+      </div>
+      <blockquote class="pullquote">
+        Een agency bouwt capaciteit rondom jou. Een consultancy bouwt capaciteit ín jouw
+        organisatie.
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Platformtakken -->
+  <section class="section section--wash" aria-labelledby="platforms-heading">
+    <div class="container">
+      <h2 id="platforms-heading">Waar wij naar kijken</h2>
+      <div class="grid-2 platform-grid">
+        {
+          platforms.map((platform) => (
+            <div class="platform-block">
+              <h3>
+                <a href={topicUrl(platform)}>{platform.data.title}</a>
+              </h3>
+              <p class="text-soft">{platform.data.description}</p>
+              <p class="text-meta">Organisch · Adverteren · Funnels · Copywriting</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Denkmodel -->
+  <section class="section" aria-labelledby="model-heading">
+    <div class="container">
+      <h2 id="model-heading">Wat er onder één advertentie zit</h2>
+      <p class="lede model-lede">
+        "Maak een nieuwe ad" is zelden het antwoord. Elke creative die live gaat is de optelsom van
+        twaalf variabelen, en elke variabele is een plek waar schaalbaarheid ontstaat of verdwijnt.
+      </p>
+      <ul class="variable-list">
+        {variables.map((variable) => <li>{variable}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Audit -->
+  <AuditCTA />
+
+  <!-- Inzichten -->
+  {
+    articles.length > 0 && (
+      <section class="section" aria-labelledby="insights-heading">
+        <div class="container">
+          <h2 id="insights-heading">Inzichten</h2>
+          {articles.map((article) => (
+            <ArticleCard {article} />
+          ))}
+          <p class="insights-more">
+            <a href="/inzichten/">Alle inzichten</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Founder / visie -->
+  <section class="section section--wash" aria-labelledby="vision-heading">
+    <div class="container">
+      <h2 id="vision-heading">Waarom Agency Architect bestaat</h2>
+      <div class="prose vision-prose">
+        <p>
+          Te veel gezonde merken zijn het kind van een slecht functionerende relatie met hun
+          agency geworden: gerecyclede frameworks, dezelfde rapportages als dertig andere klanten,
+          en een founder die niet meer weet waarom zijn marketingbeslissingen genomen worden.
+        </p>
+        <p>
+          Wij geloven dat het anders hoort. Je kunt marketing uitbesteden; de verantwoordelijkheid
+          voor je groeimodel niet. De beste externe partner maakt je minder afhankelijk, niet meer.
+        </p>
+        <p><a href="/over/">Lees waar we vandaan komen</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Eind-CTA -->
+  <section class="section" aria-labelledby="end-cta-heading">
+    <div class="container end-cta">
+      <h2 id="end-cta-heading">Weten waar je staat?</h2>
+      <p class="lede">
+        De Creative Scale Audit laat zien waar jouw Meta-aanpak schaalbaarheid verliest, en waar je
+        volgende euro het meest onderbouwd heen kan.
+      </p>
+      <a class="button button--primary" href="/creative-scale-audit/">{SITE.cta}</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-3xl) var(--space-2xl);
+  }
+
+  .hero__heading {
+    max-inline-size: 22ch;
+    margin-block-start: var(--space-md);
+  }
+
+  .hero__lede {
+    margin-block: var(--space-lg);
+    max-inline-size: 52ch;
+  }
+
+  .patterns {
+    margin-block-start: var(--space-lg);
+  }
+
+  .reframe-prose {
+    margin-block-start: var(--space-md);
+  }
+
+  .platform-grid {
+    margin-block-start: var(--space-lg);
+  }
+
+  .platform-block h3 a {
+    text-decoration: none;
+  }
+
+  .platform-block h3 a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .platform-block p {
+    margin-block-start: var(--space-sm);
+  }
+
+  .model-lede {
+    margin-block: var(--space-md) var(--space-lg);
+  }
+
+  .insights-more {
+    margin-block-start: var(--space-lg);
+    font-weight: 600;
+  }
+
+  .vision-prose {
+    margin-block-start: var(--space-md);
+  }
+
+  .end-cta h2 {
+    max-inline-size: 20ch;
+  }
+
+  .end-cta .lede {
+    margin-block: var(--space-md) var(--space-lg);
+  }
+</style>

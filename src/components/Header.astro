@@ -1,0 +1,182 @@
+---
+import { SITE } from '../lib/site';
+
+const nav = [
+  { label: 'Facebook marketing', href: '/facebook-marketing/' },
+  { label: 'Instagram marketing', href: '/instagram-marketing/' },
+  { label: 'Inzichten', href: '/inzichten/' },
+  { label: 'Over', href: '/over/' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="site-header__brand" href="/">Agency <span>Architect</span></a>
+
+    <nav aria-label="Hoofdnavigatie" class="site-nav">
+      <!--
+        Progressive enhancement: the toggle button is hidden without JS,
+        so the nav list simply renders expanded. JS enables the disclosure.
+      -->
+      <button
+        type="button"
+        class="site-nav__toggle"
+        aria-expanded="false"
+        aria-controls="site-nav-list"
+        hidden
+      >
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        <span class="site-nav__bar" aria-hidden="true"></span>
+        Menu
+      </button>
+
+      <ul class="site-nav__list" id="site-nav-list">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        <li class="site-nav__cta-item">
+          <a class="button button--primary" href="/creative-scale-audit/">{SITE.cta}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.site-nav__toggle');
+  const list = document.getElementById('site-nav-list');
+
+  if (toggle && list) {
+    toggle.hidden = false;
+    list.dataset.enhanced = 'true';
+
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    background-color: var(--color-paper);
+    border-block-end: var(--border-hairline);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding-block: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .site-header__brand {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .site-header__brand span {
+    color: var(--color-accent-warm);
+  }
+
+  .site-nav__toggle {
+    display: none;
+  }
+
+  .site-nav__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Desktop: inline nav */
+  @media (min-width: 64rem) {
+    .site-nav__list {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .site-nav__list a:not(.button) {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: var(--text-sm);
+    }
+
+    .site-nav__list a:not(.button):hover,
+    .site-nav__list a[aria-current='page'] {
+      text-decoration: underline;
+      text-underline-offset: 0.35em;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 63.99rem) {
+    .site-nav__toggle:not([hidden]) {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-xs);
+      cursor: pointer;
+      font-weight: 600;
+      background: none;
+      border: none;
+      padding: var(--space-sm);
+      min-block-size: 44px;
+      color: var(--color-ink);
+    }
+
+    .site-nav__bar {
+      display: block;
+      inline-size: 18px;
+      block-size: 2px;
+      background-color: var(--color-ink);
+    }
+
+    /* No JS: list renders expanded below the header row */
+    .site-nav__list {
+      inline-size: 100%;
+      display: grid;
+      gap: var(--space-xs);
+      padding-block: var(--space-sm);
+    }
+
+    /* JS enhanced: list collapses behind the toggle */
+    .site-nav__list[data-enhanced='true'] {
+      display: none;
+    }
+
+    .site-nav__toggle[aria-expanded='true'] + .site-nav__list[data-enhanced='true'] {
+      display: grid;
+    }
+
+    .site-nav__list a:not(.button) {
+      display: block;
+      padding: var(--space-sm) 0;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .site-nav__cta-item {
+      margin-block-start: var(--space-xs);
+    }
+  }
+</style>

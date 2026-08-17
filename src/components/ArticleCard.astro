@@ -1,0 +1,47 @@
+---
+import { formatDate, readingMinutes, topicUrl, type Topic } from '../lib/site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+  topic?: Topic;
+}
+
+const { article, topic } = Astro.props;
+const minutes = readingMinutes(article.body);
+---
+
+<article class="article-card">
+  <p class="text-meta">
+    <time datetime={article.data.publishedAt.toISOString().slice(0, 10)}>
+      {formatDate(article.data.publishedAt)}
+    </time>
+    · {minutes} min leestijd
+    {topic && <> · <a href={topicUrl(topic)}>{topic.data.title}</a></>}
+  </p>
+  <h3 class="article-card__title">
+    <a href={`/inzichten/${article.id}/`}>{article.data.title}</a>
+  </h3>
+  <p class="text-soft">{article.data.description}</p>
+</article>
+
+<style>
+  .article-card {
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .article-card__title {
+    margin-block: var(--space-xs);
+    font-size: var(--text-xl);
+  }
+
+  .article-card__title a {
+    text-decoration: none;
+  }
+
+  .article-card__title a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+</style>

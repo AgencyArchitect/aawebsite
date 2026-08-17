@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE } from '../lib/site';
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Contact', url: '/contact/' },
+];
+---
+
+<BaseLayout
+  title="Contact"
+  description="Neem contact op met Agency Architect. Voor founders die willen weten of hun Meta-strategie schaalbaar is, begint het gesprek bij de Creative Scale Audit."
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <header class="container page-header">
+    <h1>Contact</h1>
+    <p class="lede">
+      Wil je weten of je Meta-strategie schaalbaar is? Dan is de
+      <a href="/creative-scale-audit/">Creative Scale Audit</a> de beste eerste stap: we beoordelen
+      elke aanvraag persoonlijk en bellen je binnen twee werkdagen.
+    </p>
+  </header>
+
+  <div class="container section--tight">
+    <div class="prose">
+      <p>
+        Voor al het andere: mail naar
+        <a href="mailto:thomas@agencyarchitect.nl">thomas@agencyarchitect.nl</a>. Je krijgt
+        antwoord van een mens, niet van een ticketsysteem.
+      </p>
+    </div>
+
+    <p class="contact-cta">
+      <a class="button button--primary" href="/creative-scale-audit/">{SITE.cta}</a>
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  .page-header .lede {
+    margin-block-start: var(--space-md);
+    max-inline-size: 52ch;
+  }
+
+  .contact-cta {
+    margin-block-start: var(--space-xl);
+  }
+</style>

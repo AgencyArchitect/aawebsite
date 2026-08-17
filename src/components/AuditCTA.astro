@@ -1,0 +1,62 @@
+---
+import { SITE } from '../lib/site';
+
+interface Props {
+  heading?: string;
+  body?: string;
+}
+
+const {
+  heading = 'Voordat je méér budget inzet',
+  body = 'wil je weten of je systeem dat budget überhaupt kan dragen. De Creative Scale Audit beoordeelt of jouw merk een schaalbare creative strategy voor Meta heeft.',
+} = Astro.props;
+---
+
+<aside class="audit-cta" aria-label="Creative Scale Audit">
+  <div class="container audit-cta__inner">
+    <div>
+      <h2 class="audit-cta__heading">{heading}</h2>
+      <p class="audit-cta__body">{body}</p>
+    </div>
+    <a class="button button--inverse" href="/creative-scale-audit/">{SITE.cta}</a>
+  </div>
+</aside>
+
+<style>
+  .audit-cta {
+    background-color: var(--color-ink);
+    color: var(--color-on-ink);
+    padding-block: var(--space-xl);
+  }
+
+  .audit-cta :focus-visible {
+    outline-color: var(--color-on-ink);
+  }
+
+  .audit-cta__inner {
+    display: grid;
+    gap: var(--space-lg);
+    align-items: center;
+  }
+
+  @media (min-width: 56rem) {
+    .audit-cta__inner {
+      grid-template-columns: 7fr 5fr;
+    }
+
+    .audit-cta__inner .button {
+      justify-self: end;
+    }
+  }
+
+  .audit-cta__heading {
+    font-size: var(--text-xl);
+    color: var(--color-on-ink);
+  }
+
+  .audit-cta__body {
+    margin-block-start: var(--space-sm);
+    color: var(--color-on-ink-soft);
+    max-inline-size: var(--width-content);
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../lib/site';
+---
+
+<BaseLayout
+  title="Pagina niet gevonden"
+  description="Deze pagina bestaat niet of is verplaatst."
+  noindex={true}
+>
+  <div class="container section">
+    <h1>Deze pagina bestaat niet</h1>
+    <p class="lede not-found-lede">
+      De pagina die je zocht is verplaatst of heeft nooit bestaan. Dit zijn de plekken waar je
+      waarschijnlijk heen wilde:
+    </p>
+    <ul class="statement-list">
+      <li><a href="/facebook-marketing/">Facebook marketing voor e-commerce</a></li>
+      <li><a href="/inzichten/">Inzichten</a></li>
+      <li><a href="/creative-scale-audit/">{SITE.cta}</a></li>
+    </ul>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found-lede {
+    margin-block: var(--space-md) var(--space-lg);
+  }
+</style>

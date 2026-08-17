@@ -1,0 +1,40 @@
+---
+import { SITE } from '../lib/site';
+
+/**
+ * JSON-LD graph builder. Emits Organization + WebSite on every page,
+ * plus optional page-specific nodes passed via props.
+ */
+interface Props {
+  extraNodes?: Record<string, unknown>[];
+}
+
+const { extraNodes = [] } = Astro.props;
+
+const ORG_ID = `${SITE.url}/#organization`;
+const WEBSITE_ID = `${SITE.url}/#website`;
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': ORG_ID,
+      name: SITE.name,
+      url: `${SITE.url}/`,
+      description: SITE.description,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': WEBSITE_ID,
+      url: `${SITE.url}/`,
+      name: SITE.name,
+      inLanguage: 'nl-NL',
+      publisher: { '@id': ORG_ID },
+    },
+    ...extraNodes,
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} is:inline />

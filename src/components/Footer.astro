@@ -1,0 +1,134 @@
+---
+import { SITE, getLiveTopics, topicUrl } from '../lib/site';
+
+const topics = await getLiveTopics();
+const platforms = topics.filter((t) => t.data.level === 'platform');
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__grid">
+      <div>
+        <p class="site-footer__brand">Agency <span>Architect</span></p>
+        <p class="text-soft site-footer__tagline">
+          Growth consultancy voor creative Meta advertising. Voor founders van gezonde e-commerce
+          merken.
+        </p>
+      </div>
+
+      {
+        platforms.map((platform) => {
+          const disciplines = topics.filter(
+            (t) => t.data.level === 'discipline' && t.data.platform === platform.data.platform,
+          );
+          return (
+            <nav aria-label={platform.data.title}>
+              <p class="site-footer__heading">
+                <a href={topicUrl(platform)}>{platform.data.title}</a>
+              </p>
+              {disciplines.length > 0 && (
+                <ul>
+                  {disciplines.map((d) => (
+                    <li>
+                      <a href={topicUrl(d)}>{d.data.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </nav>
+          );
+        })
+      }
+
+      <nav aria-label="Overig">
+        <p class="site-footer__heading">Agency Architect</p>
+        <ul>
+          <li><a href="/creative-scale-audit/">Creative Scale Audit</a></li>
+          <li><a href="/inzichten/">Inzichten</a></li>
+          <li><a href="/werkwijze/">Werkwijze</a></li>
+          <li><a href="/over/">Over</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/privacy/">Privacy</a></li>
+      <li><a href="/voorwaarden/">Voorwaarden</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="site-footer__legal text-meta">© {year} {SITE.name}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--color-ink);
+    color: var(--color-on-ink);
+    padding-block: var(--space-2xl) var(--space-lg);
+    margin-block-start: var(--space-2xl);
+  }
+
+  .site-footer a {
+    color: var(--color-on-ink);
+    text-decoration: none;
+  }
+
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .site-footer :focus-visible {
+    outline-color: var(--color-on-ink);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  @media (min-width: 56rem) {
+    .site-footer__grid {
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+    }
+  }
+
+  .site-footer__brand {
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+  }
+
+  .site-footer__brand span {
+    color: var(--color-on-ink-soft);
+  }
+
+  .site-footer__tagline {
+    color: var(--color-on-ink-soft);
+    margin-block-start: var(--space-sm);
+    max-inline-size: 36ch;
+  }
+
+  .site-footer__heading {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    margin-block-end: var(--space-sm);
+  }
+
+  .site-footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .site-footer ul a {
+    color: var(--color-on-ink-soft);
+    font-size: var(--text-sm);
+  }
+
+  .site-footer__legal {
+    margin-block-start: var(--space-2xl);
+    padding-block-start: var(--space-md);
+    border-block-start: 1px solid #33486d;
+    color: var(--color-on-ink-soft);
+  }
+</style>

@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Privacy', url: '/privacy/' },
+];
+---
+
+<BaseLayout
+  title="Privacy"
+  description="Hoe Agency Architect omgaat met je gegevens: welke data we verwerken, waarom, en wat we bewust niet doen."
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <header class="container page-header">
+    <h1>Privacy</h1>
+    <p class="text-meta">Laatst bijgewerkt: 16 augustus 2026</p>
+  </header>
+
+  <div class="container section--tight">
+    <div class="prose">
+      <h2>Wat we verwerken</h2>
+      <p>
+        Wanneer je de Creative Scale Audit aanvraagt of ons mailt, verwerken we de gegevens die je
+        zelf achterlaat: je naam, e-mailadres, telefoonnummer en de website van je merk. We
+        gebruiken die gegevens uitsluitend om contact met je op te nemen over je aanvraag. Het
+        formulier kan daarnaast de landingspagina, referrer en meegegeven UTM-parameters meesturen
+        om de herkomst van je eigen contactverzoek te begrijpen.
+      </p>
+
+      <h2>Wat we niet doen</h2>
+      <p>
+        Deze website gebruikt op dit moment geen analytics, geen advertentiepixels en geen
+        cookies die toestemming vereisen. Daarom zie je ook geen cookiebanner: er valt niets toe
+        te stemmen. Het formulier gebruikt alleen first-party opslag voor de eerste landingspagina
+        van je contactverzoek. Verandert dat, dan passen we deze pagina aan vóórdat de wijziging
+        live gaat.
+      </p>
+
+      <h2>Bewaren en delen</h2>
+      <p>
+        We bewaren aanvraaggegevens zolang dat nodig is voor het contact waar je om vroeg. We
+        verkopen of delen je gegevens niet met derden, behalve met de dienstverlener die de
+        formulierverzending technisch afhandelt.
+      </p>
+
+      <h2>Je rechten</h2>
+      <p>
+        Je kunt ons altijd vragen welke gegevens we van je hebben, en om correctie of
+        verwijdering. Mail daarvoor naar
+        <a href="mailto:thomas@agencyarchitect.nl">thomas@agencyarchitect.nl</a>.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  .page-header .text-meta {
+    margin-block-start: var(--space-sm);
+  }
+</style>

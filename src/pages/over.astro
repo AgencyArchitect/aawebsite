@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuditCTA from '../components/AuditCTA.astro';
+import { SITE } from '../lib/site';
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Over Agency Architect', url: '/over/' },
+];
+
+const personJsonLd = {
+  '@type': 'Person',
+  '@id': `${SITE.url}/#thomas`,
+  name: 'Thomas Konijn',
+  jobTitle: 'Founder',
+  worksFor: { '@id': `${SITE.url}/#organization` },
+};
+---
+
+<BaseLayout
+  title="Over Agency Architect"
+  description="Agency Architect is een growth consultancy voor creative Meta advertising. Geen agency, geen freelancer: een partij die founders van gezonde e-commerce merken zelfstandiger maakt."
+  jsonLdNodes={[personJsonLd]}
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <header class="container page-header">
+    <p class="eyebrow">Over Agency Architect</p>
+    <h1>Een merk hoort niet afhankelijk te zijn van zijn agency</h1>
+  </header>
+
+  <div class="container section--tight">
+    <div class="prose">
+      <p>
+        Agency Architect is een gespecialiseerd growth consultancybureau voor creative Meta
+        advertising. Geen marketingagency, geen creative agency, geen freelancer. We helpen
+        founders van gezonde e-commerce merken een merk-eigen en schaalbare creative strategy
+        opbouwen, zodat hun groei minder afhankelijk wordt van gokken, toevallige winning ads en
+        externe partijen.
+      </p>
+
+      <h2>Waar we vandaan komen</h2>
+      <p>
+        Dit bedrijf is ontstaan uit iets wat te vaak voorbijkwam: gezonde merken die schade
+        opliepen door de samenwerking met hun agency. Slecht beheerde accounts, onverantwoord
+        budgetbeheer, rapportages die voor dertig klanten tegelijk geschreven waren, en founders
+        die niet meer wisten waarom hun marketingbeslissingen genomen werden.
+      </p>
+      <p>
+        Wanneer founder en agency slecht samenwerken, draait het merk op voor de gevolgen. Een
+        e-commerce merk hoort niet het kind van een slecht functionerende relatie te worden.
+      </p>
+
+      <h2>Wat we geloven</h2>
+      <p>
+        Je kunt marketing uitbesteden. De verantwoordelijkheid voor je groeimodel kun je niet
+        uitbesteden. Een extern team kan capaciteit toevoegen; het wordt een probleem wanneer je
+        eigen organisatie niet langer begrijpt waarom beslissingen worden genomen.
+      </p>
+      <p>
+        Daarom werken we als consultancy, niet als agency. Goed consultancywerk maakt de klant
+        uiteindelijk zelfstandiger. De beste externe partner maakt je minder afhankelijk, niet
+        meer.
+      </p>
+
+      <h2>Voor wie we werken</h2>
+      <p>
+        Voor founders van gezonde merken: een gezond bedrijf, een gezond product, een gezonde
+        waarde voor klant of maatschappij, en een founder die een duurzaam bedrijf wil bouwen.
+        Meestal e-commerce merken vanaf circa €500.000 jaaromzet die Meta serieus gebruiken en
+        verder willen groeien.
+      </p>
+    </div>
+  </div>
+
+  <AuditCTA
+    heading="Benieuwd waar jouw merk staat?"
+    body="De Creative Scale Audit is de eerste stap: een beoordeling van de schaalbaarheid van je huidige Meta- en creative-aanpak."
+  />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  .page-header h1 {
+    margin-block-start: var(--space-md);
+    max-inline-size: 24ch;
+  }
+</style>

@@ -1,0 +1,227 @@
+---
+/**
+ * Audit request form.
+ * Provider-agnostic: endpoint comes from PUBLIC_FORM_ENDPOINT (env).
+ * Without JS the form does a native POST to the endpoint (provider handles the redirect).
+ * With JS: fetch submit, inline validation on blur, success state replaces the form in place.
+ * Spam: honeypot field + time trap (submits within 3s are treated as bots).
+ */
+const endpoint = import.meta.env.PUBLIC_FORM_ENDPOINT ?? '';
+---
+
+<div class="audit-form" data-endpoint={endpoint}>
+  <form method="POST" action={endpoint || undefined}>
+    <p class="form-error-summary" role="alert" hidden></p>
+
+    <div class="field">
+      <label for="field-name">Naam</label>
+      <input type="text" id="field-name" name="name" autocomplete="name" required aria-describedby="error-name" />
+      <p class="field-error" id="error-name" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="field-email">E-mailadres</label>
+      <input type="email" id="field-email" name="email" autocomplete="email" required aria-describedby="error-email" />
+      <p class="field-error" id="error-email" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="field-phone">Telefoonnummer</label>
+      <input type="tel" id="field-phone" name="phone" autocomplete="tel" inputmode="tel" required aria-describedby="error-phone" />
+      <p class="field-error" id="error-phone" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="field-website">Website van je merk</label>
+      <input type="url" id="field-website" name="website" autocomplete="url" inputmode="url" placeholder="" required aria-describedby="error-website hint-website" />
+      <p class="text-meta" id="hint-website">Bijvoorbeeld: https://www.jouwmerk.nl</p>
+      <p class="field-error" id="error-website" hidden></p>
+    </div>
+
+    <!-- Spam protection: honeypot (hidden from real users) + time trap -->
+    <div class="hp-field" aria-hidden="true">
+      <label for="field-company">Bedrijfsnaam</label>
+      <input type="text" id="field-company" name="company" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="hidden" name="form_started_at" value="" />
+    <input type="hidden" name="landing_page" value="" />
+    <input type="hidden" name="referrer" value="" />
+    <input type="hidden" name="utm_source" value="" />
+    <input type="hidden" name="utm_medium" value="" />
+    <input type="hidden" name="utm_campaign" value="" />
+    <input type="hidden" name="first_touch" value="" />
+
+    <button type="submit" class="button button--primary">Vraag de Creative Scale Audit aan</button>
+  </form>
+
+  <div class="form-success" role="status" hidden>
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+      <circle cx="20" cy="20" r="19" stroke="#1e6b3a" stroke-width="2" />
+      <path d="M12 20.5l5.5 5.5L28 15" stroke="#1e6b3a" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <h3>Je aanvraag is ontvangen</h3>
+    <p>
+      We bekijken je merk en je aanvraag persoonlijk. Je hoort binnen twee werkdagen telefonisch van
+      ons over de volgende stap.
+    </p>
+  </div>
+</div>
+
+<script>
+  const wrapper = document.querySelector<HTMLElement>('.audit-form');
+  const form = wrapper?.querySelector('form');
+
+  if (wrapper && form) {
+    const endpoint = wrapper.dataset.endpoint ?? '';
+    // Progressive enhancement: native browser validation remains active without JS.
+    form.setAttribute('novalidate', '');
+    const startedAt = form.querySelector<HTMLInputElement>('[name="form_started_at"]');
+    if (startedAt) startedAt.value = String(Date.now());
+
+    const params = new URLSearchParams(window.location.search);
+    const get = (name: string) => params.get(name) ?? '';
+    const setHidden = (name: string, value: string) => {
+      const input = form.querySelector<HTMLInputElement>(`[name="${name}"]`);
+      if (input) input.value = value;
+    };
+    setHidden('landing_page', window.location.href);
+    setHidden('referrer', document.referrer);
+    setHidden('utm_source', get('utm_source'));
+    setHidden('utm_medium', get('utm_medium'));
+    setHidden('utm_campaign', get('utm_campaign'));
+    setHidden('first_touch', localStorage.getItem('aa_first_touch') ?? window.location.href);
+    if (!localStorage.getItem('aa_first_touch')) localStorage.setItem('aa_first_touch', window.location.href);
+
+    const summary = form.querySelector<HTMLElement>('.form-error-summary');
+    const successBlock = wrapper.querySelector<HTMLElement>('.form-success');
+
+    const messages: Record<string, string> = {
+      name: 'Vul je naam in.',
+      email: 'Vul een geldig e-mailadres in.',
+      phone: 'Vul je telefoonnummer in.',
+      website: 'Vul de volledige URL van je website in, inclusief https://',
+    };
+
+    const fields = ['name', 'email', 'phone', 'website']
+      .map((n) => form.querySelector<HTMLInputElement>(`[name="${n}"]`))
+      .filter((f): f is HTMLInputElement => f !== null);
+
+    function showError(field: HTMLInputElement, show: boolean) {
+      const errorEl = form!.querySelector<HTMLElement>(`#error-${field.name === 'name' ? 'name' : field.name}`);
+      if (!errorEl) return;
+      errorEl.textContent = show ? (messages[field.name] ?? 'Controleer dit veld.') : '';
+      errorEl.hidden = !show;
+      field.setAttribute('aria-invalid', show ? 'true' : 'false');
+    }
+
+    // Inline validation on blur, not while typing
+    for (const field of fields) {
+      field.addEventListener('blur', () => {
+        if (field.value.trim() !== '') showError(field, !field.checkValidity());
+      });
+      field.addEventListener('input', () => {
+        if (field.getAttribute('aria-invalid') === 'true' && field.checkValidity()) showError(field, false);
+      });
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      let firstInvalid: HTMLInputElement | null = null;
+      for (const field of fields) {
+        const invalid = !field.checkValidity();
+        showError(field, invalid);
+        if (invalid && !firstInvalid) firstInvalid = field;
+      }
+
+      if (firstInvalid) {
+        if (summary) {
+          summary.textContent = 'Het formulier is nog niet compleet. Controleer de gemarkeerde velden.';
+          summary.hidden = false;
+        }
+        firstInvalid.focus();
+        return;
+      }
+
+      if (summary) summary.hidden = true;
+
+      // Time trap: humans do not complete four fields within 3 seconds
+      const elapsed = Date.now() - Number(startedAt?.value ?? 0);
+      const honeypot = form.querySelector<HTMLInputElement>('[name="company"]');
+      const isBot = elapsed < 3000 || (honeypot && honeypot.value !== '');
+
+      if (!isBot && endpoint) {
+        try {
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { Accept: 'application/json' },
+          });
+          if (!response.ok) throw new Error(`Form endpoint returned ${response.status}`);
+        } catch {
+          if (summary) {
+            summary.textContent =
+              'Versturen is niet gelukt. Probeer het nog eens of mail ons via het adres op de contactpagina. Je invoer blijft bewaard.';
+            summary.hidden = false;
+          }
+          return;
+        }
+      }
+
+      // Success state replaces the form in place (bots see it too; their data is not sent)
+      form.hidden = true;
+      if (successBlock) {
+        successBlock.hidden = false;
+        successBlock.querySelector('h3')?.setAttribute('tabindex', '-1');
+        (successBlock.querySelector('h3') as HTMLElement | null)?.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .audit-form form {
+    display: grid;
+    gap: var(--space-md);
+    max-inline-size: var(--width-narrow);
+  }
+
+  .field-error {
+    color: var(--color-error);
+    font-size: var(--text-sm);
+    margin-block-start: var(--space-2xs);
+  }
+
+  .form-error-summary {
+    color: var(--color-error);
+    font-weight: 600;
+    border: 1px solid var(--color-error);
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .hp-field {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .form-success {
+    display: grid;
+    gap: var(--space-sm);
+    max-inline-size: var(--width-narrow);
+    padding: var(--space-lg);
+    border: 1px solid var(--color-success);
+    border-radius: var(--radius-sm);
+  }
+
+  .form-success h3 {
+    color: var(--color-success);
+  }
+
+  .form-success h3:focus {
+    outline: none;
+  }
+</style>

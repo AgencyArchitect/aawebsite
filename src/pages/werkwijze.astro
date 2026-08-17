@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuditCTA from '../components/AuditCTA.astro';
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Werkwijze', url: '/werkwijze/' },
+];
+
+const steps = [
+  {
+    name: 'Research',
+    body: 'We beginnen bij het merk, het product, de markt en de klant. Niet bij het advertentieaccount. Wat verkoop je werkelijk, aan wie, en waarom kiezen ze jou?',
+  },
+  {
+    name: 'Hypothesen',
+    body: 'Uit die research volgen testbare hypothesen: welke persona, welke angle, welk offer, in welke awareness-fase. Elke hypothese is een zin die je kunt weerleggen.',
+  },
+  {
+    name: 'Merk-eigen creative strategy',
+    body: 'De hypothesen vormen samen een strategie die uit dít merk komt. Geen framework dat op dertig andere klanten geplakt is; een strategie die ontstaat uit jouw product, jouw markt en jouw data.',
+  },
+  {
+    name: 'Testen',
+    body: 'Creatives zijn experimenten, geen producties. Elke test heeft één vraag die hij beantwoordt, en een reden waarom die vraag nu aan de beurt is.',
+  },
+  {
+    name: 'Analyseren',
+    body: 'Niet alleen wat won, maar waaróm het won. Een winnaar zonder verklaring is een gelukstreffer die je niet kunt herhalen.',
+  },
+  {
+    name: 'Leren',
+    body: 'Elke test voegt iets toe aan wat het merk over zijn eigen klant weet. Die leeropbouw is het werkelijke kapitaal; de creatives zijn de bijvangst.',
+  },
+  {
+    name: 'Betere beslissingen',
+    body: 'Het doel is niet dat wij onmisbaar worden. Het doel is dat jij en je team steeds beter weten wat de volgende goede beslissing is.',
+  },
+];
+---
+
+<BaseLayout
+  title="Werkwijze"
+  description="Hoe Agency Architect denkt: van research en hypothesen naar een merk-eigen creative strategy, en van testen naar leeropbouw en betere beslissingen."
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <header class="container page-header">
+    <h1>Hoe wij denken</h1>
+    <p class="lede">
+      Geen geheime methode, geen framework met een merknaam. Een leerloop die begint bij jouw merk
+      en eindigt bij betere beslissingen. Elke keer opnieuw.
+    </p>
+  </header>
+
+  <div class="container section--tight">
+    <ol class="steps">
+      {
+        steps.map((step, i) => (
+          <li class="step">
+            <p class="step__number" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </p>
+            <div>
+              <h2>{step.name}</h2>
+              <p class="text-soft">{step.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <section class="container section--tight" aria-labelledby="loop-heading">
+    <div class="definition">
+      <p id="loop-heading">
+        Na de laatste stap begint de eerste opnieuw, met alles wat er inmiddels geleerd is. Dat is
+        het verschil tussen een account dat leert en een account dat elke maand van voren af aan
+        begint.
+      </p>
+    </div>
+  </section>
+
+  <AuditCTA />
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  .page-header .lede {
+    margin-block-start: var(--space-md);
+    max-inline-size: 52ch;
+  }
+
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-inline-size: var(--width-wide);
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .step__number {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-accent-warm);
+    min-inline-size: 2.5ch;
+  }
+
+  .step h2 {
+    font-size: var(--text-xl);
+  }
+
+  .step .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+</style>

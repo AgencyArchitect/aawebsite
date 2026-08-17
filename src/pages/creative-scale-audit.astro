@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AuditForm from '../components/AuditForm.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Creative Scale Audit', url: '/creative-scale-audit/' },
+];
+
+const faq = [
+  {
+    q: 'Wat kost de Creative Scale Audit?',
+    a: 'De audit is een kwalificerende eerste stap, geen betaald product. We beoordelen je aanvraag en nemen persoonlijk contact op om te bespreken wat de audit voor jouw merk inhoudt.',
+  },
+  {
+    q: 'Hebben jullie toegang tot mijn advertentieaccount nodig?',
+    a: 'Voor de eerste beoordeling niet. We kijken naar wat publiek zichtbaar is: je merk, je website en je advertenties in de Meta Ad Library. Verdere toegang bespreken we pas wanneer dat voor beide kanten zinvol is.',
+  },
+  {
+    q: 'Is dit een verkapte salescall?',
+    a: 'Nee. De audit beoordeelt of je huidige aanpak schaalbaar is. Blijkt er geen match, dan zeggen we dat, en houd je de inzichten uit het gesprek.',
+  },
+  {
+    q: 'Voor wie is de audit niet?',
+    a: 'Voor merken onder circa €500.000 jaaromzet, merken zonder actieve Meta-advertenties, en founders die op zoek zijn naar een uitvoerende agency voor creative productie.',
+  },
+];
+
+const faqJsonLd = {
+  '@type': 'WebPage',
+  '@id': 'https://www.agencyarchitect.nl/creative-scale-audit/#webpage',
+  url: 'https://www.agencyarchitect.nl/creative-scale-audit/',
+  name: 'Creative Scale Audit',
+  description:
+    'De Creative Scale Audit beoordeelt of jouw merk een schaalbare creative strategy voor Meta heeft.',
+  inLanguage: 'nl-NL',
+  isPartOf: { '@id': 'https://www.agencyarchitect.nl/#website' },
+};
+---
+
+<BaseLayout
+  title="Creative Scale Audit"
+  description="Ontdek of je Meta-strategie schaalbaar is. De Creative Scale Audit laat zien waar je aanpak schaalbaarheid verliest en waar je volgende euro het meest onderbouwd heen kan."
+  jsonLdNodes={[faqJsonLd]}
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <div class="container">
+    <header class="audit-header">
+      <p class="eyebrow">Creative Scale Audit</p>
+      <h1>Ontdek of je Meta-strategie schaalbaar is</h1>
+      <p class="lede">
+        De Creative Scale Audit beoordeelt of jouw merk een schaalbare creative strategy voor Meta
+        heeft. Na de audit weet je waar je huidige aanpak schaalbaarheid verliest, en waar je
+        volgende euro het meest onderbouwd ingezet kan worden.
+      </p>
+    </header>
+
+    <div class="split audit-layout">
+      <div class="audit-content">
+        <section aria-labelledby="for-whom">
+          <h2 id="for-whom">Voor wie</h2>
+          <p>
+            De audit is bedoeld voor founders van gezonde e-commerce merken vanaf circa €500.000
+            jaaromzet die Meta serieus gebruiken en verder willen groeien. Ben je daar nog niet,
+            dan is de audit op dit moment niet de juiste stap; onze <a href="/inzichten/">inzichten</a>
+            staan wel voor je open.
+          </p>
+        </section>
+
+        <section aria-labelledby="symptoms">
+          <h2 id="symptoms">Waar we op letten</h2>
+          <p>
+            De symptomen die founders bij ons melden zijn steeds dezelfde: een CPA die oploopt,
+            ROAS die schommelt, één winning ad die het account draagt, en de wekelijkse druk om
+            "iets nieuws" live te zetten zonder dat duidelijk is waarom dít het moet zijn.
+          </p>
+        </section>
+
+        <section aria-labelledby="what-we-examine">
+          <h2 id="what-we-examine">Wat we onderzoeken</h2>
+          <p>
+            We kijken naar de variabelen onder je advertenties: persona's, angles, offers,
+            awareness-fases, formats, je teststructuur en de leeropbouw in je account. Kortom: is
+            dit een systeem dat leert, of een systeem dat gokt?
+          </p>
+        </section>
+
+        <section aria-labelledby="afterwards">
+          <h2 id="afterwards">Wat je erna begrijpt</h2>
+          <p>
+            Waar je huidige Meta- en creative-aanpak schaalbaarheid verliest. Welke hypotheses
+            bewezen zijn en welke nooit getest. En waar je volgende euro het meest onderbouwd heen
+            kan: naar meer budget, naar nieuwe creative input, of eerst naar een beter leerproces.
+          </p>
+        </section>
+
+        <section aria-labelledby="what-not">
+          <h2 id="what-not">Wat de audit niet is</h2>
+          <p>
+            Geen belofte van een gegarandeerde ROAS, CPA of omzet. Geen automatisch verkooppraatje
+            voor een traject. We verkopen betere besluitvorming, geen gegarandeerde uitkomst.
+          </p>
+        </section>
+      </div>
+
+      <aside class="audit-form-panel" aria-labelledby="form-heading">
+        <h2 id="form-heading">Vraag de audit aan</h2>
+        <p class="text-soft">
+          Vier velden, twee minuten. We beoordelen elke aanvraag persoonlijk en nemen telefonisch
+          contact op.
+        </p>
+        <AuditForm />
+      </aside>
+    </div>
+
+    <section class="section--tight" aria-labelledby="next-steps">
+      <h2 id="next-steps">Wat er na je aanvraag gebeurt</h2>
+      <p class="prose">
+        We bekijken je merk, je website en je publiek zichtbare advertenties. Binnen twee werkdagen
+        bellen we je om de audit en de eerstvolgende stap door te nemen. Past het niet, dan zeggen
+        we dat ook: liever een kort eerlijk gesprek dan een lang vrijblijvend traject.
+      </p>
+    </section>
+
+    <section class="section--tight" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Veelgestelde vragen</h2>
+      <dl class="faq">
+        {
+          faq.map((item) => (
+            <>
+              <dt>{item.q}</dt>
+              <dd>{item.a}</dd>
+            </>
+          ))
+        }
+      </dl>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .audit-header {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  .audit-header h1 {
+    margin-block-start: var(--space-md);
+    max-inline-size: 22ch;
+  }
+
+  .audit-header .lede {
+    margin-block-start: var(--space-md);
+    max-inline-size: 56ch;
+  }
+
+  .audit-layout {
+    padding-block-end: var(--space-xl);
+  }
+
+  .audit-content {
+    display: grid;
+    gap: var(--space-xl);
+  }
+
+  .audit-content h2 {
+    font-size: var(--text-xl);
+    margin-block-end: var(--space-sm);
+  }
+
+  .audit-content p {
+    max-inline-size: var(--width-content);
+  }
+
+  .audit-form-panel {
+    padding: var(--space-lg);
+    background-color: var(--color-blue-wash);
+    border-radius: var(--radius-sm);
+    display: grid;
+    gap: var(--space-md);
+    align-self: start;
+    align-content: start;
+  }
+
+  .audit-form-panel h2 {
+    font-size: var(--text-xl);
+  }
+
+  .faq {
+    margin-block-start: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+
+  .faq dt {
+    font-weight: 600;
+    margin-block-start: var(--space-lg);
+  }
+
+  .faq dd {
+    margin: var(--space-xs) 0 0;
+    color: var(--color-ink-soft);
+  }
+</style>
