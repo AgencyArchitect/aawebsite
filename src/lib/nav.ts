@@ -30,6 +30,8 @@ export const ECOMMERCE_GROUPS: NavGroup[] = [
     href: '/e-commerce-marketing/',
     links: [
       { label: 'E-commerce marketing', href: '/e-commerce-marketing/' },
+      { label: 'E-commerce strategie', href: '/e-commerce-marketing/strategie/' },
+      { label: 'Black Friday strategie', href: '/e-commerce-marketing/black-friday-strategie/' },
     ],
   },
   {

@@ -1,0 +1,77 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE } from '../../lib/diensten';
+
+const title = 'E-commerce marketing strategie';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'E-commerce marketing', url: '/e-commerce-marketing/' },
+  { name: 'E-commerce strategie', url: '/e-commerce-marketing/strategie/' },
+];
+
+const variabelen = [
+  'Alle platformen samen, niet één kanaal',
+  'De hele funnel, van herkenning tot aankoop',
+  'Strategie voor jouw merk, niet een template',
+  'Persona, angle, offer en awareness-fase',
+  'Creative en het leerproces eronder',
+  'Testritme per kanaal',
+  'Cashflow en schaalbare groei',
+  'Data die een besluit onderbouwt',
+];
+
+const verdieping = [
+  {
+    title: 'E-commerce marketing',
+    url: '/e-commerce-marketing/',
+    summary: 'De overkoepelende pagina over e-commerce marketing: alle platformen, één strategie, de funnel.',
+  },
+  {
+    title: 'Facebook marketing',
+    url: '/e-commerce-marketing/facebook-marketing/',
+    summary: 'Facebook als het zwaartepunt van Meta: organisch, adverteren, funnels en copywriting samen tot één systeem.',
+  },
+  {
+    title: 'Instagram marketing',
+    url: '/e-commerce-marketing/instagram-marketing/',
+    summary: 'Instagram als ontdekkings- en bewijskanaal, met een eigen aanpak die past bij snelheid en creative fatigue.',
+  },
+];
+---
+
+<DienstPagina
+  eyebrow="E-commerce marketing strategie"
+  {title}
+  lede="Een e-commerce strategie begint niet bij één kanaal, maar bij je merk, product en klant. We zetten een hele strategie samen neer die al je platformen en de funnel eronder verbindt."
+  {trail}
+  valueBullets={[
+    'Eén overkoepelende strategie voor al je platformen',
+    'We zetten de hele strategie samen neer, niet losse fragmenten',
+    'Eerst akkoord op de strategie, dan pas bouwen',
+  ]}
+  symptoms={[
+    {
+      title: 'Steeds nieuwe tactiek, geen nieuwe strategie',
+      body: 'Meer kanalen en creatives op dezelfde plek is vooral meer varianten van dezelfde hypothese. Zonder strategie blijf je symptomen behandelen.',
+    },
+    {
+      title: 'Kanalen werken langs elkaar heen',
+      body: 'Facebook, Instagram en Google als losse posten zonder gezamenlijke strategie maken versnippering. E-commerce marketing draait om samenhang.',
+    },
+    {
+      title: 'Niet weten waar je heen wil',
+      body: 'Zonder strategie heb je budget en een hoop. Eerst akkoord op de aanpak, dan pas uitvoeren.',
+    },
+    {
+      title: 'Geen richting voor je team',
+      body: 'Een sterke strategie geeft richting aan al je discipline-werk, van strategie tot funnels en uitvoering.',
+    },
+  ]}
+  variabelen={variabelen}
+  variabelenIntro="Strategie vertaalt de variabelen onder je marketing naar één samenhangend systeem. Elke keuze is herleidbaar naar je strategie."
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook deze disciplines"
+  verdieping={verdieping}
+  ctaHeading="Weet je waar je e-commerce strategie heen moet?"
+  ctaBody="We beoordelen je strategie en aanpak — en zetten een plan neer waar je duurzaam mee groeit."
+/>

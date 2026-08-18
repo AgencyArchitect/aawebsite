@@ -1,0 +1,82 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE } from '../../lib/diensten';
+
+const title = 'Black Friday marketing uitbesteden';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'E-commerce marketing', url: '/e-commerce-marketing/' },
+  { name: 'Black Friday strategie', url: '/e-commerce-marketing/black-friday-strategie/' },
+];
+
+const variabelen = [
+  'Een plan dat vóór de run staat, niet erna',
+  'Voorraad, prijzen en aanbod per dag',
+  'Email, sms en Meta op elkaar afgestemd',
+  "Persona's, angle, offer en awareness-fase",
+  'Creative die voor dit moment gebouwd is',
+  'Testritme en budgetverdeling',
+  'Cashflow en logging-dashboards',
+  'Data die het besluit onderbouwt',
+];
+
+const verdieping = [
+  {
+    title: 'E-commerce marketing',
+    url: '/e-commerce-marketing/',
+    summary: 'De overkoepelende pagina over e-commerce marketing: alle platformen, één strategie, de funnel.',
+  },
+  {
+    title: 'E-commerce strategie',
+    url: '/e-commerce-marketing/strategie/',
+    summary: 'Strategie die begint bij merk, product en klant, en daarna pas bij de campagne.',
+  },
+  {
+    title: 'Facebook marketing',
+    url: '/e-commerce-marketing/facebook-marketing/',
+    summary: 'Facebook als het zwaartepunt van Meta, voor de run-specifieke campagnes.',
+  },
+  {
+    title: 'Instagram marketing',
+    url: '/e-commerce-marketing/instagram-marketing/',
+    summary: 'Instagram als ontdekkings- en bewijskanaal, met eigen wetten tijdens piekmomenten.',
+  },
+];
+---
+
+<DienstPagina
+  eyebrow="Black Friday marketing uitbesteden"
+  {title}
+  lede="Black Friday is het moment waarop je hele e-commerce marketing samenkomt. We zetten een Black Friday strategie neer die al je platformen en de funnel eronder voorbereidt — zodat je het piekmoment omzet, niet overslaat."
+  {trail}
+  valueBullets={[
+    'Een complete Black Friday strategie, maanden voor de run-start',
+    'Alle platformen afgestemd op het piekmoment',
+    'Eerst akkoord op de strategie, dan pas de uitvoering',
+  ]}
+  symptoms={[
+    {
+      title: 'Black Friday als een sprint die pas begint in november',
+      body: 'Zonder strategie begin je aan de run als hij al gestart is. Een echte strategie zet de voorbereiding maanden van tevoren in.',
+    },
+    {
+      title: 'Kanalen en aanbiedingen lopen langs elkaar heen',
+      body: 'Meta, email en sms die niet op elkaar zijn afgesteld verliezen de klant in het piekmoment. Eén strategie brengt ze samen.',
+    },
+    {
+      title: 'De funnel is niet voorbereid op de piek',
+      body: 'Een strategie zonder voorbereide funnel vertaalt traffic niet naar aankoop. Elke stap moet dezelfde belofte dragen.',
+    },
+    {
+      title: 'Geen licht op de resultaten',
+      body: 'Zonder centrale strategie en metingen weet je niet welke euro het meeste deed. We zetten het zo op dat je het kunt meten.',
+    },
+  ]}
+  variabelen={variabelen}
+  variabelenIntro="Black Friday strategie weegt de variabelen van je hele funnel samen: kanalen, aanbiedingen, timing en leerproces. Elke keuze is herleidbaar!"
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook deze pagina's"
+  verdieping={verdieping}
+  ctaHeading="Weet je waar je Black Friday strategie heen moet?"
+  ctaBody="We beoordelen je e-commerce marketing en strategie — en zetten een piekmoment-plan neer waar je vast op kunt bouwen."
+/>
