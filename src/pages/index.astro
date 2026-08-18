@@ -6,228 +6,312 @@ import { SITE, getLiveTopics, getPublishedArticles, topicUrl } from '../lib/site
 
 const topics = await getLiveTopics();
 const platforms = topics.filter((t) => t.data.level === 'platform');
-const articles = (await getPublishedArticles()).filter((a) => a.data.featured).slice(0, 3);
 
-const variables = [
-  'markt',
-  'product',
-  'persona',
-  'offer',
-  'awareness',
-  'angle',
-  'concept',
-  'format',
-  'testhypothese',
-  'spend',
-  'analyse',
-  'learnings',
-];
+const articles = (await getPublishedArticles()).filter((a) =>
+  ['waarom-je-beste-ad-je-grootste-risico-is', 'cpa-stijgt-nieuwe-creatives-niet-oplossing', 'de-hook-is-geen-zin-maar-een-hypothese'].includes(a.id),
+);
 ---
 
 <BaseLayout
   title="Agency Architect"
   description="Growth consultancy voor creative Meta advertising. Voor founders van gezonde e-commerce merken die willen schalen zonder te gokken op de volgende creative."
 >
-  <!-- Hero -->
-  <section class="section hero">
-    <div class="container">
-      <p class="eyebrow">E-commerce Meta marketing</p>
-      <h1 class="hero__heading">
-        Je hebt niet méér creatives nodig.<br />Je moet weten wat je volgende goede beslissing is.
-      </h1>
-      <p class="lede hero__lede">
-        Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen, schaalbare
-        creative strategy voor Meta opbouwen. Geen gokwerk, geen eenheidsworst, geen permanente
-        afhankelijkheid van een externe partij.
-      </p>
-      <a class="button button--primary" href="/creative-scale-audit/">{SITE.cta}</a>
-    </div>
-  </section>
+  <!-- 1. Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <p class="eyebrow">E-commerce Meta marketing</p>
+        <h1 class="hero__heading">
+          Niet nóg meer creatives.<br />Wél weten wat de volgende goede beslissing is.
+        </h1>
+        <p class="lede hero__lede">
+          Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen, schaalbare
+          creative strategy voor Meta opbouwen. Geen gokwerk, geen eenheidsworst, geen permanente
+          afhankelijkheid van een externe partij.
+        </p>
+        <a class="button button--primary" href="/creative-scale-audit/">Gratis Meta Audit</a>
+      </div>
 
-  <!-- Probleemherkenning -->
-  <section class="section section--wash" aria-labelledby="patterns-heading">
-    <div class="container">
-      <h2 id="patterns-heading">Herken je dit?</h2>
-      <ul class="statement-list patterns">
-        <li>Je CPA loopt op, terwijl je harder werkt dan ooit.</li>
-        <li>ROAS beweegt alle kanten op en niemand kan precies zeggen waarom.</li>
-        <li>Eén creative houdt het hele account overeind.</li>
-        <li>Iedere week moet er iets nieuws live, zonder dat je weet waarom dít het moet zijn.</li>
-        <li>Oude winnaars worden steeds opnieuw verpakt.</li>
-        <li>Meer budget voelt niet als opschalen, maar als risico.</li>
-      </ul>
-    </div>
-  </section>
-
-  <!-- Reframe -->
-  <section class="section" aria-labelledby="reframe-heading">
-    <div class="container split">
-      <div>
-        <h2 id="reframe-heading">Het probleem is niet automatisch Meta</h2>
-        <div class="prose reframe-prose">
-          <p>
-            Meta kan alleen reageren op de input die het krijgt. Uitgeputte creative input,
-            onduidelijke hypotheses, te weinig marktkennis en een testproces zonder leeropbouw los
-            je niet op door harder aan campagneknoppen te draaien.
-          </p>
-          <p>
-            Natuurlijk spelen platformdynamiek, je landingspagina en je marges ook een rol. Maar de
-            vraag die aan alles voorafgaat is een andere: weet jij welke hypothese je aan het testen
-            bent, en wat je van de vorige geleerd hebt?
-          </p>
+      <div class="hero__tile">
+        <div class="meta-tile" role="img" aria-label="Meta">
+          <svg viewBox="0 0 287.56 191" role="img" aria-hidden="true">
+            <defs>
+              <linearGradient id="heroMetaBlue" gradientUnits="userSpaceOnUse" x1="0" y1="150" x2="287.56" y2="40">
+                <stop offset="0" stop-color="#0082fb" />
+                <stop offset="0.5" stop-color="#0075f2" />
+                <stop offset="1" stop-color="#0064e1" />
+              </linearGradient>
+            </defs>
+            <g fill="url(#heroMetaBlue)">
+              <path d="M31.06,126c0,11,2.41,19.41,5.56,24.51A19,19,0,0,0,53.19,160c8.1,0,15.51-2,29.79-21.76,11.44-15.83,24.92-38,34-52l15.36-23.6c10.67-16.39,23-34.61,37.18-47C181.07,5.6,193.54,0,206.09,0c21.07,0,41.14,12.21,56.5,35.11,16.81,25.08,25,56.67,25,89.27,0,19.38-3.82,33.62-10.32,44.87C271,180.13,258.72,191,238.13,191V160c17.63,0,22-16.2,22-34.74,0-26.42-6.16-55.74-19.73-76.69-9.63-14.86-22.11-23.94-35.84-23.94-14.85,0-26.8,11.2-40.23,31.17-7.14,10.61-14.47,23.54-22.7,38.13l-9.06,16c-18.2,32.27-22.81,39.62-31.91,51.75C84.74,183,71.12,191,53.19,191c-21.27,0-34.72-9.21-43-23.09C3.34,156.6,0,141.76,0,124.85Z"/>
+              <path d="M24.49,37.3C38.73,15.35,59.28,0,82.85,0c13.65,0,27.22,4,41.39,15.61,15.5,12.65,32,33.48,52.63,67.81l7.39,12.32c17.84,29.72,28,45,33.93,52.22,7.64,9.26,13,12,19.94,12,17.63,0,22-16.2,22-34.74l27.4-.86c0,19.38-3.82,33.62-10.32,44.87C271,180.13,258.72,191,238.13,191c-12.8,0-24.14-4.16-36.68-16-9.64-9.08-20.91-25.21-29.58-39.71L146.08,92.6c-12.94-21.62-24.81-37.74-31.68-45C107,39.36,97.51,29.42,82.35,29.42c-12.27,0-22.69,8.61-31.41,21.79Z"/>
+              <path d="M82.35,29.42c-12.27,0-22.69,8.61-31.41,21.79C38.61,69.74,31.06,97.7,31.06,124.54c0,11,2.41,19.41,5.56,24.51L10.14,166.35C3.34,156.6,0,141.76,0,124.85,0,93.86,8.51,61.56,24.49,37.3,38.73,15.35,59.28,0,82.85,0Z"/>
+            </g>
+          </svg>
         </div>
       </div>
-      <blockquote class="pullquote">
-        Een agency bouwt capaciteit rondom jou. Een consultancy bouwt capaciteit ín jouw
-        organisatie.
-      </blockquote>
     </div>
   </section>
 
-  <!-- Platformtakken -->
-  <section class="section section--wash" aria-labelledby="platforms-heading">
+  <!-- 2. Twee pijlers voor e-commerce groei -->
+  <section class="section section--wash" aria-labelledby="pillars-heading">
     <div class="container">
-      <h2 id="platforms-heading">Waar wij naar kijken</h2>
-      <div class="grid-2 platform-grid">
+      <p class="eyebrow">Twee pijlers voor e-commerce groei</p>
+      <h2 id="pillars-heading" class="section-title">Waar we in groeien</h2>
+
+      <div class="grid-2 pillar-grid">
         {
           platforms.map((platform) => (
-            <div class="platform-block">
-              <h3>
+            <article class="pillar">
+              <h3 class="pillar__title">
                 <a href={topicUrl(platform)}>{platform.data.title}</a>
               </h3>
-              <p class="text-soft">{platform.data.description}</p>
-              <p class="text-meta">Organisch · Adverteren · Funnels · Copywriting</p>
-            </div>
+              <p class="text-soft pillar__desc">{platform.data.description}</p>
+              <a class="pillar__cta" href={topicUrl(platform)}>Bekijk de aanpak →</a>
+            </article>
           ))
         }
       </div>
     </div>
   </section>
 
-  <!-- Denkmodel -->
-  <section class="section" aria-labelledby="model-heading">
+  <!-- 3. Zo werk ik -->
+  <section class="section" aria-labelledby="werkwijze-heading">
     <div class="container">
-      <h2 id="model-heading">Wat er onder één advertentie zit</h2>
-      <p class="lede model-lede">
-        "Maak een nieuwe ad" is zelden het antwoord. Elke creative die live gaat is de optelsom van
-        twaalf variabelen, en elke variabele is een plek waar schaalbaarheid ontstaat of verdwijnt.
-      </p>
-      <ul class="variable-list">
-        {variables.map((variable) => <li>{variable}</li>)}
-      </ul>
+      <p class="eyebrow">Zo werk ik</p>
+      <h2 id="werkwijze-heading" class="section-title">Vier stappen</h2>
+
+      <ol class="werkwijze">
+        <li class="werkwijze__step">
+          <span class="werkwijze__nr" aria-hidden="true">01</span>
+          <div>
+            <h3>Analyse</h3>
+            <p class="text-soft">
+              We duiken in je Meta-ad account en toetsen de markt. Markt- en productonderzoek, en
+              dat balen we samen tot één unieke creative strategy voor jouw merk.
+            </p>
+          </div>
+        </li>
+        <li class="werkwijze__step">
+          <span class="werkwijze__nr" aria-hidden="true">02</span>
+          <div>
+            <h3>Strategie</h3>
+            <p class="text-soft">
+              We bespreken de strategie én jouw echte doel: hoe vliegen we dit aan, waar wil je
+              heen — ook internationaal. Eerst akkoord, dan pas bouwen.
+            </p>
+          </div>
+        </li>
+        <li class="werkwijze__step">
+          <span class="werkwijze__nr" aria-hidden="true">03</span>
+          <div>
+            <h3>Uitvoering</h3>
+            <p class="text-soft">
+              We schalen één campagne of land op en maken het proces overzichtelijk — zodat het
+              daarna op élke campagne en land toepasbaar is. Een groeimachine.
+            </p>
+          </div>
+        </li>
+        <li class="werkwijze__step">
+          <span class="werkwijze__nr" aria-hidden="true">04</span>
+          <div>
+            <h3>Meten &amp; schalen</h3>
+            <p class="text-soft">
+              Elke maand: nieuwe campagnes, producten, concurrent-acquisitie, cashflow. Blijven
+              groeien, stap voor stap.
+            </p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <!-- Audit -->
-  <AuditCTA />
-
-  <!-- Inzichten -->
-  {
-    articles.length > 0 && (
-      <section class="section" aria-labelledby="insights-heading">
-        <div class="container">
-          <h2 id="insights-heading">Inzichten</h2>
-          {articles.map((article) => (
-            <ArticleCard {article} />
-          ))}
-          <p class="insights-more">
-            <a href="/inzichten/">Alle inzichten</a>
-          </p>
+  <!-- 4. Kennisbank -->
+  <section class="section section--wash" aria-labelledby="kennisbank-heading">
+    <div class="container">
+      <div class="kennisbank__head">
+        <div>
+          <p class="eyebrow">Kennisbank</p>
+          <h2 id="kennisbank-heading" class="section-title">Inzichten</h2>
         </div>
-      </section>
-    )
-  }
-
-  <!-- Founder / visie -->
-  <section class="section section--wash" aria-labelledby="vision-heading">
-    <div class="container">
-      <h2 id="vision-heading">Waarom Agency Architect bestaat</h2>
-      <div class="prose vision-prose">
-        <p>
-          Te veel gezonde merken zijn het kind van een slecht functionerende relatie met hun
-          agency geworden: gerecyclede frameworks, dezelfde rapportages als dertig andere klanten,
-          en een founder die niet meer weet waarom zijn marketingbeslissingen genomen worden.
-        </p>
-        <p>
-          Wij geloven dat het anders hoort. Je kunt marketing uitbesteden; de verantwoordelijkheid
-          voor je groeimodel niet. De beste externe partner maakt je minder afhankelijk, niet meer.
-        </p>
-        <p><a href="/over/">Lees waar we vandaan komen</a></p>
+        <a class="kennisbank__all" href="/inzichten/">Alle inzichten →</a>
       </div>
+
+      {articles.map((article) => (
+        <ArticleCard {article} />
+      ))}
     </div>
   </section>
 
-  <!-- Eind-CTA -->
-  <section class="section" aria-labelledby="end-cta-heading">
-    <div class="container end-cta">
-      <h2 id="end-cta-heading">Weten waar je staat?</h2>
-      <p class="lede">
-        De Creative Scale Audit laat zien waar jouw Meta-aanpak schaalbaarheid verliest, en waar je
-        volgende euro het meest onderbouwd heen kan.
-      </p>
-      <a class="button button--primary" href="/creative-scale-audit/">{SITE.cta}</a>
-    </div>
-  </section>
+  <!-- 5. CTA -->
+  <AuditCTA
+    heading="Weten waar je staat?"
+    body="We beoordelen de schaalbaarheid van je Meta- en creative-aanpak — en waar je volgende euro het meest onderbouwd heen kan."
+  />
 </BaseLayout>
 
 <style>
+  /* 1. Hero */
   .hero {
     padding-block: var(--space-3xl) var(--space-2xl);
+    background-color: var(--color-paper);
+  }
+
+  .hero__inner {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  @media (min-width: 56rem) {
+    .hero__inner {
+      grid-template-columns: 7fr 5fr;
+    }
   }
 
   .hero__heading {
     max-inline-size: 22ch;
     margin-block-start: var(--space-md);
+    font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.9rem);
+    color: var(--color-ink);
   }
 
   .hero__lede {
     margin-block: var(--space-lg);
     max-inline-size: 52ch;
+    color: var(--color-ink-soft);
   }
 
-  .patterns {
+  .hero__tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .meta-tile {
+    border: 0;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    padding: clamp(3rem, 7vw, 5.5rem);
+    width: min(100%, 30rem);
+    aspect-ratio: 1;
+    border-radius: 50px;
+    background: #e0e0e0;
+    box-shadow:
+      20px 20px 60px #bebebe,
+      -20px -20px 60px #ffffff;
+    transition: box-shadow 180ms ease, transform 180ms ease;
+  }
+
+  .meta-tile svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .meta-tile:focus-visible {
+    outline: 2px solid #0064e1;
+    outline-offset: 4px;
+  }
+
+  /* Shared section heading */
+  .section-title {
+    margin-block: var(--space-xs) var(--space-xl);
+  }
+
+  /* 2. Pijlers */
+  .pillar-grid {
     margin-block-start: var(--space-lg);
   }
 
-  .reframe-prose {
-    margin-block-start: var(--space-md);
+  .pillar {
+    border-block-start: var(--border-hairline);
+    padding-block: var(--space-lg);
   }
 
-  .platform-grid {
-    margin-block-start: var(--space-lg);
-  }
-
-  .platform-block h3 a {
+  .pillar__title a {
     text-decoration: none;
+    color: var(--color-ink);
   }
 
-  .platform-block h3 a:hover {
+  .pillar__title a:hover {
     text-decoration: underline;
     text-decoration-thickness: 1px;
   }
 
-  .platform-block p {
-    margin-block-start: var(--space-sm);
+  .pillar__desc {
+    margin-block: var(--space-sm);
+    max-inline-size: var(--width-content);
   }
 
-  .model-lede {
-    margin-block: var(--space-md) var(--space-lg);
-  }
-
-  .insights-more {
+  .pillar__cta {
+    display: inline-block;
     margin-block-start: var(--space-lg);
     font-weight: 600;
+    text-decoration: none;
+    color: var(--color-ink);
   }
 
-  .vision-prose {
-    margin-block-start: var(--space-md);
+  .pillar__cta:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
   }
 
-  .end-cta h2 {
-    max-inline-size: 20ch;
+  /* 3. Zo werk ik */
+  .werkwijze {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-inline-size: var(--width-wide);
   }
 
-  .end-cta .lede {
-    margin-block: var(--space-md) var(--space-lg);
+  .werkwijze__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .werkwijze__nr {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-accent-warm);
+    min-inline-size: 2.5ch;
+  }
+
+  .werkwijze__step h3 {
+    font-size: var(--text-xl);
+  }
+
+  .werkwijze__step .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  /* 4. Kennisbank */
+  .kennisbank__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-block-end: var(--space-md);
+  }
+
+  .kennisbank__head .section-title {
+    margin-block: var(--space-xs) 0;
+  }
+
+  .kennisbank__all {
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+
+  .kennisbank__all:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
   }
 </style>

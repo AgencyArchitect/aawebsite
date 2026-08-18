@@ -1,0 +1,48 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_INSTAGRAM, disciplineLinks } from '../../lib/diensten';
+
+const title = 'Organische Instagram marketing voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Instagram marketing', url: '/instagram-marketing/' },
+  { name: 'Organische Instagram marketing', url: '/instagram-marketing/organisch/' },
+];
+---
+
+<DienstPagina
+  eyebrow="Organische Instagram marketing voor e-commerce"
+  {title}
+  lede="Instagram is vaak de eerste plek waar iemand je merk vrijwillig verder onderzoekt. Daarom is organische content geen decoratie naast je ads."
+  {trail}
+  valueBullets={[
+    'Een profiel dat in één oogopslag laat zien wie je bent',
+    'Reels, carrousels, stories en reacties met een eigen functie',
+    'Organisch als bewijslaag die je ads ondersteunt',
+  ]}
+  symptoms={[
+    {
+      title: 'Publiceren voor het bereik, niet voor de overtuiging',
+      body: 'Reels, carrousels, stories en reacties hebben elk een andere functie. Kies de vorm op basis van de overtuiging die je wilt bouwen, niet op basis van wat vandaag bereik belooft.',
+    },
+    {
+      title: 'Een profiel dat niet in één oogopslag klopt',
+      body: 'Een profiel hoeft niet elke dag te publiceren om overtuigend te zijn. Het moet wel in één oogopslag laten zien wie je bent, wat je product oplost en waarom mensen je vertrouwen.',
+    },
+    {
+      title: 'Organisch los van de advertentie',
+      body: 'Organisch Instagram-werk ondersteunt advertising wanneer de bezoeker na een adklik een coherent merk aantreft.',
+    },
+    {
+      title: 'De bezoeker komt op het verkeerde moment',
+      body: 'Wie adverteert op een profiel dat lang stil is, laat de twijfelende koper precies op het verkeerde moment alleen.',
+    },
+  ]}
+  variabelenIntro="Je organische etalage is een van de variabelen die bepalen of een klik ook een geloofwaardig bezoek wordt. De rest zit in je creative input en je leerproces."
+  variabelen={VARIABELEN_INSTAGRAM}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={disciplineLinks('instagram', 'organisch')}
+  ctaHeading="Weet je of je organische Instagram je ads draagt?"
+  ctaBody="We beoordelen of je merk op het eerste gezicht overtuigt — en waar je volgende euro het meest onderbouwd heen kan."
+/>

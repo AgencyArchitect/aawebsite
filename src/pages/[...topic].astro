@@ -17,10 +17,16 @@ import {
 
 export async function getStaticPaths() {
   const topics = await getLiveTopics();
-  return topics.map((topic) => ({
-    params: { topic: topicSegments(topic).join('/') },
-    props: { topic },
-  }));
+  // Platform-level topics have dedicated service pages (facebook-marketing,
+  // instagram-marketing) and discipline-level topics have dedicated service
+  // pages too (adverteren, funnels, copywriting, organisch). Both are excluded
+  // here to avoid a route conflict. Only niche-level topics render here.
+  return topics
+    .filter((t) => t.data.level !== 'platform' && t.data.level !== 'discipline')
+    .map((topic) => ({
+      params: { topic: topicSegments(topic).join('/') },
+      props: { topic },
+    }));
 }
 
 const { topic } = Astro.props;

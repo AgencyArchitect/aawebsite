@@ -85,39 +85,6 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-serif);
-    font-weight: 400;
-    line-height: var(--leading-tight);
-    text-wrap: balance;
-  }
-
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-sans);
-    font-weight: 600;
-    line-height: var(--leading-snug);
-  }
-
-  h1 {
-    font-size: var(--text-3xl);
-  }
-
-  h2 {
-    font-size: var(--text-2xl);
-  }
-
-  h3 {
-    font-size: var(--text-xl);
-  }
-
-  h4 {
-    font-size: var(--text-lg);
-  }
-
   p {
     max-inline-size: var(--width-content);
   }
@@ -172,6 +139,44 @@
   input:user-invalid {
     border-color: var(--color-error);
   }
+}
+
+/* Heading typography is intentionally UNLAYERED. Tailwind v4's preflight
+   (imported via theme.css) resets h1–h6 to font-size: inherit inside a `base`
+   cascade layer that would otherwise override these sizes. Unlayered rules
+   always beat layered ones, so this keeps the global heading scale correct on
+   every page regardless of Tailwind's reset. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  text-wrap: balance;
+}
+
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: var(--leading-snug);
+}
+
+h1 {
+  font-size: var(--text-3xl);
+}
+
+h2 {
+  font-size: var(--text-2xl);
+}
+
+h3 {
+  font-size: var(--text-xl);
+}
+
+h4 {
+  font-size: var(--text-lg);
 }
 
 @layer utilities {

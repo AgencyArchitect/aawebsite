@@ -29,13 +29,14 @@ const trail = [
     </p>
   </header>
 
-  <div class="container section--tight">
+  <section class="container section--tight" aria-labelledby="articles-heading">
+    <h2 id="articles-heading" class="visually-hidden">Alle inzichten</h2>
     {
       articles.map((article) => (
         <ArticleCard {article} topic={topics.find((t) => t.id === article.data.topic.id)} />
       ))
     }
-  </div>
+  </section>
 </BaseLayout>
 
 <style>

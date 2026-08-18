@@ -1,0 +1,299 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuditCTA from '../components/AuditCTA.astro';
+import { getLiveTopics, topicUrl } from '../lib/site';
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Instagram marketing', url: '/instagram-marketing/' },
+];
+
+const allTopics = await getLiveTopics();
+const disciplines = allTopics.filter(
+  (t) => t.data.level === 'discipline' && t.data.platform === 'instagram',
+);
+
+const valueBullets = [
+  'Creative die in het eerste moment al klopt — Instagram vergeeft middelmaat niet',
+  'Reels-first formats en een testritme dat rekening houdt met snellere fatigue',
+  'De route van ad naar profiel naar site, net zo doordacht als de route naar je landingspagina',
+];
+
+const symptoms = [
+  {
+    title: 'Facebook-aanpak één-op-één kopiëren',
+    body: 'Instagram en Facebook delen één advertentieplatform, maar zijn twee markten. Wie de Facebook-aanpak klakkeloos kopieert, betaalt dat met een hogere CPA en een sneller verslijtende creative.',
+  },
+  {
+    title: 'Creative fatigue gedraagt zich anders',
+    body: 'Op Instagram is de aandachtsboog korter en wordt reclame sneller herkend én weggedrukt. Creative verslijt er anders, en dat verandert je testritme: meer, kleiner, vaker.',
+  },
+  {
+    title: 'Het profiel is leeg of stil',
+    body: 'Wie adverteert op een profiel dat drie maanden stil is, laat de twijfelende koper precies op het verkeerde moment alleen. Je organische etalage draagt je ads.',
+  },
+  {
+    title: 'De eerste regel doet het werk niet',
+    body: 'Op Instagram doet copywriting zijn werk in minder woorden. De eerste regel van je caption en de tekst in je creative dragen meer gewicht dan de rest samen.',
+  },
+];
+
+const werkwijze = [
+  {
+    nr: '01',
+    title: 'Analyse',
+    body: 'We duiken in je Meta-ad account en toetsen de markt. Markt- en productonderzoek, samengebald tot één unieke creative strategy voor jouw merk.',
+  },
+  {
+    nr: '02',
+    title: 'Strategie',
+    body: 'We bespreken de strategie én jouw echte doel: hoe vliegen we dit aan, waar wil je heen — ook internationaal. Eerst akkoord, dan pas bouwen.',
+  },
+  {
+    nr: '03',
+    title: 'Uitvoering',
+    body: 'We schalen één campagne of land op en maken het proces overzichtelijk, zodat het daarna op élke campagne en land toepasbaar is. Een groeimachine.',
+  },
+  {
+    nr: '04',
+    title: 'Meten & schalen',
+    body: 'Elke maand: nieuwe campagnes, producten, concurrent-acquisitie, cashflow. Blijven groeien, stap voor stap.',
+  },
+];
+
+const variables = [
+  'De markt waarin je koopt',
+  'Het product en zijn marge',
+  'De persona die je aanspreekt',
+  'Het offer dat je doet',
+  'De awareness-fase waarin je iemand raakt',
+  'De angle van je creative',
+  'Het concept van je creative',
+  'Het format (Reels-first)',
+  'Je testhypothese',
+  'Je spend-verdeling',
+  'Wat je uit eerdere tests geleerd hebt',
+  'De route van ad naar profiel naar site',
+];
+---
+
+<BaseLayout
+  title="Instagram marketing voor e-commerce"
+  description="Instagram marketing als ontdekkings- en bewijskanaal. Creative die in het eerste moment klopt, voor founders van gezonde e-commerce merken."
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <!-- 1. Hero -->
+  <header class="container hero">
+    <p class="eyebrow">Instagram marketing voor e-commerce</p>
+    <h1>Waar ontdekking en overtuiging samenkomen</h1>
+    <p class="lede hero__lede">
+      Instagram is voor de meeste e-commerce merken het kanaal waar ontdekking en overtuiging
+      samenkomen. Visueel dichter, sneller en genadelozer voor middelmatige creative. Wij bouwen
+      een Instagram-aanpak die rekening houdt met die eigen wetten.
+    </p>
+    <ul class="value-bullets">
+      {valueBullets.map((b) => (
+        <li>{b}</li>
+      ))}
+    </ul>
+    <a class="button button--primary" href="/creative-scale-audit/">Gratis Meta Audit</a>
+  </header>
+
+  <!-- 2. Waarom merken Meta-geld laten liggen -->
+  <section class="section section--wash" aria-labelledby="symptoms-heading">
+    <div class="container">
+      <p class="eyebrow">Waarom merken Meta-geld laten liggen</p>
+      <h2 id="symptoms-heading" class="section-title">De symptomen die we telkens weer zien</h2>
+      <div class="grid-2 symptom-grid">
+        {symptoms.map((s) => (
+          <article class="symptom">
+            <h3>{s.title}</h3>
+            <p class="text-soft">{s.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Aanpak die werkt -->
+  <section class="section" aria-labelledby="aanpak-heading">
+    <div class="container">
+      <p class="eyebrow">Aanpak die werkt</p>
+      <h2 id="aanpak-heading" class="section-title">Vier stappen, in jouw toon</h2>
+      <ol class="werkwijze">
+        {werkwijze.map((step) => (
+          <li class="werkwijze__step">
+            <span class="werkwijze__nr" aria-hidden="true">{step.nr}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p class="text-soft">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4. Werktabel -->
+  <section class="section section--wash" aria-labelledby="variabelen-heading">
+    <div class="container">
+      <p class="eyebrow">De variabelen onder je ads</p>
+      <h2 id="variabelen-heading" class="section-title">Waarom CPA niet de oorzaak is</h2>
+      <p class="lede variables-lede">
+        Op Instagram beginnen de variabelen één stap eerder: bij het profielbezoek. De route van ad
+        naar profiel naar site is er net zo belangrijk als de route naar je landingspagina.
+      </p>
+      <ul class="variable-list">
+        {variables.map((v) => (
+          <li>{v}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Discipline-takken -->
+  <section class="section" aria-labelledby="disciplines-heading">
+    <div class="container">
+      <p class="eyebrow">Vier disciplines, één systeem</p>
+      <h2 id="disciplines-heading" class="section-title">Verdiep je per onderdeel</h2>
+      <div class="grid-2 discipline-grid">
+        {disciplines.map((d) => (
+          <article class="discipline">
+            <h3>
+              <a href={topicUrl(d)}>{d.data.title}</a>
+            </h3>
+            <p class="text-soft">{d.data.summary}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CTA-blok -->
+  <AuditCTA
+    heading="Weet je of je Instagram-aanpak schaalbaar is?"
+    body="We beoordelen de schaalbaarheid van je Meta- en creative-aanpak — en waar je volgende euro het meest onderbouwd heen kan."
+  />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-lg) var(--space-2xl);
+  }
+
+  .hero h1 {
+    margin-block-start: var(--space-md);
+    max-inline-size: 22ch;
+  }
+
+  .hero__lede {
+    margin-block: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+
+  .value-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+    display: grid;
+    gap: var(--space-sm);
+    max-inline-size: var(--width-content);
+  }
+
+  .value-bullets li {
+    padding-inline-start: var(--space-md);
+    border-inline-start: 2px solid var(--color-accent-warm);
+    color: var(--color-ink-soft);
+    font-weight: 600;
+  }
+
+  .section-title {
+    margin-block: var(--space-xs) var(--space-lg);
+  }
+
+  .symptom-grid {
+    margin-block-start: var(--space-lg);
+  }
+
+  .symptom {
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .symptom h3 {
+    font-size: var(--text-xl);
+  }
+
+  .symptom .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  .werkwijze {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-inline-size: var(--width-wide);
+  }
+
+  .werkwijze__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .werkwijze__nr {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-accent-warm);
+    min-inline-size: 2.5ch;
+  }
+
+  .werkwijze__step h3 {
+    font-size: var(--text-xl);
+  }
+
+  .werkwijze__step .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  .variables-lede {
+    margin-block-end: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+
+  .discipline-grid {
+    margin-block-start: var(--space-lg);
+  }
+
+  .discipline {
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .discipline h3 {
+    font-size: var(--text-xl);
+  }
+
+  .discipline h3 a {
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .discipline h3 a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .discipline .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+</style>

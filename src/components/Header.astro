@@ -1,9 +1,31 @@
 ---
 import { SITE } from '../lib/site';
+import HeaderCta from '../components/HeaderCta.jsx';
+import GlassmorphismNavBar from '../components/ui/GlassmorphismNavBar.tsx';
 
 const nav = [
-  { label: 'Facebook marketing', href: '/facebook-marketing/' },
-  { label: 'Instagram marketing', href: '/instagram-marketing/' },
+  {
+    label: 'Facebook',
+    href: '/facebook-marketing/',
+    children: [
+      { label: 'Facebook marketing', href: '/facebook-marketing/' },
+      { label: 'Facebook advertising', href: '/facebook-marketing/adverteren/' },
+      { label: 'Facebook funnels', href: '/facebook-marketing/funnels/' },
+      { label: 'Facebook copywriting', href: '/facebook-marketing/copywriting/' },
+      { label: 'Facebook organisch', href: '/facebook-marketing/organisch/' },
+    ],
+  },
+  {
+    label: 'Instagram',
+    href: '/instagram-marketing/',
+    children: [
+      { label: 'Instagram marketing', href: '/instagram-marketing/' },
+      { label: 'Instagram advertising', href: '/instagram-marketing/adverteren/' },
+      { label: 'Instagram funnels', href: '/instagram-marketing/funnels/' },
+      { label: 'Instagram copywriting', href: '/instagram-marketing/copywriting/' },
+      { label: 'Instagram organisch', href: '/instagram-marketing/organisch/' },
+    ],
+  },
   { label: 'Inzichten', href: '/inzichten/' },
   { label: 'Over', href: '/over/' },
 ];
@@ -13,13 +35,19 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="site-header__brand" href="/">Agency <span>Architect</span></a>
+    <a class="site-header__brand" id="header-brand" href="/">Agency <span>Architect</span></a>
 
-    <nav aria-label="Hoofdnavigatie" class="site-nav">
-      <!--
-        Progressive enhancement: the toggle button is hidden without JS,
-        so the nav list simply renders expanded. JS enables the disclosure.
-      -->
+    <!-- Desktop: liquid glass navigation -->
+    <div class="site-nav-desktop">
+      <GlassmorphismNavBar client:load />
+    </div>
+
+    <div class="site-header__cta">
+      <HeaderCta client:load />
+    </div>
+
+    <!-- Mobile: classic hamburger menu -->
+    <nav aria-label="Hoofdnavigatie" class="site-nav-mobile">
       <button
         type="button"
         class="site-nav__toggle"
@@ -29,20 +57,46 @@ const currentPath = Astro.url.pathname;
       >
         <span class="site-nav__bar" aria-hidden="true"></span>
         <span class="site-nav__bar" aria-hidden="true"></span>
-        Menu
+        <span class="visually-hidden">Menu</span>
       </button>
 
       <ul class="site-nav__list" id="site-nav-list">
         {
           nav.map((item) => (
-            <li>
-              <a href={item.href} aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}>
-                {item.label}
-              </a>
+            <li class={item.children ? 'has-children' : undefined}>
+              {item.children ? (
+                <>
+                  <div class="site-nav__parent">
+                    <a href={item.href} aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}>
+                      {item.label}
+                    </a>
+                    <button
+                      type="button"
+                      class="site-nav__sub-toggle"
+                      aria-expanded="false"
+                      aria-controls={`submenu-${item.label.toLowerCase()}`}
+                    >
+                      <span class="visually-hidden">{item.label} submenu</span>
+                      <span class="site-nav__caret" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <ul class="site-nav__sub" id={`submenu-${item.label.toLowerCase()}`}>
+                    {item.children.map((child) => (
+                      <li>
+                        <a href={child.href}>{child.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              ) : (
+                <a href={item.href} aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              )}
             </li>
           ))
         }
-        <li class="site-nav__cta-item">
+        <li>
           <a class="button button--primary" href="/creative-scale-audit/">{SITE.cta}</a>
         </li>
       </ul>
@@ -61,6 +115,22 @@ const currentPath = Astro.url.pathname;
     toggle.addEventListener('click', () => {
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!expanded));
+
+      // Collapse any open submenus when the menu closes.
+      if (expanded) {
+        document.querySelectorAll<HTMLButtonElement>('.site-nav__sub-toggle').forEach((btn) => {
+          btn.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
+
+    // Submenu toggles: open/close the nested list.
+    const subToggles = document.querySelectorAll<HTMLButtonElement>('.site-nav__sub-toggle');
+    subToggles.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+      });
     });
 
     document.addEventListener('keydown', (event) => {
@@ -76,6 +146,8 @@ const currentPath = Astro.url.pathname;
   .site-header {
     background-color: var(--color-paper);
     border-block-end: var(--border-hairline);
+    position: relative;
+    z-index: 60;
   }
 
   .site-header__inner {
@@ -84,7 +156,7 @@ const currentPath = Astro.url.pathname;
     justify-content: space-between;
     gap: var(--space-md);
     padding-block: var(--space-md);
-    flex-wrap: wrap;
+    min-block-size: 72px;
   }
 
   .site-header__brand {
@@ -92,74 +164,87 @@ const currentPath = Astro.url.pathname;
     font-size: var(--text-lg);
     text-decoration: none;
     white-space: nowrap;
+    color: var(--color-ink);
   }
 
   .site-header__brand span {
     color: var(--color-accent-warm);
   }
 
-  .site-nav__toggle {
-    display: none;
+  .site-header__cta {
+    white-space: nowrap;
   }
 
-  .site-nav__list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Desktop: inline nav */
-  @media (min-width: 64rem) {
-    .site-nav__list {
-      display: flex;
-      align-items: center;
-      gap: var(--space-lg);
+  /* Desktop: show liquid glass nav.
+     The glass pill is ~627px wide, centered, next to the brand and CTA.
+     Below 1255px it would start to overlap the CTA, so we switch to the
+     hamburger at that width — the sweet spot where the pill still fits. */
+  @media (min-width: 78.4375rem) {
+    .site-nav-mobile {
+      display: none;
     }
 
-    .site-nav__list a:not(.button) {
-      text-decoration: none;
-      font-weight: 600;
-      font-size: var(--text-sm);
-    }
-
-    .site-nav__list a:not(.button):hover,
-    .site-nav__list a[aria-current='page'] {
-      text-decoration: underline;
-      text-underline-offset: 0.35em;
+    /* Align the CTA with the vertical center of the floating glass pill */
+    .site-header__cta {
+      transform: translateY(4px);
     }
   }
 
-  /* Mobile */
-  @media (max-width: 63.99rem) {
+  /* Mobile: hide glass nav, show classic hamburger */
+  @media (max-width: 78.4374rem) {
+    .site-nav-desktop {
+      display: none;
+    }
+
+    .site-header__cta {
+      display: none;
+    }
+
+    .site-nav-mobile {
+      margin-inline-start: auto;
+    }
+
     .site-nav__toggle:not([hidden]) {
       display: inline-flex;
-      align-items: center;
-      gap: var(--space-xs);
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
       cursor: pointer;
-      font-weight: 600;
       background: none;
       border: none;
       padding: var(--space-sm);
       min-block-size: 44px;
+      min-inline-size: 44px;
       color: var(--color-ink);
     }
 
     .site-nav__bar {
       display: block;
-      inline-size: 18px;
+      inline-size: 22px;
       block-size: 2px;
       background-color: var(--color-ink);
+      border-radius: 2px;
     }
 
-    /* No JS: list renders expanded below the header row */
     .site-nav__list {
-      inline-size: 100%;
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      z-index: 70;
+      list-style: none;
+      margin: 0;
+      padding: var(--space-md);
+      background-color: var(--color-paper);
+      border-block-end: var(--border-hairline);
       display: grid;
       gap: var(--space-xs);
-      padding-block: var(--space-sm);
+      box-shadow: 0 24px 40px rgba(0, 29, 81, 0.12);
+      max-block-size: calc(100vh - 72px);
+      overflow-y: auto;
     }
 
-    /* JS enhanced: list collapses behind the toggle */
+    /* No JS: list renders expanded below the header row.
+       JS enhanced: list collapses behind the toggle. */
     .site-nav__list[data-enhanced='true'] {
       display: none;
     }
@@ -173,10 +258,73 @@ const currentPath = Astro.url.pathname;
       padding: var(--space-sm) 0;
       text-decoration: none;
       font-weight: 600;
+      color: var(--color-ink);
     }
 
-    .site-nav__cta-item {
-      margin-block-start: var(--space-xs);
+    .site-nav__parent {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
     }
+
+    .site-nav__parent a {
+      flex: 1;
+    }
+
+    .site-nav__sub-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      min-block-size: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--color-ink);
+    }
+
+    .site-nav__caret {
+      display: block;
+      inline-size: 9px;
+      block-size: 9px;
+      border-right: 2px solid var(--color-ink);
+      border-bottom: 2px solid var(--color-ink);
+      transform: rotate(45deg) translateY(-2px);
+      transition: transform var(--transition-fast);
+    }
+
+    .site-nav__sub-toggle[aria-expanded='true'] .site-nav__caret {
+      transform: rotate(-135deg) translateY(-2px);
+    }
+
+    .site-nav__sub {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 var(--space-md);
+      border-inline-start: 1px solid var(--color-border);
+      display: none;
+    }
+
+    .site-nav__sub-toggle[aria-expanded='true'] + .site-nav__sub,
+    .site-nav__sub[open] {
+      display: grid;
+      gap: 0;
+    }
+
+    .site-nav__sub a:not(.button) {
+      padding: var(--space-xs) 0;
+      font-weight: 500;
+      font-size: var(--text-sm);
+      color: var(--color-ink-soft);
+    }
+
+    .site-nav__list li + li {
+      margin-block-start: var(--space-2xs);
+    }
+  }
+
+  .site-header :focus-visible {
+    outline-color: var(--color-ink);
   }
 </style>

@@ -1,0 +1,48 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_INSTAGRAM, disciplineLinks } from '../../lib/diensten';
+
+const title = 'Instagram advertising voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Instagram marketing', url: '/instagram-marketing/' },
+  { name: 'Instagram advertising', url: '/instagram-marketing/adverteren/' },
+];
+---
+
+<DienstPagina
+  eyebrow="Instagram advertising voor e-commerce"
+  {title}
+  lede="Instagram en Facebook delen een advertentieplatform, maar niet dezelfde aandacht. Instagram vraagt om creative die in het eerste moment al klopt."
+  {trail}
+  valueBullets={[
+    'Creative die in het eerste moment al klopt',
+    'Reels-first formats en een testritme dat rekening houdt met snellere fatigue',
+    'Een publiek behandelen dat reclame sneller herkent en wegdrukt',
+  ]}
+  symptoms={[
+    {
+      title: 'Facebook-aanpak één-op-één kopiëren',
+      body: 'Instagram en Facebook delen één advertentieplatform, maar zijn twee markten. Wie de Facebook-aanpak klakkeloos kopieert, betaalt dat met een hogere CPA en een sneller verslijtende creative.',
+    },
+    {
+      title: 'Creative fatigue gedraagt zich anders',
+      body: 'Op Instagram is de aandachtsboog korter en wordt reclame sneller herkend én weggedrukt. Creative verslijt er anders, en dat verandert je testritme: meer, kleiner, vaker.',
+    },
+    {
+      title: 'Reels-first wordt verkeerd begrepen',
+      body: 'Reels-first betekent niet dat iedere ad een Reel moet worden. Het betekent dat je begrijpt hoe iemand door de ervaring beweegt en waar jouw boodschap moet landen.',
+    },
+    {
+      title: 'Alleen de visual testen',
+      body: 'Test niet alleen varianten van de visual. Test ook persona, angle, awareness-fase en de reden waarom iemand nu zou stoppen met scrollen.',
+    },
+  ]}
+  variabelenIntro="Eenvoudige campagne-instellingen veranderen maar een paar van de variabelen. Op Instagram zit het verschil in je creative input en je leerproces."
+  variabelen={VARIABELEN_INSTAGRAM}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={disciplineLinks('instagram', 'adverteren')}
+  ctaHeading="Weet je of je Instagram-aanpak daadwerkelijk schaalt?"
+  ctaBody="We beoordelen de schaalbaarheid van je Instagram- en creative-aanpak — en waar je volgende euro het meest onderbouwd heen kan."
+/>

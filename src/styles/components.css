@@ -12,6 +12,16 @@
     inline-size: min(100% - 2 * var(--space-md), var(--width-narrow));
   }
 
+  /* Mobile: guaranteed minimum horizontal gutter in px so content never
+     touches the screen edge. */
+  @media (max-width: 47.99rem) {
+    .container,
+    .container--narrow {
+      inline-size: 100%;
+      padding-inline: 24px;
+    }
+  }
+
   .section {
     padding-block: var(--space-2xl);
   }

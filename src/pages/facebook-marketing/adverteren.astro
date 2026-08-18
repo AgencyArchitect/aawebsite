@@ -1,0 +1,48 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_FACEBOOK, disciplineLinks } from '../../lib/diensten';
+
+const title = 'Facebook advertising voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Facebook marketing', url: '/facebook-marketing/' },
+  { name: 'Facebook advertising', url: '/facebook-marketing/adverteren/' },
+];
+---
+
+<DienstPagina
+  eyebrow="Facebook advertising voor e-commerce"
+  {title}
+  lede="Facebook advertising is waar de euro's bewegen en symptomen zichtbaar worden die ergens anders ontstaan. CPA en ROAS zijn outputs van variabelen eronder — wij bouwen een account dat leert in plaats van gokt."
+  {trail}
+  valueBullets={[
+    'Een account dat leert, in plaats van elke maand opnieuw te gokken',
+    'Weten welke variabelen er écht onder je CPA en ROAS zitten',
+    'Opschalen op bewezen hypotheses, niet op meer budget voor hetzelfde risico',
+  ]}
+  symptoms={[
+    {
+      title: 'CPA loopt op',
+      body: 'De automatische reactie is nieuwe creatives. Maar als elke creative uit dezelfde persona, angle en offer komt, produceer je vooral meer varianten van dezelfde hypothese.',
+    },
+    {
+      title: 'Eén winning ad draagt het account',
+      body: 'Wanneer één creative een te groot deel van je spend trekt, is het account kwetsbaar. De vraag is niet hoe je deze ad vervangt, maar welke hypothese hij bewees en wat de volgende is.',
+    },
+    {
+      title: 'Ad fatigue als routineprobleem',
+      body: 'Fatigue is een signaal, geen bug: deze combinatie van persona, angle en format heeft zijn publiek gehad. Verslijten hoort bij het systeem; niet weten wat daarna komt, is het echte probleem.',
+    },
+    {
+      title: 'Opschalen zonder leerproces',
+      body: 'Meer budget op een systeem dat niet leert, koopt vooral meer van hetzelfde risico. Voordat je opschaalt wil je weten waar je volgende creative vandaan komt als deze morgen stopt.',
+    },
+  ]}
+  variabelenIntro="CPA is geen knop, maar een output van de variabelen eronder. Aan campagne-instellingen draaien raakt er maar een paar; de rest zit in je creative input en je leerproces."
+  variabelen={VARIABELEN_FACEBOOK}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={disciplineLinks('facebook', 'adverteren')}
+  ctaHeading="Weet je waar je Facebook-advertentiebudget heen moet?"
+  ctaBody="We beoordelen of je advertentieaccount een systeem is dat leert — en waar je volgende euro het meest onderbouwd heen kan."
+/>

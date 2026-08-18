@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+/* Dark mode via a .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Design tokens: Agency Architect palette (shadcn-compatible) */
+:root {
+  --background: #faf8f5;
+  --foreground: #001d51;
+  --primary: #001d51;
+  --primary-foreground: #ffffff;
+  --border: rgba(0, 29, 81, 0.12);
+  --muted: #eef1f7;
+  --muted-foreground: #33486d;
+  --card: #ffffff;
+  --card-foreground: #001d51;
+}
+
+.dark {
+  --background: #020617;
+  --foreground: #faf8f5;
+  --primary: #60a5fa;
+  --primary-foreground: #020617;
+  --border: rgba(255, 255, 255, 0.12);
+  --muted: #0f172a;
+  --muted-foreground: #94a3b8;
+  --card: #0b1120;
+  --card-foreground: #faf8f5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+}

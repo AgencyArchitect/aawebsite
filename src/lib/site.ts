@@ -5,7 +5,7 @@ export const SITE = {
   url: 'https://www.agencyarchitect.nl',
   description:
     'Growth consultancy voor creative Meta advertising. Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen en schaalbare creative strategy opbouwen.',
-  cta: 'Ontdek of je Meta-strategie schaalbaar is',
+  cta: 'Gratis Meta Audit',
 } as const;
 
 export type Topic = CollectionEntry<'topics'>;

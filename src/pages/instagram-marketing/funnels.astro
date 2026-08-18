@@ -1,0 +1,48 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_INSTAGRAM, disciplineLinks } from '../../lib/diensten';
+
+const title = 'Instagram funnels voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Instagram marketing', url: '/instagram-marketing/' },
+  { name: 'Instagram funnels', url: '/instagram-marketing/funnels/' },
+];
+---
+
+<DienstPagina
+  eyebrow="Instagram funnels voor e-commerce"
+  {title}
+  lede="Op Instagram kan een bezoeker eerst je profiel bekijken voordat hij je site vertrouwt. De funnel begint daardoor soms vóór de landingspagina."
+  {trail}
+  valueBullets={[
+    'De route van ad naar profiel naar site als één ervaring',
+    'Vertrouwen vasthouden tussen klik en aankoop',
+    'Weten waar in de route je volgende hypothese thuishoort',
+  ]}
+  symptoms={[
+    {
+      title: 'De belofte van de ad bevestigt je profiel niet',
+      body: 'Wanneer je advertentie een belofte doet die je profiel niet bevestigt, verlies je vertrouwen tussen klik en aankoop. Dat zie je niet altijd terug in je advertentierapportage.',
+    },
+    {
+      title: 'De funnel begint te laat',
+      body: 'Op Instagram begint de funnel vaak één stap eerder: bij het profielbezoek. De route van ad naar profiel naar site is er net zo belangrijk als de route naar je landingspagina.',
+    },
+    {
+      title: 'Frictie verminderen zonder te leren',
+      body: 'Een goede funnel reduceert niet alleen frictie. Hij maakt ook duidelijk waar in de route je volgende hypothese thuishoort.',
+    },
+    {
+      title: 'Verschillende verwachtingen per stap',
+      body: 'Ad, profiel, bio, productpagina en checkout moeten dezelfde verwachting dragen. Als dat niet zo is, verlies je de klant op een punt dat je niet in je rapportage ziet.',
+    },
+  ]}
+  variabelenIntro="Op Instagram beginnen de variabelen één stap eerder: bij het profielbezoek. De route van ad naar profiel naar site bepaalt wat je uit je creative leert."
+  variabelen={VARIABELEN_INSTAGRAM}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={disciplineLinks('instagram', 'funnels')}
+  ctaHeading="Weet je of je Instagram-funnel je ads draagt?"
+  ctaBody="We beoordelen de route van ad naar profiel en aankoop — en waar je volgende euro het meest onderbouwd heen kan."
+/>

@@ -1,0 +1,299 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuditCTA from '../components/AuditCTA.astro';
+import { getLiveTopics, topicUrl } from '../lib/site';
+
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Facebook marketing', url: '/facebook-marketing/' },
+];
+
+const allTopics = await getLiveTopics();
+const disciplines = allTopics.filter(
+  (t) => t.data.level === 'discipline' && t.data.platform === 'facebook',
+);
+
+const valueBullets = [
+  'Een merk-eigen creative strategy, geen eenheidsworst uit een framework',
+  'Een account dat leert wat wél voor jouw klant werkt, in plaats van elke maand opnieuw te gokken',
+  'Weten waar je volgende euro heen moet: meer budget, nieuwe creative input, of eerst een beter leerproces',
+];
+
+const symptoms = [
+  {
+    title: 'CPA loopt op',
+    body: 'De automatische reactie is nieuwe creatives. Maar als elke creative uit dezelfde persona, angle en offer komt, produceer je vooral meer varianten van dezelfde hypothese.',
+  },
+  {
+    title: 'Eén winning ad draagt het account',
+    body: 'Wanneer één creative een te groot deel van je spend trekt, is het account kwetsbaar. De vraag is niet hoe je deze ad vervangt, maar welke hypothese hij bewees en wat de volgende is.',
+  },
+  {
+    title: 'Ad fatigue als routineprobleem',
+    body: 'Fatigue is een signaal, geen bug: deze combinatie van persona, angle en format heeft zijn publiek gehad. Verslijten hoort bij het systeem; niet weten wat daarna komt, is het echte probleem.',
+  },
+  {
+    title: 'Geen leerproces',
+    body: 'Een account dat leert, bouwt na elke test een beter beeld op van wat dit merk voor deze klant betekent. Een account dat gokt, begint elke maand van voren af aan — en betaalt dat in CPA.',
+  },
+];
+
+const werkwijze = [
+  {
+    nr: '01',
+    title: 'Analyse',
+    body: 'We duiken in je Meta-ad account en toetsen de markt. Markt- en productonderzoek, samengebald tot één unieke creative strategy voor jouw merk.',
+  },
+  {
+    nr: '02',
+    title: 'Strategie',
+    body: 'We bespreken de strategie én jouw echte doel: hoe vliegen we dit aan, waar wil je heen — ook internationaal. Eerst akkoord, dan pas bouwen.',
+  },
+  {
+    nr: '03',
+    title: 'Uitvoering',
+    body: 'We schalen één campagne of land op en maken het proces overzichtelijk, zodat het daarna op élke campagne en land toepasbaar is. Een groeimachine.',
+  },
+  {
+    nr: '04',
+    title: 'Meten & schalen',
+    body: 'Elke maand: nieuwe campagnes, producten, concurrent-acquisitie, cashflow. Blijven groeien, stap voor stap.',
+  },
+];
+
+const variables = [
+  'De markt waarin je koopt',
+  'Het product en zijn marge',
+  'De persona die je aanspreekt',
+  'Het offer dat je doet',
+  'De awareness-fase waarin je iemand raakt',
+  'De angle van je creative',
+  'Het concept van je creative',
+  'Het format',
+  'Je testhypothese',
+  'Je spend-verdeling',
+  'Wat je uit eerdere tests geleerd hebt',
+  'De bestemming waar je verkeer naartoe stuurt',
+];
+---
+
+<BaseLayout
+  title="Facebook marketing voor e-commerce"
+  description="Facebook marketing als systeem: organisch, adverteren, funnels en copywriting die samen één schaalbaar geheel vormen. Voor founders van gezonde e-commerce merken."
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <!-- 1. Hero: titel + ondertitel + 3 value-bullets + CTA -->
+  <header class="container hero">
+    <p class="eyebrow">Facebook marketing voor e-commerce</p>
+    <h1>Ecommerce Facebook expert voor webshop</h1>
+    <p class="lede hero__lede">
+      Facebook is voor de meeste e-commerce merken het zwaartepunt van Meta: vier disciplines —
+      organisch, adverteren, funnels en copywriting — die samen één systeem vormen. Wij maken van
+      jouw account een systeem dat leert.
+    </p>
+    <ul class="value-bullets">
+      {valueBullets.map((b) => (
+        <li>{b}</li>
+      ))}
+    </ul>
+    <a class="button button--primary" href="/creative-scale-audit/">Gratis Meta Audit</a>
+  </header>
+
+  <!-- 2. Waarom merken Meta-geld laten liggen -->
+  <section class="section section--wash" aria-labelledby="symptoms-heading">
+    <div class="container">
+      <p class="eyebrow">Waarom merken Meta-geld laten liggen</p>
+      <h2 id="symptoms-heading" class="section-title">De symptomen die we telkens weer zien</h2>
+      <div class="grid-2 symptom-grid">
+        {symptoms.map((s) => (
+          <article class="symptom">
+            <h3>{s.title}</h3>
+            <p class="text-soft">{s.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Aanpak die werkt -->
+  <section class="section" aria-labelledby="aanpak-heading">
+    <div class="container">
+      <p class="eyebrow">Aanpak die werkt</p>
+      <h2 id="aanpak-heading" class="section-title">Vier stappen, in jouw toon</h2>
+      <ol class="werkwijze">
+        {werkwijze.map((step) => (
+          <li class="werkwijze__step">
+            <span class="werkwijze__nr" aria-hidden="true">{step.nr}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p class="text-soft">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4. Werktabel: de variabelen onder je ads -->
+  <section class="section section--wash" aria-labelledby="variabelen-heading">
+    <div class="container">
+      <p class="eyebrow">De variabelen onder je ads</p>
+      <h2 id="variabelen-heading" class="section-title">Waarom CPA niet de oorzaak is</h2>
+      <p class="lede variables-lede">
+        CPA is geen knop, maar een output van de variabelen eronder. Aan campagne-instellingen
+        draaien raakt er maar een paar; de rest zit in je creative input en je leerproces.
+      </p>
+      <ul class="variable-list">
+        {variables.map((v) => (
+          <li>{v}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Discipline-takken -->
+  <section class="section" aria-labelledby="disciplines-heading">
+    <div class="container">
+      <p class="eyebrow">Vier disciplines, één systeem</p>
+      <h2 id="disciplines-heading" class="section-title">Verdiep je per onderdeel</h2>
+      <div class="grid-2 discipline-grid">
+        {disciplines.map((d) => (
+          <article class="discipline">
+            <h3>
+              <a href={topicUrl(d)}>{d.data.title}</a>
+            </h3>
+            <p class="text-soft">{d.data.summary}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CTA-blok -->
+  <AuditCTA
+    heading="Weet je waar je Facebook-geld heen moet?"
+    body="We beoordelen de schaalbaarheid van je Meta- en creative-aanpak — en waar je volgende euro het meest onderbouwd heen kan."
+  />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-lg) var(--space-2xl);
+  }
+
+  .hero h1 {
+    margin-block-start: var(--space-md);
+    max-inline-size: 20ch;
+  }
+
+  .hero__lede {
+    margin-block: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+
+  .value-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+    display: grid;
+    gap: var(--space-sm);
+    max-inline-size: var(--width-content);
+  }
+
+  .value-bullets li {
+    padding-inline-start: var(--space-md);
+    border-inline-start: 2px solid var(--color-accent-warm);
+    color: var(--color-ink-soft);
+    font-weight: 600;
+  }
+
+  .section-title {
+    margin-block: var(--space-xs) var(--space-lg);
+  }
+
+  .symptom-grid {
+    margin-block-start: var(--space-lg);
+  }
+
+  .symptom {
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .symptom h3 {
+    font-size: var(--text-xl);
+  }
+
+  .symptom .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  .werkwijze {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-inline-size: var(--width-wide);
+  }
+
+  .werkwijze__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .werkwijze__nr {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-accent-warm);
+    min-inline-size: 2.5ch;
+  }
+
+  .werkwijze__step h3 {
+    font-size: var(--text-xl);
+  }
+
+  .werkwijze__step .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  .variables-lede {
+    margin-block-end: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+
+  .discipline-grid {
+    margin-block-start: var(--space-lg);
+  }
+
+  .discipline {
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .discipline h3 {
+    font-size: var(--text-xl);
+  }
+
+  .discipline h3 a {
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .discipline h3 a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .discipline .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+</style>

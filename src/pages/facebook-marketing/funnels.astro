@@ -1,0 +1,48 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_FACEBOOK, disciplineLinks } from '../../lib/diensten';
+
+const title = 'Facebook funnels voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Facebook marketing', url: '/facebook-marketing/' },
+  { name: 'Facebook funnels', url: '/facebook-marketing/funnels/' },
+];
+---
+
+<DienstPagina
+  eyebrow="Facebook funnels voor e-commerce"
+  {title}
+  lede="Een Facebook-funnel begint niet bij de advertentie en eindigt niet bij de klik. De route na de klik bepaalt mede wat je uit je creative leert."
+  {trail}
+  valueBullets={[
+    'De route na de klik net zo doordacht als de creative zelf',
+    'Weten wat een zwakke landingspagina je leerproces kost',
+    'Eén belofte, gedragen van ad tot productpagina en checkout',
+  ]}
+  symptoms={[
+    {
+      title: 'Dure kliks op een zwakke bestemming',
+      body: 'Een sterke ad die naar een zwakke productpagina stuurt, maakt dure ruis. Je concludeert dat de creative niet werkt, terwijl de volgende stap het vertrouwen niet overneemt.',
+    },
+    {
+      title: 'De belofte breekt na de klik',
+      body: 'Als de landingspagina een andere belofte doet dan de ad, verlies je vertrouwen tussen klik en aankoop. Dat zie je niet altijd terug in je advertentierapportage.',
+    },
+    {
+      title: 'Een funnel die niet leert',
+      body: 'Een goede funnel reduceert niet alleen frictie. Hij maakt ook duidelijk waar in de route je volgende hypothese thuishoort.',
+    },
+    {
+      title: 'Herhaalaankopen buiten beeld',
+      body: 'De route stopt niet bij de eerste aankoop. Verlies van herhaalaankopen is vaak een funnelprobleem, geen creatieve.',
+    },
+  ]}
+  variabelenIntro="De route die een klant na een klik aflegt, bepaalt wat je uit je creative leert. Draaien aan de ad alleen verandert maar een deel van de variabelen."
+  variabelen={VARIABELEN_FACEBOOK}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={disciplineLinks('facebook', 'funnels')}
+  ctaHeading="Weet je of je funnel je ads draagt of ondermijnt?"
+  ctaBody="We beoordelen de route van klik tot aankoop — en waar je volgende euro het meest onderbouwd heen kan."
+/>

@@ -1,0 +1,48 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_FACEBOOK, disciplineLinks } from '../../lib/diensten';
+
+const title = 'Facebook copywriting voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Facebook marketing', url: '/facebook-marketing/' },
+  { name: 'Facebook copywriting', url: '/facebook-marketing/copywriting/' },
+];
+---
+
+<DienstPagina
+  eyebrow="Facebook copywriting voor e-commerce"
+  {title}
+  lede="Facebook copywriting is niet het vullen van tekstvakken. Het is bepalen welke overtuiging je bij welke persoon op welk moment wilt veranderen."
+  {trail}
+  valueBullets={[
+    'Hooks als hypotheses over wat je klant al weet, vreest of verlangt',
+    'Ad, landingspagina en follow-up als één gesprek',
+    'Copy die de strategie zichtbaar maakt, geen losse slogans',
+  ]}
+  symptoms={[
+    {
+      title: 'De hook is een slimme zin, geen hypothese',
+      body: 'De beste hook is geen slimme zin. Het is een hypothese over wat deze klant al weet, vreest of verlangt. Zonder die hypothese blijft copy toevallig.',
+    },
+    {
+      title: 'Meer copy, meer verwarring',
+      body: 'Wanneer elke stap een andere belofte doet, wordt meer copy vooral meer verwarring. Gebruik de ad, de landingspagina en de follow-up als één gesprek.',
+    },
+    {
+      title: 'Copy los van de strategie',
+      body: 'Goede copy maakt de strategie zichtbaar: welke persona spreek je aan, welke angle kies je en welk bewijs maakt de volgende stap geloofwaardig?',
+    },
+    {
+      title: 'Tekst die aankondigt in plaats van overtuigt',
+      body: 'Als de woorden hetzelfde zeggen als het beeld, verdubbel je geen overtuigingskracht. Copy moet versterken wat het beeld al belooft, niet herhalen.',
+    },
+  ]}
+  variabelenIntro="Copy is het verbindende weefsel van al je variabelen: de persona die je aanspreekt, de angle die je kiest en de vraag in welke awareness-fase je iemand raakt."
+  variabelen={VARIABELEN_FACEBOOK}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={disciplineLinks('facebook', 'copywriting')}
+  ctaHeading="Weet je of je copy je strategie draagt?"
+  ctaBody="We beoordelen of je woorden overtuiging veranderen — en waar je volgende euro het meest onderbouwd heen kan."
+/>

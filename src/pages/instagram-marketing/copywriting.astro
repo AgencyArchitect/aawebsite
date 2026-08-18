@@ -1,0 +1,48 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_INSTAGRAM, disciplineLinks } from '../../lib/diensten';
+
+const title = 'Instagram copywriting voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Instagram marketing', url: '/instagram-marketing/' },
+  { name: 'Instagram copywriting', url: '/instagram-marketing/copywriting/' },
+];
+---
+
+<DienstPagina
+  eyebrow="Instagram copywriting voor e-commerce"
+  {title}
+  lede="Op Instagram krijgt copy vaak minder tijd en minder ruimte. De eerste zin en de context van het beeld moeten samen het werk doen."
+  {trail}
+  valueBullets={[
+    'Hooks die de kortste eerlijke route naar een relevant idee zijn',
+    'De klantbeweging eerst, de woorden daarna',
+    'Copy die versterkt wat het beeld al belooft',
+  ]}
+  symptoms={[
+    {
+      title: 'De hook als clickbait',
+      body: 'Een hook is geen clickbait. Het is de kortste eerlijke route naar een relevant idee voor de juiste persoon.',
+    },
+    {
+      title: 'Woorden vóór de beweging',
+      body: 'Schrijf eerst de klantbeweging uit: stoppen, herkennen, begrijpen, vertrouwen, klikken. Daarna pas kies je de woorden.',
+    },
+    {
+      title: 'Copy los van het beeld',
+      body: 'Copywriting en creative zijn hier niet los verkrijgbaar. De tekst moet versterken wat het beeld al belooft, niet hetzelfde nog eens uitleggen.',
+    },
+    {
+      title: 'De eerste regel doet het werk niet',
+      body: 'De eerste regel van je caption en de tekst ín je creative dragen meer gewicht dan de rest samen. Als die niet klopt, is de rest voor niets geschreven.',
+    },
+  ]}
+  variabelenIntro="Op Instagram doet copywriting zijn werk in minder woorden. De eerste regel draagt meer gewicht dan de rest, en bepaalt mee wat je uit je creative leert."
+  variabelen={VARIABELEN_INSTAGRAM}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={disciplineLinks('instagram', 'copywriting')}
+  ctaHeading="Weet je of je Instagram-copy overtuiging verandert?"
+  ctaBody="We beoordelen of je woorden de klantbeweging dragen — en waar je volgende euro het meest onderbouwd heen kan."
+/>

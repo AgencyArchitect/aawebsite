@@ -1,0 +1,48 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_FACEBOOK, disciplineLinks } from '../../lib/diensten';
+
+const title = 'Organische Facebook marketing voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Facebook marketing', url: '/facebook-marketing/' },
+  { name: 'Organische Facebook marketing', url: '/facebook-marketing/organisch/' },
+];
+---
+
+<DienstPagina
+  eyebrow="Organische Facebook marketing voor e-commerce"
+  {title}
+  lede="Facebook is niet alleen een plek om bereik te kopen. Voor een e-commerce merk is je organische aanwezigheid vaak het bewijs dat een twijfelende koper zoekt nadat hij je advertentie heeft gezien."
+  {trail}
+  valueBullets={[
+    'Organisch als bewijslaag, niet als gratis verkeerskanaal',
+    'Een pagina die hetzelfde merkbeeld bevestigt als je ads',
+    'Betaalde distributie geloofwaardig maken met een levende etalage',
+  ]}
+  symptoms={[
+    {
+      title: 'Dagelijks posten als doel op zich',
+      body: 'Organische Facebook marketing werkt niet door dagelijks iets te plaatsen. Het werkt wanneer je pagina, je posts en je reacties hetzelfde merkbeeld bevestigen als je advertenties.',
+    },
+    {
+      title: 'Een stille pagina bij een twijfelende koper',
+      body: 'De vraag is of een bezoeker na een advertentieklik meer vertrouwen krijgt doordat hij ziet hoe het merk denkt, reageert en levert.',
+    },
+    {
+      title: 'Organisch los van advertising',
+      body: 'Een gezonde organische laag maakt je betaalde verkeer geloofwaardiger, maar vervangt geen advertisingstrategie. Beide disciplines moeten dezelfde klant en hetzelfde merk begrijpen.',
+    },
+    {
+      title: 'Bewijs ontbreekt op het beslissende moment',
+      body: 'Een twijfelende koper zoekt na een adklik waar het merk echt is. Als organisch dat moment niet bevestigt, verloor je vertrouwen voordat je landingspagina het had.',
+    },
+  ]}
+  variabelenIntro="Organische aanwezigheid is een van de variabelen die bepalen of een klik ook een geloofwaardig bezoek wordt. De rest zit in je creative input en je leerproces."
+  variabelen={VARIABELEN_FACEBOOK}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={disciplineLinks('facebook', 'organisch')}
+  ctaHeading="Weet je of je organische laag je ads draagt?"
+  ctaBody="We beoordelen of je merk op het beslissende moment overtuigt — en waar je volgende euro het meest onderbouwd heen kan."
+/>

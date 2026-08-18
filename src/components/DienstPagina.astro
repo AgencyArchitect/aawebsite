@@ -1,0 +1,242 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuditCTA from '../components/AuditCTA.astro';
+
+export interface DienstVerdieping {
+  title: string;
+  url: string;
+  summary: string;
+}
+
+export interface DienstWerkwijzeStep {
+  nr: string;
+  title: string;
+  body: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  trail: { name: string; url: string }[];
+  valueBullets: string[];
+  symptoms: { title: string; body: string }[];
+  variabelenIntro: string;
+  variabelen: string[];
+  werkwijze: DienstWerkwijzeStep[];
+  verdiepingTitle: string;
+  verdieping: DienstVerdieping[];
+  ctaHeading: string;
+  ctaBody: string;
+}
+
+const {
+  eyebrow,
+  title,
+  lede,
+  trail,
+  valueBullets,
+  symptoms,
+  variabelenIntro,
+  variabelen,
+  werkwijze,
+  verdiepingTitle,
+  verdieping,
+  ctaHeading,
+  ctaBody,
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={lede}>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <!-- 1. Hero: titel + ondertitel + 3 value-bullets + CTA -->
+  <header class="container hero">
+    <p class="eyebrow">{eyebrow}</p>
+    <h1>{title}</h1>
+    <p class="lede hero__lede">{lede}</p>
+    <ul class="value-bullets">
+      {valueBullets.map((b) => (
+        <li>{b}</li>
+      ))}
+    </ul>
+    <a class="button button--primary" href="/creative-scale-audit/">Gratis Meta Audit</a>
+  </header>
+
+  <!-- 2. Symptomen -->
+  <section class="section section--wash" aria-labelledby="symptoms-heading">
+    <div class="container">
+      <p class="eyebrow">Waarom merken Meta-geld laten liggen</p>
+      <h2 id="symptoms-heading" class="section-title">De symptomen die we telkens weer zien</h2>
+      <div class="grid-2 symptom-grid">
+        {symptoms.map((s) => (
+          <article class="symptom">
+            <h3>{s.title}</h3>
+            <p class="text-soft">{s.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Werkwijze -->
+  <section class="section" aria-labelledby="aanpak-heading">
+    <div class="container">
+      <p class="eyebrow">Aanpak die werkt</p>
+      <h2 id="aanpak-heading" class="section-title">Vier stappen, in jouw toon</h2>
+      <ol class="werkwijze">
+        {werkwijze.map((step) => (
+          <li class="werkwijze__step">
+            <span class="werkwijze__nr" aria-hidden="true">{step.nr}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p class="text-soft">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 4. Variabelen -->
+  <section class="section section--wash" aria-labelledby="variabelen-heading">
+    <div class="container">
+      <p class="eyebrow">De variabelen onder je ads</p>
+      <h2 id="variabelen-heading" class="section-title">Waarom CPA niet de oorzaak is</h2>
+      <p class="lede variables-lede">{variabelenIntro}</p>
+      <ul class="variable-list">
+        {variabelen.map((v) => (
+          <li>{v}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Verdieping -->
+  <section class="section" aria-labelledby="verdieping-heading">
+    <div class="container">
+      <p class="eyebrow">Verdieping</p>
+      <h2 id="verdieping-heading" class="section-title">{verdiepingTitle}</h2>
+      <div class="grid-2 verdieping-grid">
+        {verdieping.map((d) => (
+          <article class="verdieping">
+            <h3>
+              <a href={d.url}>{d.title}</a>
+            </h3>
+            <p class="text-soft">{d.summary}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CTA -->
+  <AuditCTA heading={ctaHeading} body={ctaBody} />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-lg) var(--space-2xl);
+  }
+
+  .hero h1 {
+    margin-block-start: var(--space-md);
+    max-inline-size: 22ch;
+  }
+
+  .hero__lede {
+    margin-block: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+
+  .value-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-lg);
+    display: grid;
+    gap: var(--space-sm);
+    max-inline-size: var(--width-content);
+  }
+
+  .value-bullets li {
+    padding-inline-start: var(--space-md);
+    border-inline-start: 2px solid var(--color-accent-warm);
+    color: var(--color-ink-soft);
+    font-weight: 600;
+  }
+
+  .section-title {
+    margin-block: var(--space-xs) var(--space-lg);
+  }
+
+  .symptom-grid,
+  .verdieping-grid {
+    margin-block-start: var(--space-lg);
+  }
+
+  .symptom,
+  .verdieping {
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .symptom h3,
+  .verdieping h3 {
+    font-size: var(--text-xl);
+  }
+
+  .symptom .text-soft,
+  .verdieping .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  .verdieping h3 a {
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .verdieping h3 a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .werkwijze {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-inline-size: var(--width-wide);
+  }
+
+  .werkwijze__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .werkwijze__nr {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-accent-warm);
+    min-inline-size: 2.5ch;
+  }
+
+  .werkwijze__step h3 {
+    font-size: var(--text-xl);
+  }
+
+  .werkwijze__step .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  .variables-lede {
+    margin-block-end: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+</style>
