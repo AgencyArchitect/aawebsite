@@ -130,6 +130,11 @@ const currentPath = Astro.url.pathname;
       btn.addEventListener('click', () => {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!expanded));
+        // Toggle an is-open class on the submenu it controls, so the CSS can
+        // show/hide it regardless of the DOM structure between button and list.
+        const controls = btn.getAttribute('aria-controls');
+        const sub = controls ? document.getElementById(controls) : null;
+        if (sub) sub.classList.toggle('is-open', !expanded);
       });
     });
 
@@ -306,8 +311,7 @@ const currentPath = Astro.url.pathname;
       display: none;
     }
 
-    .site-nav__sub-toggle[aria-expanded='true'] + .site-nav__sub,
-    .site-nav__sub[open] {
+    .site-nav__sub.is-open {
       display: grid;
       gap: 0;
     }
