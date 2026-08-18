@@ -1,0 +1,71 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_INSTAGRAM } from '../../lib/diensten';
+
+const title = 'Instagram strategie voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Instagram marketing', url: '/instagram-marketing/' },
+  { name: 'Instagram strategie', url: '/instagram-marketing/strategie/' },
+];
+
+const verdieping = [
+  {
+    title: 'Instagram marketing',
+    url: '/instagram-marketing/',
+    summary: 'De hoofdpagina over Instagram marketing voor e-commerce, waar alle disciplines samenkomen.',
+  },
+  {
+    title: 'Instagram advertising',
+    url: '/instagram-marketing/adverteren/',
+    summary: 'Reels-first formats en een testritme dat rekening houdt met snellere fatigue.',
+  },
+  {
+    title: 'Instagram funnels',
+    url: '/instagram-marketing/funnels/',
+    summary: 'De route van ad naar profiel naar site, als één ervaring.',
+  },
+  {
+    title: 'Instagram copywriting',
+    url: '/instagram-marketing/copywriting/',
+    summary: 'De woorden die op Instagram hun werk doen in minder tijd en ruimte.',
+  },
+];
+---
+
+<DienstPagina
+  eyebrow="Instagram strategie voor e-commerce"
+  {title}
+  lede="Instagram is visueel dichter, sneller en genadelozer voor middelmatige creative. Strategie bepaalt hoe je daar al je disciplines op afstemt."
+  {trail}
+  valueBullets={[
+    'Een strategie die rekening houdt met de eigen wetten van Instagram',
+    'Reels-first formats en een testritme dat past bij snellere fatigue',
+    'Eerst akkoord op de strategie, dan pas bouwen',
+  ]}
+  symptoms={[
+    {
+      title: 'Facebook-strategie één-op-één kopiëren',
+      body: 'Instagram en Facebook delen een platform, maar zijn twee markten. Een Instagram-strategie houdt rekening met kortere aandacht en snellere fatigue.',
+    },
+    {
+      title: 'Strategie zonder eigen wetten',
+      body: 'Zonder strategie die past bij Instagram render je op hoop; met een eigen strategie verbeeld je hoe de bezoeker je merk ontdekt en vertrouwt.',
+    },
+    {
+      title: 'Profiel en ads niet op elkaar afgestemd',
+      body: 'Een strategie die de route van ad naar profiel naar site als één geheel ziet, houdt het vertrouwen vast waar een losse aanpak het verliest.',
+    },
+    {
+      title: 'Geen duidelijk plan voor je team',
+      body: 'Strategie geeft richting aan je Instagram-disciplines en voorkomt dat elke maand op gevoel begint.',
+    },
+  ]}
+  variabelenIntro="Instagram-strategie stemt de variabelen af op hoe mensen op het platform kijken. Elke keuze is herleidbaar naar de eigen wetten van Instagram."
+  variabelen={VARIABELEN_INSTAGRAM}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={verdieping}
+  ctaHeading="Weet je waar je Instagram-strategie heen moet?"
+  ctaBody="We beoordelen je aanpak en strategie — en waar je volgende euro het meest onderbouwd heen kan."
+/>

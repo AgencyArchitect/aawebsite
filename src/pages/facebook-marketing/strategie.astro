@@ -1,0 +1,71 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE, VARIABELEN_FACEBOOK } from '../../lib/diensten';
+
+const title = 'Facebook strategie voor e-commerce';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'Facebook marketing', url: '/facebook-marketing/' },
+  { name: 'Facebook strategie', url: '/facebook-marketing/strategie/' },
+];
+
+const verdieping = [
+  {
+    title: 'Facebook marketing',
+    url: '/facebook-marketing/',
+    summary: 'De hoofdpagina over Facebook marketing voor e-commerce, waar alle disciplines samenkomen.',
+  },
+  {
+    title: 'Facebook advertising',
+    url: '/facebook-marketing/adverteren/',
+    summary: 'De discipline waar de euro\'s bewegen en symptomen zichtbaar worden.',
+  },
+  {
+    title: 'Facebook funnels',
+    url: '/facebook-marketing/funnels/',
+    summary: 'De route na de klik, zo doordacht als de creative zelf.',
+  },
+  {
+    title: 'Facebook copywriting',
+    url: '/facebook-marketing/copywriting/',
+    summary: 'De woorden die de strategie zichtbaar maken.',
+  },
+];
+---
+
+<DienstPagina
+  eyebrow="Facebook strategie voor e-commerce"
+  {title}
+  lede="Een Facebook strategie begint niet bij de advertentie, maar bij het merk, het product en de klant. Eerst helder je echte doel, dan pas de campagne."
+  {trail}
+  valueBullets={[
+    'Eén merk-eigen strategie die je begeleidt naar een schaalbaar systeem',
+    'We bespreken de strategie én jouw echte doel, ook internationaal',
+    'Eerst akkoord, dan pas bouwen — geen drukke gokwerk',
+  ]}
+  symptoms={[
+    {
+      title: 'Steeds nieuwe creatives, geen nieuwe strategie',
+      body: 'Meer creatives op dezelfde persona, angle en offer is vooral meer varianten van dezelfde hypothese. Zonder strategie blijf je symptomen behandelen.',
+    },
+    {
+      title: 'Een account dat spoet in plaats van leert',
+      body: 'Zonder duidelijke strategie begin je elke maand opnieuw. Een strategie die uit jouw merk komt, maakt dat je stappen vooruit onthoudt.',
+    },
+    {
+      title: 'Niet weten waar je heen wil',
+      body: 'Zonder strategie heb je alleen een budget en een hoop. Eerst akkoord op de aanpak, dan pas bouwen.',
+    },
+    {
+      title: 'Geen richting voor je team',
+      body: 'Een sterke strategie geeft richting aan al je discipline-work, van advertising tot funnels en copywriting.',
+    },
+  ]}
+  variabelenIntro="Strategie vertaalt de variabelen onder je ads naar één samenhangend systeem. Elke keuze is herleidbaar naar voorzicht onderzoek."
+  variabelen={VARIABELEN_FACEBOOK}
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook de andere disciplines"
+  verdieping={verdieping}
+  ctaHeading="Weet je waar je Facebook-strategie heen moet?"
+  ctaBody="We beoordelen je aanpak en strategie — en waar je volgende euro het meest onderbouwd heen kan."
+/>

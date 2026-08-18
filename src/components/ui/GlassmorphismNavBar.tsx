@@ -41,6 +41,7 @@ export function GlassmorphismNavBar({
       icon: MessageCircle,
       children: [
         { name: "Facebook marketing", url: "/facebook-marketing/" },
+        { name: "Facebook strategie", url: "/facebook-marketing/strategie/" },
         { name: "Facebook advertising", url: "/facebook-marketing/adverteren/" },
         { name: "Facebook funnels", url: "/facebook-marketing/funnels/" },
         { name: "Facebook copywriting", url: "/facebook-marketing/copywriting/" },
@@ -53,6 +54,7 @@ export function GlassmorphismNavBar({
       icon: Camera,
       children: [
         { name: "Instagram marketing", url: "/instagram-marketing/" },
+        { name: "Instagram strategie", url: "/instagram-marketing/strategie/" },
         { name: "Instagram advertising", url: "/instagram-marketing/adverteren/" },
         { name: "Instagram funnels", url: "/instagram-marketing/funnels/" },
         { name: "Instagram copywriting", url: "/instagram-marketing/copywriting/" },
