@@ -1,0 +1,82 @@
+---
+import DienstPagina from '../components/DienstPagina.astro';
+import { WERKWIJZE } from '../lib/diensten';
+
+const title = 'E-commerce marketing voor jouw webshop';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'E-commerce marketing', url: '/e-commerce-marketing/' },
+];
+
+const variabelen = [
+  'Alle kanalen samen, niet één platform',
+  'Meta, Google en andere distributie',
+  'De hele funnel, van herkenning tot aankoop',
+  'Strategie voor jouw merk, niet een template',
+  'Persona, angle, offer en awareness-fase',
+  'Creative en het leerproces eronder',
+  'Testritme per kanaal',
+  'Cashflow en schaalbare groei',
+  'Data die een besluit onderbouwt',
+];
+
+const verdieping = [
+  {
+    title: 'Facebook marketing',
+    url: '/facebook-marketing/',
+    summary: 'Facebook als het zwaartepunt van Meta: organisch, adverteren, funnels en copywriting samen tot één systeem.',
+  },
+  {
+    title: 'Instagram marketing',
+    url: '/instagram-marketing/',
+    summary: 'Instagram als ontdekkings- en bewijskanaal, met een eigen aanpak die past bij snelheid en creative fatigue.',
+  },
+  {
+    title: 'Facebook strategie',
+    url: '/facebook-marketing/strategie/',
+    summary: 'Strategie die begint bij merk, product en klant, en dan pas bij de campagne.',
+  },
+  {
+    title: 'Instagram strategie',
+    url: '/instagram-marketing/strategie/',
+    summary: 'Strategie die rekening houdt met de eigen wetten van Instagram.',
+  },
+];
+---
+
+<DienstPagina
+  eyebrow="E-commerce marketing voor jouw webshop"
+  {title}
+  lede="We vliegen jouw e-commerce marketing breed aan: alle platformen, één samenhangende strategie en de funnel die daarbij hoort. Geen losse kanalen, geen eenheidsworst, maar een hele strategie die we samen neerzetten — zodat je weet waar elke euro heen moet."
+  {trail}
+  valueBullets={[
+    'Brede aanpak over alle platformen, per kanaal goed gemaakt',
+    'Eén samenhangende strategie plus de funnel die ernaast hoort',
+    'Strategie uit jouw merk, product en klant — geen template',
+  ]}
+  symptoms={[
+    {
+      title: 'Kanalen werken langs elkaar heen',
+      body: 'Facebook, Instagram, Google en TikTok als losse posten zonder gezamenlijke strategie maken versnippering. E-commerce marketing draait om samenhang.',
+    },
+    {
+      title: 'Een strategie ontbreekt',
+      body: 'Budgets en creatives zonder uitgedachte strategie behandelen symptomen, niet de oorzaak. Eerst de hele strategie, dan de uitvoering.',
+    },
+    {
+      title: 'De funnel is niet doordacht',
+      body: 'Van de eerste exposure tot aankoop en herhaalaankoop: elke stap moet dezelfde belofte dragen. Anders heeft je strategie geen funnel.',
+    },
+    {
+      title: 'Geen duidelijk leerproces',
+      body: 'Een webshop die blijft gokken op de volgende creative, blijft versnipperd. Een strategie die leert, maakt groeien stapsgewijs.',
+    },
+  ]}
+  variabelen={variabelen}
+    variabelenIntro="E-commerce marketing voor jou weegt in de variabelen het hele model mee: kanalen, strategie, funnel en leerproces samen. Elke keuze is herleidbaar naar een doorwerkte strategie."
+    werkwijze={WERKWIJZE}
+    verdiepingTitle="Bekijk de disciplines eronder"
+    verdieping={verdieping}
+    ctaHeading="Weet je waar je e-commerce marketing naartoe moet?"
+    ctaBody="We beoordelen je gehele marketing- en groei-aanpak — en zetten een strategie neer waar je duurzaam mee schaalt."
+  />

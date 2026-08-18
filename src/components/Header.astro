@@ -1,32 +1,16 @@
 ---
 import { SITE } from '../lib/site';
+import { ECOMMERCE_GROUPS } from '../lib/nav';
 import HeaderCta from '../components/HeaderCta.jsx';
 import GlassmorphismNavBar from '../components/ui/GlassmorphismNavBar.tsx';
 
 const nav = [
+  { label: 'Home', href: '/' },
   {
-    label: 'Facebook',
+    label: 'E-commerce marketing',
     href: '/facebook-marketing/',
-    children: [
-      { label: 'Facebook marketing', href: '/facebook-marketing/' },
-      { label: 'Facebook strategie', href: '/facebook-marketing/strategie/' },
-      { label: 'Facebook advertising', href: '/facebook-marketing/adverteren/' },
-      { label: 'Facebook funnels', href: '/facebook-marketing/funnels/' },
-      { label: 'Facebook copywriting', href: '/facebook-marketing/copywriting/' },
-      { label: 'Facebook organisch', href: '/facebook-marketing/organisch/' },
-    ],
-  },
-  {
-    label: 'Instagram',
-    href: '/instagram-marketing/',
-    children: [
-      { label: 'Instagram marketing', href: '/instagram-marketing/' },
-      { label: 'Instagram strategie', href: '/instagram-marketing/strategie/' },
-      { label: 'Instagram advertising', href: '/instagram-marketing/adverteren/' },
-      { label: 'Instagram funnels', href: '/instagram-marketing/funnels/' },
-      { label: 'Instagram copywriting', href: '/instagram-marketing/copywriting/' },
-      { label: 'Instagram organisch', href: '/instagram-marketing/organisch/' },
-    ],
+    groupLabel: 'E-commerce marketing',
+    groups: ECOMMERCE_GROUPS,
   },
   { label: 'Inzichten', href: '/inzichten/' },
   { label: 'Over', href: '/over/' },
@@ -65,8 +49,8 @@ const currentPath = Astro.url.pathname;
       <ul class="site-nav__list" id="site-nav-list">
         {
           nav.map((item) => (
-            <li class={item.children ? 'has-children' : undefined}>
-              {item.children ? (
+            <li class={item.groups ? 'has-groups' : undefined}>
+              {item.groups ? (
                 <>
                   <div class="site-nav__parent">
                     <a href={item.href} aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}>
@@ -74,21 +58,33 @@ const currentPath = Astro.url.pathname;
                     </a>
                     <button
                       type="button"
-                      class="site-nav__sub-toggle"
+                      class="site-nav__toggle-groups"
                       aria-expanded="false"
-                      aria-controls={`submenu-${item.label.toLowerCase()}`}
+                      aria-controls={`groups-${item.label.toLowerCase().replace(/[^a-z]+/g, '-')}`}
                     >
                       <span class="visually-hidden">{item.label} submenu</span>
                       <span class="site-nav__caret" aria-hidden="true"></span>
                     </button>
                   </div>
-                  <ul class="site-nav__sub" id={`submenu-${item.label.toLowerCase()}`}>
-                    {item.children.map((child) => (
-                      <li>
-                        <a href={child.href}>{child.label}</a>
-                      </li>
+                  <div
+                    class="site-nav__groups"
+                    id={`groups-${item.label.toLowerCase().replace(/[^a-z]+/g, '-')}`}
+                  >
+                    {item.groups.map((group) => (
+                      <div class="site-nav__group">
+                        <p class="site-nav__group-label">
+                          {group.label}
+                        </p>
+                        <ul class="site-nav__group-links">
+                          {group.links.map((link) => (
+                            <li>
+                              <a href={link.href}>{link.label}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </>
               ) : (
                 <a href={item.href} aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}>
@@ -120,23 +116,23 @@ const currentPath = Astro.url.pathname;
 
       // Collapse any open submenus when the menu closes.
       if (expanded) {
-        document.querySelectorAll<HTMLButtonElement>('.site-nav__sub-toggle').forEach((btn) => {
+        document.querySelectorAll<HTMLButtonElement>('.site-nav__toggle-groups').forEach((btn) => {
           btn.setAttribute('aria-expanded', 'false');
         });
       }
     });
 
-    // Submenu toggles: open/close the nested list.
-    const subToggles = document.querySelectorAll<HTMLButtonElement>('.site-nav__sub-toggle');
-    subToggles.forEach((btn) => {
+    // Group toggles: open/close the nested category list.
+    const groupToggles = document.querySelectorAll<HTMLButtonElement>('.site-nav__toggle-groups');
+    groupToggles.forEach((btn) => {
       btn.addEventListener('click', () => {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!expanded));
-        // Toggle an is-open class on the submenu it controls, so the CSS can
+        // Toggle an is-open class on the groups it controls, so the CSS can
         // show/hide it regardless of the DOM structure between button and list.
         const controls = btn.getAttribute('aria-controls');
-        const sub = controls ? document.getElementById(controls) : null;
-        if (sub) sub.classList.toggle('is-open', !expanded);
+        const group = controls ? document.getElementById(controls) : null;
+        if (group) group.classList.toggle('is-open', !expanded);
       });
     });
 
@@ -279,7 +275,7 @@ const currentPath = Astro.url.pathname;
       flex: 1;
     }
 
-    .site-nav__sub-toggle {
+    .site-nav__toggle-groups {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -301,24 +297,41 @@ const currentPath = Astro.url.pathname;
       transition: transform var(--transition-fast);
     }
 
-    .site-nav__sub-toggle[aria-expanded='true'] .site-nav__caret {
+    .site-nav__toggle-groups[aria-expanded='true'] .site-nav__caret {
       transform: rotate(-135deg) translateY(-2px);
     }
 
-    .site-nav__sub {
-      list-style: none;
-      margin: 0;
-      padding: 0 0 0 var(--space-md);
-      border-inline-start: 1px solid var(--color-border);
+    /* Nested category menu: Facebook & Instagram, elk met hun pagina's */
+    .site-nav__groups {
       display: none;
+      margin-block-start: var(--space-xs);
+      padding-inline-start: var(--space-md);
+      border-inline-start: 1px solid var(--color-border);
     }
 
-    .site-nav__sub.is-open {
+    .site-nav__groups.is-open {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    .site-nav__group-label {
+      margin: 0 0 var(--space-2xs);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-accent-warm);
+    }
+
+    .site-nav__group-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
       display: grid;
       gap: 0;
     }
 
-    .site-nav__sub a:not(.button) {
+    .site-nav__group-links a:not(.button) {
       padding: var(--space-xs) 0;
       font-weight: 500;
       font-size: var(--text-sm);
