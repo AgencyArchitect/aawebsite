@@ -2,7 +2,7 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 export const SITE = {
   name: 'Agency Architect',
-  url: 'https://www.agencyarchitect.nl',
+  url: 'https://agencyarchitect.nl',
   description:
     'Growth consultancy voor creative Meta advertising. Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen en schaalbare creative strategy opbouwen.',
   cta: 'Gratis Meta Audit',

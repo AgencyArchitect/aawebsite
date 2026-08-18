@@ -45,12 +45,12 @@ const { Content } = await render(topic);
   jsonLdNodes={[
     {
       '@type': 'WebPage',
-      '@id': `https://www.agencyarchitect.nl${topicUrl(topic)}#webpage`,
-      url: `https://www.agencyarchitect.nl${topicUrl(topic)}`,
+      '@id': `https://agencyarchitect.nl${topicUrl(topic)}#webpage`,
+      url: `https://agencyarchitect.nl${topicUrl(topic)}`,
       name: topic.data.title,
       description: topic.data.description,
       inLanguage: 'nl-NL',
-      isPartOf: { '@id': 'https://www.agencyarchitect.nl/#website' },
+      isPartOf: { '@id': 'https://agencyarchitect.nl/#website' },
       dateModified: topic.data.updatedAt.toISOString().slice(0, 10),
     },
   ]}
