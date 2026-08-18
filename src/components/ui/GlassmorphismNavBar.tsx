@@ -37,12 +37,9 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
   function resolveActive(): string {
     if (typeof window === "undefined") return "Home";
     const path = window.location.pathname;
-    // E-commerce tak: elke facebook/instagram/e-commerce marketing pagina is actief.
-    if (
-      path.startsWith("/e-commerce-marketing/facebook-marketing/") ||
-      path.startsWith("/e-commerce-marketing/instagram-marketing/") ||
-      path === "/e-commerce-marketing/"
-    ) {
+    // E-commerce tak: elke pagina onder /e-commerce-marketing/ is actief,
+    // inclusief /e-commerce-marketing/strategie/ en /black-friday-strategie/.
+    if (path === "/e-commerce-marketing/" || path.startsWith("/e-commerce-marketing/")) {
       return "E-commerce marketing";
     }
     if (path === "/") return "Home";
