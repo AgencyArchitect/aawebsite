@@ -1,23 +1,82 @@
 ---
-import DienstPagina from '../components/DienstPagina.astro';
-import { WERKWIJZE } from '../lib/diensten';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import AuditCTA from '../components/AuditCTA.astro';
 
-const title = 'E-commerce marketing voor jouw webshop';
 const trail = [
   { name: 'Home', url: '/' },
   { name: 'E-commerce marketing', url: '/e-commerce-marketing/' },
 ];
 
-const variabelen = [
-  'Alle kanalen samen, niet één platform',
-  'Meta, Google en andere distributie',
-  'De hele funnel, van herkenning tot aankoop',
-  'Strategie voor jouw merk, niet een template',
-  'Persona, angle, offer en awareness-fase',
-  'Creative en het leerproces eronder',
-  'Testritme per kanaal',
-  'Cashflow en schaalbare groei',
-  'Data die een besluit onderbouwt',
+const pillars = [
+  {
+    nr: '01',
+    title: 'Gespecialiseerd in e-commerce',
+    body: 'We kennen de spelregels van webshopgroei. Niet één kanaal, maar hoe alle platformen samen één groeimachine vormen.',
+  },
+  {
+    nr: '02',
+    title: 'Strategie, funnel en uitvoering onder één dak',
+    body: 'We zetten eerst de hele strategie neer, bouwen de funnel die ernaast hoort, en voeren het daarna uit. Eén samenhangend plan, geen losse fragmenten.',
+  },
+  {
+    nr: '03',
+    title: 'Persoonlijke aanpak, meetbaar resultaat',
+    body: 'Strategie uit jouw merk, product en klant. Geen template, geen eenheidsworst — en elke keuze is herleidbaar naar de data eronder.',
+  },
+];
+
+const approach = [
+  {
+    title: 'Alle platformen',
+    body: 'Facebook, Instagram, Google en waar jouw klant is. Breed aanvliegen betekent per kanaal kiezen waar jouw euro het meeste doet — niet overal een beetje.',
+  },
+  {
+    title: 'Eén strategie',
+    body: 'We zetten een hele strategie samen neer: vanuit je merk, product en klant naar één plan waar je maanden op voortbouwt.',
+  },
+  {
+    title: 'De funnel erbij',
+    body: 'Strategie zonder funnel blijft een plan op papier. We bouwen de route van herkenning tot aankoop en herhaalaankoop, met dezelfde belofte in elke stap.',
+  },
+];
+
+const symptoms = [
+  {
+    title: 'Kanalen werken langs elkaar heen',
+    body: 'Facebook, Instagram, Google en TikTok als losse posten zonder gezamenlijke strategie maken versnippering. E-commerce marketing draait om samenhang.',
+  },
+  {
+    title: 'Een strategie ontbreekt',
+    body: 'Budgets en creatives zonder uitgedachte strategie behandelen symptomen, niet de oorzaak. Eerst de hele strategie, dan de uitvoering.',
+  },
+  {
+    title: 'De funnel is niet doordacht',
+    body: 'Van de eerste exposure tot aankoop en herhaalaankoop: elke stap moet dezelfde belofte dragen. Anders heeft je strategie geen funnel.',
+  },
+];
+
+const werkwijze = [
+  {
+    nr: '01',
+    title: 'Analyse',
+    body: 'We duiken in je account en toetsen de markt. Markt- en productonderzoek, samengebald tot één unieke strategie voor jouw merk.',
+  },
+  {
+    nr: '02',
+    title: 'Strategie',
+    body: 'We bespreken de strategie én jouw echte doel: hoe vliegen we dit aan, waar wil je heen — ook internationaal. Eerst akkoord, dan pas bouwen.',
+  },
+  {
+    nr: '03',
+    title: 'Uitvoering',
+    body: 'We bouwen de funnel en maken het proces overzichtelijk, zodat het daarna op élke campagne en land toepasbaar is. Een groeimachine.',
+  },
+  {
+    nr: '04',
+    title: 'Meten & schalen',
+    body: 'Elke maand: nieuwe campagnes, producten, concurrent-acquisitie, cashflow. Blijven groeien, stap voor stap.',
+  },
 ];
 
 const verdieping = [
@@ -44,39 +103,233 @@ const verdieping = [
 ];
 ---
 
-<DienstPagina
-  eyebrow="E-commerce marketing voor jouw webshop"
-  {title}
-  lede="We vliegen jouw e-commerce marketing breed aan: alle platformen, één samenhangende strategie en de funnel die daarbij hoort. Geen losse kanalen, geen eenheidsworst, maar een hele strategie die we samen neerzetten — zodat je weet waar elke euro heen moet."
-  {trail}
-  valueBullets={[
-    'Brede aanpak over alle platformen, per kanaal goed gemaakt',
-    'Eén samenhangende strategie plus de funnel die ernaast hoort',
-    'Strategie uit jouw merk, product en klant — geen template',
-  ]}
-  symptoms={[
-    {
-      title: 'Kanalen werken langs elkaar heen',
-      body: 'Facebook, Instagram, Google en TikTok als losse posten zonder gezamenlijke strategie maken versnippering. E-commerce marketing draait om samenhang.',
-    },
-    {
-      title: 'Een strategie ontbreekt',
-      body: 'Budgets en creatives zonder uitgedachte strategie behandelen symptomen, niet de oorzaak. Eerst de hele strategie, dan de uitvoering.',
-    },
-    {
-      title: 'De funnel is niet doordacht',
-      body: 'Van de eerste exposure tot aankoop en herhaalaankoop: elke stap moet dezelfde belofte dragen. Anders heeft je strategie geen funnel.',
-    },
-    {
-      title: 'Geen duidelijk leerproces',
-      body: 'Een webshop die blijft gokken op de volgende creative, blijft versnipperd. Een strategie die leert, maakt groeien stapsgewijs.',
-    },
-  ]}
-  variabelen={variabelen}
-    variabelenIntro="E-commerce marketing voor jou weegt in de variabelen het hele model mee: kanalen, strategie, funnel en leerproces samen. Elke keuze is herleidbaar naar een doorwerkte strategie."
-    werkwijze={WERKWIJZE}
-    verdiepingTitle="Bekijk de disciplines eronder"
-    verdieping={verdieping}
-    ctaHeading="Weet je waar je e-commerce marketing naartoe moet?"
-    ctaBody="We beoordelen je gehele marketing- en groei-aanpak — en zetten een strategie neer waar je duurzaam mee schaalt."
+<BaseLayout
+  title="E-commerce marketing voor jouw webshop"
+  description="Breed je e-commerce marketing aanvliegen: alle platformen, één samenhangende strategie en de funnel die ernaast hoort. Voor founders van gezonde e-commerce merken."
+>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
+  </div>
+
+  <!-- 1. Hero -->
+  <header class="container hero">
+    <p class="eyebrow">E-commerce marketing voor jouw webshop</p>
+    <h1>Weet waar elke euro van je webwinkel heen moet</h1>
+    <p class="lede hero__lede">
+      We vliegen jouw e-commerce marketing breed aan: alle platformen, één samenhangende strategie
+      en de funnel die daarbij hoort. Geen losse kanalen, geen eenheidsworst — maar een hele
+      strategie die we samen neerzetten, zodat je weet waar elke euro heen moet.
+    </p>
+    <a class="button button--primary" href="/creative-scale-audit/">Gratis Meta Audit</a>
+  </header>
+
+  <!-- 2. Waarde-pijlers -->
+  <section class="section" aria-labelledby="pillars-heading">
+    <div class="container">
+      <p class="eyebrow">Waarom e-commerce marketing</p>
+      <h2 id="pillars-heading" class="section-title">Drie waarden waar we op bouwen</h2>
+      <ol class="pillars">
+        {pillars.map((p) => (
+          <li class="pillar">
+            <span class="pillar__nr" aria-hidden="true">{p.nr}</span>
+            <div>
+              <h3>{p.title}</h3>
+              <p class="text-soft">{p.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3. Brede aanpak -->
+  <section class="section section--wash" aria-labelledby="approach-heading">
+    <div class="container">
+      <p class="eyebrow">De aanpak</p>
+      <h2 id="approach-heading" class="section-title">Breed aanvliegen, één plan neerzetten</h2>
+      <div class="grid-3 approach-grid">
+        {approach.map((a) => (
+          <article class="symptom">
+            <h3>{a.title}</h3>
+            <p class="text-soft">{a.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Symptomen -->
+  <section class="section section--ink" aria-labelledby="symptoms-heading">
+    <div class="container">
+      <p class="eyebrow">De symptomen die we telkens weer zien</p>
+      <h2 id="symptoms-heading" class="section-title">Waarom merken groeigeld laten liggen</h2>
+      <div class="grid-3 symptom-grid">
+        {symptoms.map((s) => (
+          <article class="symptom">
+            <h3>{s.title}</h3>
+            <p class="text-soft">{s.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Werkwijze -->
+  <section class="section" aria-labelledby="aanpak-heading">
+    <div class="container">
+      <p class="eyebrow">Zo werk ik</p>
+      <h2 id="aanpak-heading" class="section-title">Vier stappen, in jouw toon</h2>
+      <ol class="werkwijze">
+        {werkwijze.map((step) => (
+          <li class="werkwijze__step">
+            <span class="werkwijze__nr" aria-hidden="true">{step.nr}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p class="text-soft">{step.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6. Verdieping / backlinks -->
+  <section class="section section--wash" aria-labelledby="verdieping-heading">
+    <div class="container">
+      <p class="eyebrow">Verdieping</p>
+      <h2 id="verdieping-heading" class="section-title">Bekijk de disciplines eronder</h2>
+      <div class="grid-2 verdieping-grid">
+        {verdieping.map((d) => (
+          <article class="symptom">
+            <h3>
+              <a href={d.url}>{d.title}</a>
+            </h3>
+            <p class="text-soft">{d.summary}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. CTA -->
+  <AuditCTA
+    heading="Weet je waar je e-commerce marketing naartoe moet?"
+    body="We beoordelen je gehele marketing- en groei-aanpak — en zetten een strategie neer waar je duurzaam mee schaalt."
   />
+</BaseLayout>
+
+<style>
+  .hero {
+    padding-block: var(--space-lg) var(--space-2xl);
+  }
+
+  .hero h1 {
+    margin-block-start: var(--space-md);
+    max-inline-size: 22ch;
+  }
+
+  .hero__lede {
+    margin-block: var(--space-lg);
+    max-inline-size: var(--width-content);
+  }
+
+  .section-title {
+    margin-block: var(--space-xs) var(--space-lg);
+  }
+
+  .pillars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-inline-size: var(--width-wide);
+  }
+
+  .pillar {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .pillar__nr {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-accent-warm);
+    min-inline-size: 2.5ch;
+  }
+
+  .pillar h3 {
+    font-size: var(--text-xl);
+  }
+
+  .pillar .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  .approach-grid,
+  .symptom-grid,
+  .verdieping-grid {
+    margin-block-start: var(--space-lg);
+  }
+
+  .symptom {
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .symptom h3 {
+    font-size: var(--text-xl);
+  }
+
+  .symptom .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+
+  .section--ink .symptom {
+    border-block-start-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .verdieping h3 a {
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .verdieping h3 a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  .werkwijze {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-inline-size: var(--width-wide);
+  }
+
+  .werkwijze__step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-lg);
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+  }
+
+  .werkwijze__nr {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    color: var(--color-accent-warm);
+    min-inline-size: 2.5ch;
+  }
+
+  .werkwijze__step h3 {
+    font-size: var(--text-xl);
+  }
+
+  .werkwijze__step .text-soft {
+    margin-block-start: var(--space-xs);
+    max-inline-size: var(--width-content);
+  }
+</style>
