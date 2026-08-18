@@ -23,4 +23,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://www.agencyarchitect.nl/sitemap-index.xml
+Sitemap: https://agencyarchitect.nl/sitemap-index.xml
