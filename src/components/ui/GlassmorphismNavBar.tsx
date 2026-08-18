@@ -39,8 +39,8 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
     const path = window.location.pathname;
     // E-commerce tak: elke facebook/instagram/e-commerce marketing pagina is actief.
     if (
-      path.startsWith("/facebook-marketing/") ||
-      path.startsWith("/instagram-marketing/") ||
+      path.startsWith("/e-commerce-marketing/facebook-marketing/") ||
+      path.startsWith("/e-commerce-marketing/instagram-marketing/") ||
       path === "/e-commerce-marketing/"
     ) {
       return "E-commerce marketing";
@@ -87,7 +87,7 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
 
   const listItems: ListItem[] = [
     { label: "Home", url: "/", icon: Home },
-    { label: "E-commerce marketing", url: "/facebook-marketing/", icon: Store, groups: ECOMMERCE_GROUPS },
+    { label: "E-commerce marketing", url: "/e-commerce-marketing/", icon: Store, groups: ECOMMERCE_GROUPS },
     { label: "Inzichten", url: "/inzichten/", icon: Lightbulb },
     { label: "Over", url: "/over/", icon: User },
   ];

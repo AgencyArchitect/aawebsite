@@ -108,14 +108,14 @@ export function disciplineLinks(
     .filter((d) => d !== current)
     .map((d) => ({
       title: titles[d],
-      url: `/${platform}-marketing/${d}/`,
+      url: `/e-commerce-marketing/${platform}-marketing/${d}/`,
       summary: `De ${titles[d].toLowerCase()}-discipline binnen ${platform === 'facebook' ? 'Facebook' : 'Instagram'} marketing.`,
     }));
 
   const platformLabel = platform === 'facebook' ? 'Facebook marketing' : 'Instagram marketing';
   siblings.unshift({
     title: platformLabel,
-    url: `/${platform}-marketing/`,
+    url: `/e-commerce-marketing/${platform}-marketing/`,
     summary: `De hoofdpagina over ${platformLabel.toLowerCase()} voor e-commerce, waar alle vier disciplines samenkomen.`,
   });
 

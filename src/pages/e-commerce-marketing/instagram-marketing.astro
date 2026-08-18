@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import AuditCTA from '../components/AuditCTA.astro';
-import { getLiveTopics, topicUrl } from '../lib/site';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import AuditCTA from '../../components/AuditCTA.astro';
+import { getLiveTopics, topicUrl } from '../../lib/site';
 
 const trail = [
   { name: 'Home', url: '/' },
-  { name: 'Instagram marketing', url: '/instagram-marketing/' },
+  { name: 'Instagram marketing', url: '/e-commerce-marketing/instagram-marketing/' },
 ];
 
 const allTopics = await getLiveTopics();

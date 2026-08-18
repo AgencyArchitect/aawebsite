@@ -11,16 +11,19 @@ export const SITE = {
 export type Topic = CollectionEntry<'topics'>;
 
 const PLATFORM_SLUGS: Record<string, string> = {
-  facebook: 'facebook-marketing',
-  instagram: 'instagram-marketing',
+  facebook: 'e-commerce-marketing/facebook-marketing',
+  instagram: 'e-commerce-marketing/instagram-marketing',
 };
 
-/** Path segments for a topic, e.g. ["facebook-marketing", "adverteren", "supplementen"]. */
+/**
+ * Path segments for a topic, e.g. ["e-commerce-marketing", "facebook-marketing", "adverteren", "supplementen"].
+ * E-commerce marketing is the overarching topic; the platform slugs are nested below it.
+ */
 export function topicSegments(topic: Topic): string[] {
-  const segments = [PLATFORM_SLUGS[topic.data.platform]];
-  if (topic.data.discipline) segments.push(topic.data.discipline);
-  if (topic.data.niche) segments.push(topic.data.niche);
-  return segments;
+  return PLATFORM_SLUGS[topic.data.platform].split('/').concat(
+    topic.data.discipline ? [topic.data.discipline] : [],
+    topic.data.niche ? [topic.data.niche] : [],
+  );
 }
 
 /** Site-relative URL for a topic, with trailing slash. */
