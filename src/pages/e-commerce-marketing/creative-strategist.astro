@@ -1,0 +1,84 @@
+---
+import DienstPagina from '../../components/DienstPagina.astro';
+import { WERKWIJZE } from '../../lib/diensten';
+
+const title = 'Creative strategist inhuren';
+const trail = [
+  { name: 'Home', url: '/' },
+  { name: 'E-commerce marketing', url: '/e-commerce-marketing/' },
+  { name: 'Creative strategist', url: '/e-commerce-marketing/creative-strategist/' },
+];
+
+const variabelen = [
+  'De persona die je aanspreekt',
+  'De angle van je creative',
+  'Het concept van je creative',
+  'Het format',
+  'De hook als hypothese, geen losse zin',
+  'Het offer dat je doet',
+  'De awareness-fase waarin je iemand raakt',
+  'Je testritme per kanaal',
+  'Wat je uit eerdere tests geleerd hebt',
+  'De route van ad naar pagina naar aankoop',
+];
+
+const verdieping = [
+  {
+    title: 'E-commerce marketing',
+    url: '/e-commerce-marketing/',
+    summary: 'De overkoepelende pagina over e-commerce marketing: alle platformen, één strategie, de funnel.',
+  },
+  {
+    title: 'E-commerce strategie',
+    url: '/e-commerce-marketing/strategie/',
+    summary: 'Strategie die begint bij merk, product en klant, en dan pas bij de campagne.',
+  },
+  {
+    title: 'Facebook marketing',
+    url: '/e-commerce-marketing/facebook-marketing/',
+    summary: 'Facebook als het zwaartepunt van Meta: organisch, adverteren, funnels en copywriting samen tot één systeem.',
+  },
+  {
+    title: 'Instagram marketing',
+    url: '/e-commerce-marketing/instagram-marketing/',
+    summary: 'Instagram als ontdekkings- en bewijskanaal, met een eigen aanpak die past bij snelheid en creative fatigue.',
+  },
+];
+---
+
+<DienstPagina
+  eyebrow="Creative strategist inhuren"
+  {title}
+  lede="Een creative strategist is de brug tussen data en verhaal: hij vertaalt performance-inzichten naar creatieve concepten die écht verkopen — vóórdat er een frame of een regel tekst is."
+  {trail}
+  valueBullets={[
+    'Eén strategie die data én creative verbindt, geen losse fragmenten',
+    'Een creative strategist die de hele klantreis ziet, van ad tot aankoop',
+    'Eerst akkoord op de strategie, dan pas de uitvoering',
+  ]}
+  symptoms={[
+    {
+      title: 'Advertenties die er goed uitzien, maar niet verkopen',
+      body: 'Mooie beelden en pakkende hooks zonder strategie behandelen het symptoom, niet de oorzaak. Resultaat blijft uit omdat de boodschap niet onderbouwd is.',
+    },
+    {
+      title: 'Media buyer of creative, nooit beide',
+      body: 'Een media buyer optimaliseert structuur en targeting; een creative zonder data gokt op gevoel. Een creative strategist zet die twee samen en denkt in systemen.',
+    },
+    {
+      title: 'Steeds nieuwe creatives, nooit een hypothese',
+      body: 'Zonder hypothese is een creative een gok. Elke goede creative begint als een te toetsen veronderstelling over je klant — dat is waar strategie begint.',
+    },
+    {
+      title: 'Creative fatigue sneller dan de strategie bijbenen kan',
+      body: 'Creative is een leerproces, geen asset die je eenmalig maakt. Een strategist bouwt het ritme en de variabelen waarmee je fatigue voorblijft.',
+    },
+  ]}
+  variabelen={variabelen}
+  variabelenIntro="Creative strategy weegt de variabelen onder je ads: persona, angle, concept, format en de hook als hypothese. Elke keuze is herleidbaar naar data en leerproces."
+  werkwijze={WERKWIJZE}
+  verdiepingTitle="Bekijk ook deze disciplines"
+  verdieping={verdieping}
+  ctaHeading="Heb je creatives zonder strategie eronder?"
+  ctaBody="We beoordelen je creative en de data eronder — en zetten een creative strategy neer waar je duurzaam mee schaalt."
+/>
