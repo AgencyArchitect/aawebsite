@@ -1,6 +1,6 @@
 ---
 import DienstPagina from '../../components/DienstPagina.astro';
-import { WERKWIJZE } from '../../lib/diensten';
+import { WERKWIJZE, HUB_LINKS } from '../../lib/diensten';
 
 const title = 'Black Friday marketing uitbesteden';
 const trail = [
@@ -20,16 +20,11 @@ const variabelen = [
   'Data die het besluit onderbouwt',
 ];
 
-const verdieping = [
+const verdieping = [...HUB_LINKS,
   {
     title: 'E-commerce marketing',
     url: '/e-commerce-marketing/',
     summary: 'De overkoepelende pagina over e-commerce marketing: alle platformen, één strategie, de funnel.',
-  },
-  {
-    title: 'E-commerce strategie',
-    url: '/e-commerce-marketing/strategie/',
-    summary: 'Strategie die begint bij merk, product en klant, en daarna pas bij de campagne.',
   },
   {
     title: 'Facebook marketing',

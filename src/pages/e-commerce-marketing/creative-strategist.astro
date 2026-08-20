@@ -1,6 +1,6 @@
 ---
 import DienstPagina from '../../components/DienstPagina.astro';
-import { WERKWIJZE } from '../../lib/diensten';
+import { WERKWIJZE, HUB_LINKS } from '../../lib/diensten';
 
 const title = 'Creative strategist inhuren';
 const trail = [
@@ -22,16 +22,11 @@ const variabelen = [
   'De route van ad naar pagina naar aankoop',
 ];
 
-const verdieping = [
+const verdieping = [...HUB_LINKS,
   {
     title: 'E-commerce marketing',
     url: '/e-commerce-marketing/',
     summary: 'De overkoepelende pagina over e-commerce marketing: alle platformen, één strategie, de funnel.',
-  },
-  {
-    title: 'E-commerce strategie',
-    url: '/e-commerce-marketing/strategie/',
-    summary: 'Strategie die begint bij merk, product en klant, en dan pas bij de campagne.',
   },
   {
     title: 'Facebook marketing',

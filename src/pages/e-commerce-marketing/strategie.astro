@@ -1,6 +1,6 @@
 ---
 import DienstPagina from '../../components/DienstPagina.astro';
-import { WERKWIJZE } from '../../lib/diensten';
+import { WERKWIJZE, HUB_LINKS } from '../../lib/diensten';
 
 const title = 'E-commerce marketing strategie';
 const trail = [
@@ -20,7 +20,7 @@ const variabelen = [
   'Data die een besluit onderbouwt',
 ];
 
-const verdieping = [
+const verdieping = [...HUB_LINKS,
   {
     title: 'E-commerce marketing',
     url: '/e-commerce-marketing/',

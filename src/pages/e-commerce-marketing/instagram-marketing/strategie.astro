@@ -1,6 +1,6 @@
 ---
 import DienstPagina from '../../../components/DienstPagina.astro';
-import { WERKWIJZE, VARIABELEN_INSTAGRAM } from '../../../lib/diensten';
+import { WERKWIJZE, VARIABELEN_INSTAGRAM, HUB_LINKS } from '../../../lib/diensten';
 
 const title = 'Instagram strategie uitbesteden';
 const trail = [
@@ -9,7 +9,7 @@ const trail = [
   { name: 'Instagram strategie', url: '/e-commerce-marketing/instagram-marketing/strategie/' },
 ];
 
-const verdieping = [
+const verdieping = [...HUB_LINKS,
   {
     title: 'Instagram marketing',
     url: '/e-commerce-marketing/instagram-marketing/',

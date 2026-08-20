@@ -1,6 +1,6 @@
 ---
 import DienstPagina from '../../../components/DienstPagina.astro';
-import { WERKWIJZE, VARIABELEN_FACEBOOK } from '../../../lib/diensten';
+import { WERKWIJZE, VARIABELEN_FACEBOOK, HUB_LINKS } from '../../../lib/diensten';
 
 const title = 'Facebook strategie uitbesteden';
 const trail = [
@@ -9,7 +9,7 @@ const trail = [
   { name: 'Facebook strategie', url: '/e-commerce-marketing/facebook-marketing/strategie/' },
 ];
 
-const verdieping = [
+const verdieping = [...HUB_LINKS,
   {
     title: 'Facebook marketing',
     url: '/e-commerce-marketing/facebook-marketing/',

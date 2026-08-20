@@ -66,6 +66,30 @@ export const VARIABELEN_INSTAGRAM: string[] = [
   'De route van ad naar profiel naar site',
 ];
 
+/**
+ * De service-pagina's op hub-niveau die élke dienstpagina doorlinkt, zodat er geen
+ * levende pagina als "wees" blijft hangen (SEO-regel: elke pagina ≥ 2 inkomende links)
+ * en bezoekers altijd verder kunnen naar de overkoepelende e-commerce diensten.
+ * URL's zijn bewust identiek aan de nav-data in lib/nav.ts; houd ze hier synchroon.
+ */
+export const HUB_LINKS: DienstVerdieping[] = [
+  {
+    title: 'E-commerce strategie',
+    url: '/e-commerce-marketing/strategie/',
+    summary: 'De overkoepelende strategie achter je groei, los van één kanaal.',
+  },
+  {
+    title: 'Creative strategist',
+    url: '/e-commerce-marketing/creative-strategist/',
+    summary: 'Eén eigenaar van je creative strategy, van research tot schalen.',
+  },
+  {
+    title: 'Black Friday strategie',
+    url: '/e-commerce-marketing/black-friday-strategie/',
+    summary: 'Een plan dat je piekperiode benut zonder je hele jaar op te offeren.',
+  },
+];
+
 export interface DisciplineDef {
   platform: 'facebook' | 'instagram';
   discipline: string;
@@ -119,6 +143,6 @@ export function disciplineLinks(
     summary: `De hoofdpagina over ${platformLabel.toLowerCase()} voor e-commerce, waar alle vier disciplines samenkomen.`,
   });
 
-  return siblings;
+  return [...siblings, ...HUB_LINKS];
 }
 

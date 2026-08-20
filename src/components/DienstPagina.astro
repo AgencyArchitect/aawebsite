@@ -122,12 +122,13 @@ const {
       <h2 id="verdieping-heading" class="section-title">{verdiepingTitle}</h2>
       <div class="grid-2 verdieping-grid">
         {verdieping.map((d) => (
-          <article class="verdieping">
+          <a class="verdieping-card" href={d.url}>
             <h3>
-              <a href={d.url}>{d.title}</a>
+              {d.title}
+              <span class="verdieping-arrow" aria-hidden="true">→</span>
             </h3>
             <p class="text-soft">{d.summary}</p>
-          </article>
+          </a>
         ))}
       </div>
     </div>
@@ -177,31 +178,59 @@ const {
     margin-block-start: var(--space-lg);
   }
 
-  .symptom,
-  .verdieping {
+  .symptom {
     padding-block: var(--space-lg);
     border-block-start: var(--border-hairline);
   }
 
+  .verdieping-card {
+    display: block;
+    padding-block: var(--space-lg);
+    border-block-start: var(--border-hairline);
+    text-decoration: none;
+    min-block-size: var(--space-3xl);
+    transition: background-color var(--transition-fast);
+  }
+
   .symptom h3,
-  .verdieping h3 {
+  .verdieping-card h3 {
     font-size: var(--text-xl);
   }
 
   .symptom .text-soft,
-  .verdieping .text-soft {
+  .verdieping-card .text-soft {
     margin-block-start: var(--space-xs);
     max-inline-size: var(--width-content);
   }
 
-  .verdieping h3 a {
-    text-decoration: none;
+  .verdieping-card h3 {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-md);
     color: var(--color-ink);
   }
 
-  .verdieping h3 a:hover {
+  .verdieping-card h3:hover,
+  .verdieping-card:focus-visible h3 {
     text-decoration: underline;
     text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
+
+  .verdieping-arrow {
+    color: var(--color-accent-warm);
+    transition: transform var(--transition-fast);
+  }
+
+  .verdieping-card:hover .verdieping-arrow,
+  .verdieping-card:focus-visible .verdieping-arrow {
+    transform: translateX(2px);
+  }
+
+  .verdieping-card:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
   }
 
   .werkwijze {
