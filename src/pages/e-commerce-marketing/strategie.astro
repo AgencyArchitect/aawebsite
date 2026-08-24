@@ -571,6 +571,10 @@ const jsonLdNodes = [
   .hero-sales-chart {
     inline-size: 100%;
     block-size: 360px;
+    /* Liveline laat aan de linkerrand een canvas-fade staan. Op mobiel
+       maakt dat het begin van de lijnen onnodig vaag; de chart-wrapper
+       mag daarom niets maskeren of wegfaden. */
+    overflow: visible;
   }
   @media (max-width: 47.99rem) {
     .hero-sales-chart-crop {
@@ -596,6 +600,9 @@ const jsonLdNodes = [
      op het canvas getekend en blijft daardoor volledig intact. */
   .hero-sales-chart button {
     display: none !important;
+  }
+  .hero-sales-chart canvas {
+    opacity: 1 !important;
   }
 
   /* ---------- USP's ---------- */
