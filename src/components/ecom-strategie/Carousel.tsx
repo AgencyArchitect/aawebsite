@@ -16,7 +16,7 @@ interface CarouselProps {
 
 /** Lichte, responsive principes-carrousel met beeldtiles en linksonder
  * uitgelijnde tekst-overlay. */
-export default function Carousel({ items, autoplayMs = 6000, label }: CarouselProps) {
+export default function Carousel({ items, autoplayMs = 0, label }: CarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const pausedRef = useRef(false);
@@ -61,6 +61,7 @@ export default function Carousel({ items, autoplayMs = 6000, label }: CarouselPr
 
   return (
     <div className="crs" aria-roledescription="carrousel" aria-label={label}>
+      <p className="sr-only">Gebruik de knoppen om tussen de vier principes te navigeren.</p>
       <div className="crs__track" ref={trackRef}>
         {items.map((item, i) => (
           <article className="crs__slide" key={item.title} aria-hidden={i !== active}>

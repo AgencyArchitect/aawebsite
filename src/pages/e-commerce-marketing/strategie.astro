@@ -128,7 +128,7 @@ const testimonials = [
     title: 'Roald Mulder',
     description: socialRoadReview,
     imageUrl: '/images/klantreview-social-road-ecommerce.jpeg',
-    reviewUrl: 'https://share.google/7emGG3WHdNp0ZDAEq',
+
   },
 ];
 
@@ -1003,21 +1003,7 @@ const jsonLdNodes = [
     color: var(--color-ink-soft);
     font-size: var(--text-sm);
   }
-  .testimonial-carousel__review-link {
-    inline-size: fit-content;
-    margin-block-start: var(--space-sm);
-    color: var(--color-accent-warm);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    text-underline-offset: 0.18em;
-  }
-  .testimonial-carousel__review-link:hover {
-    color: var(--color-ink);
-  }
-  .testimonial-carousel__review-link:focus-visible {
-    outline: 2px solid var(--color-focus);
-    outline-offset: 3px;
-  }
+
   @media (max-width: 47.99rem) {
     .testimonial-carousel__layout {
       grid-template-columns: 1fr;
@@ -1200,6 +1186,20 @@ const jsonLdNodes = [
   .principes-section .crs {
     margin-block-start: clamp(2rem, 4vw, 3.5rem);
   }
+  @media (min-width: 970px) {
+    .principes-section .crs__track {
+      grid-auto-flow: initial;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      overflow: visible;
+      scroll-snap-type: none;
+    }
+    .principes-section .crs__slide {
+      min-inline-size: 0;
+    }
+    .principes-section .crs__controls {
+      display: none;
+    }
+  }
   .crs__track {
     display: grid;
     grid-auto-flow: column;
@@ -1209,6 +1209,12 @@ const jsonLdNodes = [
     scroll-snap-type: x mandatory;
     padding-block-end: var(--space-sm);
     scrollbar-width: none;
+  }
+  @media (max-width: 969px) {
+    .principes-section .crs__track {
+      grid-auto-columns: min(88%, 24rem);
+      padding-inline-end: 12%;
+    }
   }
   .crs__track::-webkit-scrollbar {
     display: none;
