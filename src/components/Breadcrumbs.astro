@@ -41,15 +41,48 @@ const jsonLd = {
     margin: 0;
     padding: 0;
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-xs);
-    font-size: var(--text-sm);
+    flex-wrap: nowrap;
+    gap: clamp(0.2rem, 1.5vw, var(--space-xs));
+    font-size: clamp(0.62rem, 2.65vw, var(--text-sm));
     color: var(--color-ink-soft);
+    white-space: nowrap;
+    overflow: hidden;
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+
+  .breadcrumbs {
+    display: block;
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    overflow: hidden;
+  }
+
+  .breadcrumbs li {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .breadcrumbs li:last-child {
+    flex: 1 1 auto;
+  }
+
+  @media (max-width: 47.99rem) {
+    .breadcrumbs ol {
+      font-size: clamp(0.58rem, 2.45vw, 0.75rem);
+      line-height: 1.35;
+      gap: 0.18rem;
+    }
+
+    .breadcrumbs li:not(:last-child)::after {
+      margin-inline-start: 0.18rem;
+    }
   }
 
   .breadcrumbs li:not(:last-child)::after {
     content: '/';
-    margin-inline-start: var(--space-xs);
+    margin-inline-start: clamp(0.2rem, 1.5vw, var(--space-xs));
     color: var(--color-accent-warm);
   }
 

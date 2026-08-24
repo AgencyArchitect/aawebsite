@@ -68,12 +68,24 @@ const year = new Date().getFullYear();
   }
 
   .site-footer a {
+    position: relative;
+    z-index: 1;
+    display: block;
+    inline-size: 100%;
     color: var(--color-on-ink);
     text-decoration: none;
   }
 
   .site-footer a:hover {
     text-decoration: underline;
+  }
+
+  .site-footer li a {
+    padding-block: 0.2rem;
+  }
+
+  .site-footer__heading a {
+    padding-block: 0.15rem;
   }
 
   .site-footer :focus-visible {

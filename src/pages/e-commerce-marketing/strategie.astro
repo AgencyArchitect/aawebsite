@@ -4,7 +4,6 @@ import HeroTitleWord from '../../components/ecom-strategie/HeroTitleWord.tsx';
 import HeroSalesChart from '../../components/ecom-strategie/HeroSalesChart.tsx';
 import AnimatedList from '../../components/ecom-strategie/AnimatedList.tsx';
 import LongPressReveal from '../../components/ecom-strategie/LongPressReveal.tsx';
-import MessageStack from '../../components/ecom-strategie/MessageStack.tsx';
 import TestimonialCarousel from '../../components/ecom-strategie/TestimonialCarousel.tsx';
 
 const socialRoadReview = `Sinds 2025 werken wij met Quincy en Thomas van Agency Architect en dat is voor mij als ondernemer echt een gamechanger geweest.
@@ -174,27 +173,6 @@ const principes = [
   },
 ];
 
-const ctaMessages = [
-  {
-    icon: 'mail' as const,
-    source: 'Mail',
-    body: 'Dankjewel voor je gegevens. Agency Architect neemt binnenkort contact met je op.',
-    time: 'nu',
-  },
-  {
-    icon: 'whatsapp' as const,
-    source: 'WhatsApp — Thomas',
-    body: 'Leuk je te spreken vandaag. We gaan grote stappen zetten met je brand.',
-    time: '14:02',
-  },
-  {
-    icon: 'agenda' as const,
-    source: 'Agenda',
-    body: 'Meeting met Thomas volgende week om 15.00.',
-    time: 'do 15:00',
-  },
-];
-
 const faq = [
   {
     question: 'Zijn jullie een agency?',
@@ -242,7 +220,7 @@ const jsonLdNodes = [
 ---
 
 <BaseLayout {title} {description} {jsonLdNodes}>
-  <div class="container section--tight">
+  <div class="container strategie-breadcrumbs">
     <nav class="crumbs" aria-label="Kruimelpad">
       {trail.map((t, i) => (
         <span>
@@ -259,12 +237,7 @@ const jsonLdNodes = [
       <div class="hero-strategie__copy">
         <p class="eyebrow">E-commerce marketing strategie</p>
         <h1 class="hero-strategie__title">
-          <span class="hero-strategie__line">
-            <HeroTitleWord client:visible text="Van gokken" />
-          </span>
-          <span class="hero-strategie__line">
-            <HeroTitleWord client:visible text="Naar " /><HeroTitleWord client:visible text="groei." accent />
-          </span>
+          <HeroTitleWord client:visible text="Van gokken naar " /><HeroTitleWord client:visible text="groei." accent />
         </h1>
         <p class="hero-strategie__lede">
           Voor brands die willen sturen op winst, voorspelbare groei en een eigen markt — zonder
@@ -274,7 +247,7 @@ const jsonLdNodes = [
           Samen bouwen we een strategie waar je een brand op bouwt.
         </p>
         <div class="hero-strategie__ctas">
-          <a class="button button--primary" href="#plan-een-call">Plan een call in</a>
+          <a class="button button--primary" href="#calendly-embed">Plan een call in</a>
           <a class="button button--outline" href="#aanpak-heading">Bekijk de aanpak ↓</a>
         </div>
         <ul class="hero-strategie__badges">
@@ -428,28 +401,17 @@ const jsonLdNodes = [
     </div>
   </section>
 
-  <!-- 9. Call to action -->
-  <section class="section cta-ink" aria-labelledby="cta-heading" id="plan-een-call">
-    <div class="container split">
-      <div>
-        <p class="eyebrow">Call to action</p>
-        <h2 id="cta-heading" class="section-title">Klaar om de volgende stap te zetten met jouw brand?</h2>
-        <p class="text-soft">Plan dan een call in. Zo werkt het:</p>
-        <ol class="cta-ink__steps">
-          <li>Laat je gegevens achter.</li>
-          <li>Thomas belt je, om een afspraak in te plannen. (5 min.)</li>
-          <li>Online kennismaking. (30 min.)</li>
-        </ol>
-        <a
-          class="button button--inverse"
-          href="mailto:hallo@agencyarchitect.nl?subject=Kennismaking%20e-commerce%20marketing%20strategie"
-        >
-          Plan een call in
-        </a>
-      </div>
-      <div class="cta-ink__stack">
-        <MessageStack client:visible messages={ctaMessages} />
-      </div>
+  <!-- 9. Call to action / Calendly -->
+  <section class="section calendly-section" id="calendly-embed" aria-labelledby="calendly-heading">
+    <div class="container calendly-section__inner">
+      <p class="eyebrow">Plan je kennismaking</p>
+      <h2 id="calendly-heading" class="section-title">Kies een moment dat jou uitkomt.</h2>
+      <div
+        class="calendly-inline-widget"
+        data-url="https://calendly.com/thomas-agencyarchitect/30min?hide_event_type_details=1&hide_gdpr_banner=1"
+        style="min-width:320px;height:700px;"
+      ></div>
+      <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
     </div>
   </section>
 
@@ -463,12 +425,123 @@ const jsonLdNodes = [
 </BaseLayout>
 
 <style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+  /* Dedicated visual system for the complete e-commerce marketing / strategy page. */
+  :root {
+    --ecom-primary: #071d51;
+    --ecom-background: #f6f4f0;
+    --ecom-accent: #8a5a2b;
+    --ecom-heading-font: 'Times New Roman', Times, Georgia, serif;
+    --ecom-body-font: 'Poppins', Arial, sans-serif;
+  }
+
+  body:has(.hero-strategie) {
+    --color-ink: #071d51;
+    --color-ink-soft: #071d51;
+    --color-paper: #f6f4f0;
+    --color-white: #f6f4f0;
+    --color-blue-wash: #f6f4f0;
+    --color-border: #071d51;
+    --color-accent-warm: #8a5a2b;
+    --color-success: #8a5a2b;
+    --color-error: #8a5a2b;
+    --color-focus: #071d51;
+    --color-on-ink: #f6f4f0;
+    --color-on-ink-soft: #f6f4f0;
+    --font-serif: 'Times New Roman', Times, Georgia, serif;
+    --font-sans: 'Poppins', Arial, sans-serif;
+    font-family: var(--ecom-body-font);
+    color: var(--ecom-primary);
+    background: var(--ecom-background);
+  }
+
+  body:has(.hero-strategie) h1,
+  body:has(.hero-strategie) h2,
+  body:has(.hero-strategie) h3 {
+    font-family: var(--ecom-heading-font);
+    color: var(--ecom-primary);
+  }
+
+  body:has(.hero-strategie) .site-header,
+  body:has(.hero-strategie) .hero-strategie,
+  body:has(.hero-strategie) .section,
+  body:has(.hero-strategie) .site-footer {
+    background-color: var(--ecom-background);
+  }
+
+  body:has(.hero-strategie) .site-header,
+  body:has(.hero-strategie) .site-footer {
+    background-color: var(--ecom-primary);
+  }
+
+  body:has(.hero-strategie) .button--primary,
+  body:has(.hero-strategie) .button--inverse {
+    background-color: var(--ecom-primary);
+    border-color: var(--ecom-primary);
+    color: var(--ecom-background);
+  }
+
+  body:has(.hero-strategie) .button--outline {
+    border-color: var(--ecom-primary);
+    color: var(--ecom-primary);
+  }
+
+  body:has(.hero-strategie) .eyebrow,
+  body:has(.hero-strategie) .accent {
+    color: var(--ecom-accent);
+  }
+
+  /* Contrasting section treatment: the problem-recognition block returns to
+     the light blue wash used elsewhere in the site. The header stays beige. */
+  body:has(.hero-strategie) .site-header {
+    background-color: var(--ecom-background) !important;
+  }
+
+  body:has(.hero-strategie) .roulette-section {
+    background-color: #eef1f7 !important;
+  }
+
+  body:has(.hero-strategie) .calendly-section {
+    background-color: var(--ecom-primary) !important;
+    color: #ffffff;
+  }
+
+  /* Keep the transition from the calendar to the footer compact. */
+  body:has(.hero-strategie) .site-footer {
+    margin-block-start: 1rem;
+  }
+
   /* Page-scoped classes are page-unique; global is required so the styles
      also reach DOM rendered inside React islands (client:* hydration). */
   /* ---------- Kruimels ---------- */
   .crumbs {
-    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    min-inline-size: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: clamp(0.58rem, 2.45vw, 0.75rem);
+    line-height: 1.35;
     color: var(--color-ink-soft);
+  }
+  .crumbs > span {
+    min-inline-size: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .crumbs > span:last-child {
+    flex: 1 1 auto;
+  }
+  @media (max-width: 47.99rem) {
+    .strategie-breadcrumbs {
+      inline-size: 100%;
+      min-inline-size: 0;
+      overflow: hidden;
+      padding-inline: 24px;
+      box-sizing: border-box;
+    }
   }
   .crumbs a {
     color: inherit;
@@ -481,25 +554,74 @@ const jsonLdNodes = [
   /* ---------- Hero ---------- */
   .hero-strategie {
     background-color: var(--color-paper);
-    padding-block: var(--space-3xl) var(--space-2xl);
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(1rem, 2vw, 1.75rem);
+  }
+  .strategie-breadcrumbs {
+    padding-block: clamp(1rem, 2vw, 1.5rem) clamp(0.5rem, 1vw, 0.75rem);
   }
   .hero-strategie__inner {
     display: grid;
     gap: var(--space-2xl);
     align-items: center;
   }
-  @media (min-width: 56rem) {
+  @media (min-width: 970px) {
     .hero-strategie__inner {
       grid-template-columns: 7fr 5fr;
     }
   }
+  @media (max-width: 969px) {
+    .hero-strategie__inner {
+      inline-size: 100%;
+      min-inline-size: 0;
+      max-inline-size: none;
+      margin-inline: 0;
+      padding-inline: 24px;
+      box-sizing: border-box;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-xl);
+    }
+    .hero-strategie {
+      padding-block-start: 1.5rem;
+      padding-block-end: 0.5rem;
+    }
+    .strategie-breadcrumbs {
+      padding-block-start: 0.75rem;
+      padding-block-end: 0.5rem;
+    }
+    .hero-strategie__copy,
+    .hero-strategie__art,
+    .hero-sales-chart-crop,
+    .hero-sales-chart {
+      inline-size: 100%;
+      min-inline-size: 0;
+      max-inline-size: 100%;
+    }
+    .hero-strategie__art {
+      display: block;
+      overflow: visible;
+    }
+  }
   .hero-strategie__title {
-    max-inline-size: 20ch;
-    font-size: var(--text-3xl);
+    max-inline-size: none;
+    /* Keep the complete promise on one line. The same fluid scale is used on
+       mobile and desktop, with a smaller mobile floor so it fits at 320px. */
+    font-size: clamp(1.75rem, 5.5vw, 4rem);
     line-height: var(--leading-tight);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.03em;
+    white-space: nowrap;
     margin-block-start: var(--space-sm);
     color: var(--color-ink);
+  }
+  @media (max-width: 23rem) {
+    .hero-strategie__title {
+      font-size: clamp(1.45rem, 7.9vw, 1.75rem);
+      letter-spacing: -0.045em;
+    }
+  }
+  @media (min-width: 48rem) {
+    .hero-strategie__title {
+      font-size: clamp(2.3rem, 5.5vw, 4rem);
+    }
   }
   .hero-strategie__lede {
     font-size: var(--text-lg);
@@ -543,9 +665,10 @@ const jsonLdNodes = [
     inline-size: 100%;
   }
 
-  /* Titel: twee losse regels, elk een Calligraph-instantie */
+  /* Keep the Calligraph wrappers inline so the headline never breaks between
+     "Van gokken" and "naar groei". */
   .hero-strategie__line {
-    display: block;
+    display: inline;
   }
   .hero-word--stable {
     text-decoration: underline;
@@ -576,11 +699,17 @@ const jsonLdNodes = [
        mag daarom niets maskeren of wegfaden. */
     overflow: visible;
   }
-  @media (max-width: 47.99rem) {
+  @media (max-width: 969px) {
     .hero-sales-chart-crop {
       /* Houd de onderkant van de plot zichtbaar: de vorige 16rem cropte
          de 0-lijn samen met de onderste grafiekzone weg. */
       block-size: 20rem;
+    }
+    .hero-sales-chart {
+      overflow: hidden;
+    }
+    .hero-strategie__art {
+      margin-inline: 0;
     }
   }
   /* Liveline's toggle-chips (waarmee je losse lijnen kunt aan/uitzetten)
@@ -606,61 +735,40 @@ const jsonLdNodes = [
   }
 
   /* ---------- USP's ---------- */
+  .usp-section {
+    background-color: var(--ecom-primary) !important;
+    color: var(--color-on-ink);
+  }
   .aa-feature-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0 !important;
-    inline-size: 100% !important;
-    max-inline-size: none !important;
+    gap: var(--space-lg);
+    inline-size: 100%;
+    max-inline-size: var(--width-wide);
     margin-inline: auto;
-    padding: 0 !important;
-  }
-  /* This feature block owns the full USP section. The surrounding section
-     keeps no extra white strip above, below, or beside the cards. */
-  .usp-section {
-    padding-block: 0 !important;
-  }
-  .usp-section > .container {
-    inline-size: 100% !important;
-    max-inline-size: none !important;
-    padding-inline: 0 !important;
   }
   .aa-feature-card {
     position: relative;
     display: flex;
-    min-block-size: clamp(14rem, 22vw, 20rem);
+    min-block-size: clamp(16rem, 24vw, 22rem);
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-block: clamp(2rem, 5vw, 5rem);
-    padding-inline: clamp(1.5rem, 5vw, 6rem);
+    padding: var(--space-lg);
     text-align: center;
-    border-block: 1px solid var(--color-border);
-  }
-  .aa-feature-card:first-child {
-    border-inline-start: 1px solid var(--color-border);
-  }
-  .aa-feature-card:not(:last-child)::after {
-    position: absolute;
-    inset-block: 12%;
-    inset-inline-end: calc(var(--space-md) * -0.5);
-    inline-size: 1px;
-    content: '';
-    background: linear-gradient(
-      to bottom,
-      transparent,
-      var(--color-border),
-      transparent
-    );
+    border: 1px solid var(--color-on-ink-soft);
+    border-radius: var(--radius-sm);
+    background: var(--ecom-primary);
+    color: var(--color-on-ink);
   }
   .aa-feature-card .decor-icon {
-    color: var(--color-accent-warm);
+    color: var(--ecom-accent);
   }
   .aa-feature-icon {
     display: grid;
     place-items: center;
     min-block-size: 2rem;
-    color: var(--color-accent-warm);
+    color: var(--ecom-accent);
   }
   .aa-feature-glyph {
     font-family: var(--font-serif);
@@ -670,34 +778,23 @@ const jsonLdNodes = [
   .aa-feature-card h3 {
     margin-block-start: var(--space-md);
     font-size: var(--text-lg);
+    color: var(--color-on-ink);
   }
   .aa-feature-card p {
     max-inline-size: 38ch;
     margin-block-start: var(--space-xs);
-    color: var(--color-ink-soft);
+    color: var(--color-on-ink-soft);
   }
   @media (max-width: 47.99rem) {
     .aa-feature-grid {
       grid-template-columns: 1fr;
-      gap: 0;
+      gap: var(--space-lg);
     }
-    .aa-feature-card,
-    .aa-feature-card:first-child {
-      min-block-size: clamp(12rem, 46vw, 16rem);
-      border-inline: 0;
+    .aa-feature-card {
+      border-color: var(--color-on-ink-soft);
     }
-    .aa-feature-card:not(:last-child)::after {
-      inset-block: auto;
-      inset-inline: 10%;
-      inset-block-end: 0;
-      inline-size: 80%;
-      block-size: 1px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        var(--color-border),
-        transparent
-      );
+    .aa-feature-card {
+      min-block-size: 0;
     }
   }
 
@@ -790,6 +887,7 @@ const jsonLdNodes = [
     object-position: center;
     opacity: 0.88;
   }
+
   .bento__cell--image .bento__overlay {
     position: relative;
     z-index: 1;
@@ -946,6 +1044,17 @@ const jsonLdNodes = [
   }
 
   /* ---------- Reviews / testimonial carousel ---------- */
+  .testimonials {
+    background-color: var(--ecom-primary) !important;
+    color: var(--ecom-background);
+  }
+  .testimonials .eyebrow,
+  .testimonials .reviews__title {
+    color: #ffffff;
+  }
+  .testimonials .eyebrow {
+    text-align: center;
+  }
   .reviews__title {
     margin-block-start: var(--space-sm);
     text-align: center;
@@ -967,7 +1076,7 @@ const jsonLdNodes = [
     aspect-ratio: 1;
     overflow: hidden;
     border-radius: clamp(1.25rem, 2vw, 2rem);
-    background: var(--color-paper);
+    background: var(--ecom-background);
   }
   .testimonial-carousel__image-layer,
   .testimonial-carousel__image {
@@ -986,12 +1095,13 @@ const jsonLdNodes = [
     padding: clamp(1.5rem, 4vw, 3rem);
     border: var(--border-hairline);
     border-radius: clamp(1.25rem, 2vw, 2rem);
-    background: var(--color-white);
-    box-shadow: 0 1.5rem 3rem rgba(0, 29, 81, 0.14);
+    background: var(--ecom-background);
+    border-color: var(--ecom-primary);
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.22);
   }
   .testimonial-carousel__quote {
     margin: 0;
-    color: var(--color-ink);
+    color: var(--ecom-primary);
     font-size: clamp(1rem, 1.4vw, 1.2rem);
     line-height: var(--leading-relaxed);
     white-space: pre-line;
@@ -1001,13 +1111,13 @@ const jsonLdNodes = [
     gap: 0.25rem;
     margin-block-start: var(--space-lg);
     padding-block-start: var(--space-md);
-    border-block-start: 1px solid var(--color-border);
+    border-block-start: 1px solid var(--ecom-primary);
   }
   .testimonial-carousel__author strong {
-    color: var(--color-ink);
+    color: var(--ecom-accent);
   }
   .testimonial-carousel__author span {
-    color: var(--color-ink-soft);
+    color: var(--ecom-accent);
     font-size: var(--text-sm);
   }
 
@@ -1318,26 +1428,31 @@ const jsonLdNodes = [
     }
   }
 
-  /* ---------- CTA ---------- */
-  .cta-ink {
-    background-color: var(--color-ink);
-    color: var(--color-on-ink);
+  /* ---------- Calendly CTA ---------- */
+  .calendly-section {
+    background-color: var(--ecom-primary);
+    color: #ffffff;
+    padding-block-end: clamp(1rem, 2vw, 1.5rem);
   }
-  .cta-ink .eyebrow {
-    color: var(--color-on-ink-soft);
+  .calendly-section__inner {
+    text-align: center;
   }
-  .cta-ink__steps {
-    margin-block: var(--space-lg);
-    padding-inline-start: 1.4rem;
-    display: grid;
-    gap: var(--space-xs);
-    color: var(--color-on-ink-soft);
+  .calendly-section .eyebrow,
+  .calendly-section .section-title {
+    color: #ffffff;
   }
-  .cta-ink :focus-visible {
-    outline-color: var(--color-on-ink);
+  .calendly-section .section-title {
+    margin-block-end: 0;
   }
-  .cta-ink__stack {
-    align-self: center;
+  .calendly-section .calendly-inline-widget {
+    inline-size: 100%;
+    margin-block-start: var(--space-md);
+  }
+
+  @media (max-width: 47.99rem) {
+    .calendly-section {
+      padding-block-end: 1rem;
+    }
   }
 
   /* MessageStack */

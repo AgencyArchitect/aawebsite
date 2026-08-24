@@ -167,7 +167,7 @@ export default function HeroSalesChart() {
   // linker ruimte nodig voor labels als "1500 orders"; de grote desktop-
   // rechterpadding zou mobiel juist onnodig veel grafiekbreedte opeten.
   useEffect(() => {
-    const media = window.matchMedia('(max-width: 47.99rem)');
+    const media = window.matchMedia('(max-width: 969px)');
     const sync = () => setIsMobile(media.matches);
     sync();
     media.addEventListener('change', sync);
@@ -278,7 +278,9 @@ export default function HeroSalesChart() {
             // grafiek visueel symmetrisch uitgelijnd.
             right: isMobile ? 88 : 100,
             bottom: isMobile ? 52 : 28,
-            left: isMobile ? 88 : 12,
+            // Laat de plot links uitlijnen met de hero-container. De y-as
+            // labels krijgen hun ruimte aan de rechterkant.
+            left: isMobile ? 0 : 12,
           }}
         />
       </div>

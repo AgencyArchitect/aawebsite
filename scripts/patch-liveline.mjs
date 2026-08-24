@@ -1,45 +1,63 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 
-const files = [
-  'node_modules/liveline/dist/index.js',
-  'node_modules/liveline/dist/index.cjs',
-];
-
-function patch(source, file) {
-  let next = source;
-
-  // Liveline's multi-series drawLine call defaults skipDashLine to false.
-  // Pass the arguments in the correct order: colorBlend, skipDashLine,
-  // fillScale. This removes the horizontal moving dashed line.
-  const multiCall = /opts\.scrubAmount,\n\s+reveal,\n\s+opts\.now_ms\n\s+\);/g;
-  next = next.replace(
-    multiCall,
-    'opts.scrubAmount,\n      reveal,\n      opts.now_ms,\n      1,\n      true,\n      1\n    );',
-  );
-
-  // Do not erase the left side of the canvas after drawing. This is a
-  // destination-out operation, so CSS cannot undo it.
-  next = next.replace(
-    /\n\s*ctx\.save\(\);\n\s*ctx\.globalCompositeOperation = "destination-out";\n\s*const fadeGrad = ctx\.createLinearGradient\(layout\.pad\.left, 0, layout\.pad\.left \+ FADE_EDGE_WIDTH, 0\);\n\s*fadeGrad\.addColorStop\(0, "rgba\(0, 0, 0, 1\)"\);\n\s*fadeGrad\.addColorStop\(1, "rgba\(0, 0, 0, 0\)"\);\n\s*ctx\.fillStyle = fadeGrad;\n\s*ctx\.fillRect\(0, 0, layout\.pad\.left \+ FADE_EDGE_WIDTH, layout\.h\);\n\s*ctx\.restore\(\);/g,
-    '',
-  );
-
-  // Keep y-axis labels but remove the horizontal dashed grid strokes.
-  next = next.replace(
-    /\n\s*ctx\.strokeStyle = palette\.gridLine;\n\s*ctx\.beginPath\(\);\n\s*ctx\.moveTo\(pad\.left, y\);\n\s*ctx\.lineTo\(w - pad\.right, y\);\n\s*ctx\.stroke\(\);/g,
-    '',
-  );
-
-  if (next === source) {
-    console.warn(`Liveline patch made no changes in ${file}`);
-  }
-  return next;
+const file = 'node_modules/liveline/dist/index.js';
+if (!existsSync(file)) {
+  console.log('Liveline not installed; skipping visual patch');
+  process.exit(0);
 }
 
-for (const file of files) {
-  if (!existsSync(file)) continue;
-  const source = readFileSync(file, 'utf8');
-  writeFileSync(file, patch(source, file));
+let source = readFileSync(file, 'utf8');
+if (source.includes('AA_LIVELINE_PATCH')) {
+  console.log('Liveline visual patch already applied');
+  process.exit(0);
 }
 
-console.log('Liveline visual patch applied');
+const fadeBlock = `
+  ctx.save();
+  ctx.globalCompositeOperation = "destination-out";
+  const fadeGrad = ctx.createLinearGradient(layout.pad.left, 0, layout.pad.left + FADE_EDGE_WIDTH, 0);
+  fadeGrad.addColorStop(0, "rgba(0, 0, 0, 1)");
+  fadeGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+  ctx.fillStyle = fadeGrad;
+  ctx.fillRect(0, 0, layout.pad.left + FADE_EDGE_WIDTH, layout.h);
+  ctx.restore();`;
+
+const gridBlock = `
+    ctx.strokeStyle = palette.gridLine;
+    ctx.beginPath();
+    ctx.moveTo(pad.left, y);
+    ctx.lineTo(w - pad.right, y);
+    ctx.stroke();`;
+
+const multiCall = `      opts.scrubAmount,
+      reveal,
+      opts.now_ms
+    );`;
+
+let changes = 0;
+if (source.includes(fadeBlock)) {
+  source = source.replaceAll(fadeBlock, '');
+  changes += 1;
+}
+if (source.includes(gridBlock)) {
+  source = source.replaceAll(gridBlock, '');
+  changes += 1;
+}
+if (source.includes(multiCall)) {
+  source = source.replace(multiCall, `      opts.scrubAmount,
+      reveal,
+      opts.now_ms,
+      1,
+      true,
+      1
+    );`);
+  changes += 1;
+}
+
+if (changes === 0) {
+  console.warn('Liveline visual patch found no matching blocks; leaving package untouched');
+  process.exit(0);
+}
+
+writeFileSync(file, `/* AA_LIVELINE_PATCH */\n${source}`);
+console.log(`Liveline visual patch applied (${changes} changes)`);
