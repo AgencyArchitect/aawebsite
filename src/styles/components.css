@@ -123,6 +123,20 @@
     background-color: var(--color-blue-wash);
   }
 
+  .button--outline {
+    background-color: transparent;
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+    /* Compenseer de extra 0.5px randdikte t.o.v. .button zodat de knop
+       even groot blijft als --primary/--inverse. */
+    padding-block: calc(var(--space-sm) - 0.5px);
+    border-width: 1.5px;
+  }
+
+  .button--outline:hover {
+    background-color: var(--color-blue-wash);
+  }
+
   .text-soft {
     color: var(--color-ink-soft);
   }

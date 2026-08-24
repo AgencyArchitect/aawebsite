@@ -1,0 +1,90 @@
+---
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+const { items } = Astro.props as { items: FaqItem[] };
+---
+
+<div class="faq">
+  {items.map((item, i) => (
+    <details class="faq__item" name="ecom-strategie-faq" open={i === 0}>
+      <summary class="faq__q">
+        <span>{item.question}</span>
+        <span class="faq__mark" aria-hidden="true">+</span>
+      </summary>
+      <div class="faq__a">
+        <p set:html={item.answer} />
+      </div>
+    </details>
+  ))}
+</div>
+
+<style>
+  .faq {
+    display: grid;
+    gap: var(--space-sm);
+    max-inline-size: var(--width-content);
+    margin-inline: auto;
+  }
+
+  .faq__item {
+    background-color: var(--color-white);
+    border: var(--border-hairline);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    min-block-size: 44px;
+  }
+
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq__mark {
+    flex-shrink: 0;
+    inline-size: 1.6rem;
+    block-size: 1.6rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    font-weight: 400;
+    transition: transform var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .faq__item[open] .faq__mark {
+    transform: rotate(45deg);
+    background-color: var(--color-ink);
+    color: var(--color-on-ink);
+    border-color: var(--color-ink);
+  }
+
+  .faq__a {
+    padding: 0 var(--space-lg) var(--space-md);
+    color: var(--color-ink-soft);
+  }
+</style>
+
+<script>
+  // Sluit de andere items wanneer er één opent (accordion-gedrag).
+  document.querySelectorAll<HTMLDetailsElement>('details[name="ecom-strategie-faq"]').forEach((d) => {
+    d.addEventListener('toggle', () => {
+      if (!d.open) return;
+      document.querySelectorAll<HTMLDetailsElement>('details[name="ecom-strategie-faq"]').forEach((o) => {
+        if (o !== d) o.open = false;
+      });
+    });
+  });
+</script>

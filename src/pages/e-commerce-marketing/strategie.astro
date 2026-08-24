@@ -1,77 +1,1372 @@
 ---
-import DienstPagina from '../../components/DienstPagina.astro';
-import { WERKWIJZE, HUB_LINKS } from '../../lib/diensten';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HeroTitleWord from '../../components/ecom-strategie/HeroTitleWord.tsx';
+import HeroSalesChart from '../../components/ecom-strategie/HeroSalesChart.tsx';
+import AnimatedList from '../../components/ecom-strategie/AnimatedList.tsx';
+import LongPressReveal from '../../components/ecom-strategie/LongPressReveal.tsx';
+import MessageStack from '../../components/ecom-strategie/MessageStack.tsx';
+import TestimonialCarousel from '../../components/ecom-strategie/TestimonialCarousel.tsx';
 
-const title = 'E-commerce marketing strategie';
+const socialRoadReview = `Sinds 2025 werken wij met Quincy en Thomas van Agency Architect en dat is voor mij als ondernemer echt een gamechanger geweest.
+
+Ik ben iemand die snel enthousiast wordt en op veel kansen “ja” zegt. Dat is mijn kracht, maar soms ook mijn valkuil. Quincy en Thomas zijn daarin mijn vangnet.
+
+Thomas kijkt met zijn Haagse nuchterheid scherp naar cijfers, structuur en rendement. Geen emotie, gewoon helderheid. Dat heb ik nodig.
+Quincy brengt daarbovenop een bak aan ervaring in het agency-landschap. Zij ziet patronen, stelt de juiste vragen en helpt ons strategisch keuzes maken in plaats van overal achteraan te rennen.
+
+Wat ik vooral waardeer: het gaat niet om losse adviezen, maar om maandelijks structureel bouwen. Elke maand zetten we serieuze stappen. In focus, in structuur, in winstgevendheid en in positionering.
+
+Zeker in een tijdperk waarin AI het speelveld razendsnel verandert, is het cruciaal om niet alleen creatief te zijn, maar ook strategisch scherp te blijven. Agency Architect helpt ons precies op dat snijvlak.`; 
+import Carousel from '../../components/ecom-strategie/Carousel.tsx';
+import SymptomIllustration from '../../components/ecom-strategie/SymptomIllustration.astro';
+import Faq from '../../components/ecom-strategie/Faq.astro';
+import { FeatureSection } from '../../components/feature-section';
+import { Users, CalendarClock } from 'lucide-react';
+
+const title = 'E-commerce marketing strategie — Van gokken naar groeien';
+const description =
+  'Voor brands die willen sturen op winst, voorspelbare groei en een eigen markt zonder concurrentie. Binnen 90 dagen een getest en overdraagbaar e-commerce marketing systeem.';
+
 const trail = [
   { name: 'Home', url: '/' },
   { name: 'E-commerce marketing', url: '/e-commerce-marketing/' },
   { name: 'E-commerce strategie', url: '/e-commerce-marketing/strategie/' },
 ];
 
-const variabelen = [
-  'Alle platformen samen, niet één kanaal',
-  'De hele funnel, van herkenning tot aankoop',
-  'Strategie voor jouw merk, niet een template',
-  'Persona, angle, offer en awareness-fase',
-  'Creative en het leerproces eronder',
-  'Testritme per kanaal',
-  'Cashflow en schaalbare groei',
-  'Data die een besluit onderbouwt',
+const usps = [
+  {
+    title: 'Op maat gemaakt',
+    body: 'Samen beseffen we dat jouw brand niets heeft aan copy-paste concepten. Elke keuze komt voort uit jouw product, jouw klant en jouw markt.',
+  },
+  {
+    title: 'Schaalbaar',
+    body: 'Van een handjevol werkende creatives naar voorspelbaar winstgevende concepten. Een systeem dat meegroeit, geen truc die slijt.',
+  },
+  {
+    title: 'Persoonlijk',
+    body: 'Agencies beschouwen jou als klant #23. Bij ons ben jij #1. We werken met maximaal 5 brands tegelijkertijd.',
+  },
 ];
 
-const verdieping = [...HUB_LINKS,
+const symptomen = [
   {
-    title: 'E-commerce marketing',
-    url: '/e-commerce-marketing/',
-    summary: 'De overkoepelende pagina over e-commerce marketing: alle platformen, één strategie, de funnel.',
+    variant: 'gokken' as const,
+    title: 'Groei voelt als gokken',
+    body: 'Ad fatigue. Nieuwe creatives moeten testen. Niet weten welke ads converteren.',
+    image: '/images/marketing-meta-gokken.png',
+    alt: 'Lijnillustratie van een gokautomaat met eurotekens',
+    imgWidth: 1254,
+    imgHeight: 1254,
   },
   {
-    title: 'Facebook marketing',
-    url: '/e-commerce-marketing/facebook-marketing/',
-    summary: 'Facebook als het zwaartepunt van Meta: organisch, adverteren, funnels en copywriting samen tot één systeem.',
+    variant: 'metrics' as const,
+    title: 'Metrics voelen als hogere wiskunde',
+    body: 'CPA, CPC, ROAS, LTV, LTGP:CAC → 404 ERROR. E-commerce strategie lijkt net op hogere bedrijfskunde.',
+    image: '/images/metrics-hogere-wiskunde.png',
+    alt: 'Illustratie van metrics en KPI formules met 404-foutmelding',
+    imgWidth: 1254,
+    imgHeight: 1254,
   },
   {
-    title: 'Instagram marketing',
-    url: '/e-commerce-marketing/instagram-marketing/',
-    summary: 'Instagram als ontdekkings- en bewijskanaal, met een eigen aanpak die past bij snelheid en creative fatigue.',
+    variant: 'concurrentie' as const,
+    title: 'Hoge concurrentie',
+    body: 'Het speelveld wordt kleiner. Marges worden minder. Marketingkosten worden duurder.',
+    image: '/images/hoge-concurrentie.png',
+    alt: 'Illustratie van krimpende markt met veel concurrenten',
+    imgWidth: 1270,
+    imgHeight: 1239,
+  },
+  {
+    variant: 'gevoel' as const,
+    title: 'Strategie op gevoel',
+    body: 'Sturen op orders en ROAS voelt goed. Maar budget opschalen leidt tot slechtere resultaten.',
+    image: '/images/advertentie-budget-opschalen.png',
+    alt: 'Illustratie van groeiende advertentie-investering met dalend resultaat',
+    imgWidth: 1825,
+    imgHeight: 862,
+  },
+];
+
+const notificaties = [
+  {
+    source: 'Meta Ads Manager',
+    title: 'Campagne “Persona A — Bundel”',
+    body: 'ROAS 4.2 — stabiel na dag 14. Geen fatigue-signaal.',
+    time: 'nu',
+    color: '#0064e1',
+    logo: '/images/logo-meta.svg',
+  },
+  {
+    source: 'Shopify',
+    title: 'Herhaalaankopen',
+    body: '38% van de orders deze week komt van terugkerende klanten.',
+    time: '1 u',
+    color: '#1e6b3a',
+    logo: '/images/logo-shopify.svg',
+  },
+  {
+    source: 'Slack — #growth',
+    title: 'Thomas: “Angle 2 wint de test”',
+    body: 'Hook-rate 34%, CPA -22% t.o.v. vorige ronde. We schalen.',
+    time: '2 u',
+    color: '#8a5a2b',
+    logo: '/images/logo-slack.svg',
+  },
+  {
+    source: 'WhatsApp — Sanne',
+    title: '“Dit voelt eindelijk als sturen”',
+    body: 'Niet meer gokken, maar weten wat de volgende stap is. 🔥',
+    time: '5 u',
+    color: '#1e6b3a',
+    logo: '/images/logo-whatsapp.svg',
+  },
+];
+
+const testimonials = [
+  {
+    name: 'Social Road',
+    title: 'Roald Mulder',
+    description: socialRoadReview,
+    imageUrl: '/images/klantreview-social-road-ecommerce.jpeg',
+  },
+];
+
+const pijlers = [
+  {
+    title: 'Persona',
+    body: 'Een of meerdere avatars uitstippelen. Welke mensen zijn al actief in jouw markt? Welke kopen beter, meer of anders? En hoe is je concurrentie actief op andere typen mensen? We maken keuzes: voor wie zijn we er wél en niet. Een afweging tussen winst en lage concurrentie.',
+  },
+  {
+    title: 'Offers',
+    body: 'Er bestaan meer offers dan alleen korting. Bundels, (verrassings)cadeautjes, toegang tot een community. Goede offers hangen af van het grote doel en het product. Wij zoeken het offer dat bij jouw merk past.',
+  },
+  {
+    title: 'Angles',
+    body: 'Welke invalshoeken leveren het meeste aandacht op? En interesse, waardoor mensen willen kopen? We vinden de emotionele triggers, woorden en formats die nu werken — in jouw markt, bij concurrenten, of wat past bij jouw product.',
+  },
+];
+
+const principes = [
+  {
+    title: 'Elimineren > Toevoegen',
+    body: 'Michelangelo hieuw David uit één blok marmer — door weg te bijtelen. Door grote stukken te verwijderen, schreef hij geschiedenis. Zo bouwen wij ook: eerst weg wat niet werkt.',
+    image: '/images/principe-terug-naar-de-kern.png',
+    alt: 'Illustratie over teruggaan naar de kern in e-commerce marketing',
+  },
+  {
+    title: 'Het begin bepaalt het eind',
+    body: 'Een goede planning en strategie maakt succes voorspelbaar. Eén plan is geen plan. Twee plannen is twijfel. Drie plannen is keuze.',
+    image: '/images/principe-roadmap.png',
+    alt: 'Illustratie van een e-commerce strategie roadmap',
+  },
+  {
+    title: 'Eerlijkheid komt het verst',
+    body: 'Brutaal eerlijk. Haags nuchter. Liever pijn nu en fijn later, dan andersom. Door eerlijk te zijn voorkomen we opgespaarde gevoelens en twijfels later. Dat werkt twee kanten op.',
+    image: '/images/principe-keiharde-waarheid.png',
+    alt: 'Illustratie van de keiharde waarheid in e-commerce',
+  },
+  {
+    title: 'Long term games with long term people',
+    body: 'We geloven in het bouwen van bruggen, niet in snelle knip-en-plak oplossingen. Dat zie je terug in samenwerkingen: we stippelen samen een route uit, stapje voor stapje, in een tempo dat bij elkaar past.',
+    image: '/images/principe-lange-termijn.png',
+    alt: 'Illustratie van een lange termijn strategie voor e-commerce',
+  },
+];
+
+const ctaMessages = [
+  {
+    icon: 'mail' as const,
+    source: 'Mail',
+    body: 'Dankjewel voor je gegevens. Agency Architect neemt binnenkort contact met je op.',
+    time: 'nu',
+  },
+  {
+    icon: 'whatsapp' as const,
+    source: 'WhatsApp — Thomas',
+    body: 'Leuk je te spreken vandaag. We gaan grote stappen zetten met je brand.',
+    time: '14:02',
+  },
+  {
+    icon: 'agenda' as const,
+    source: 'Agenda',
+    body: 'Meeting met Thomas volgende week om 15.00.',
+    time: 'do 15:00',
+  },
+];
+
+const faq = [
+  {
+    question: 'Zijn jullie een agency?',
+    answer:
+      'Nee. Agency Architect is een growth consultancy. We bouwen geen afhankelijkheid van ons, maar een strategie en systeem waar jouw team zelf mee verder kan. We werken daarnaast met maximaal 5 brands tegelijk, zodat elke brand écht aandacht krijgt.',
+  },
+  {
+    question: 'Waarom heten jullie Agency Architect?',
+    answer:
+      'Omdat we een strategie ontwerpen zoals een architect een gebouw ontwerpt: eerst het fundament en het blauwdruk, dan pas de bouw. Elke keuze — persona, offer, angle, funnel — staat op een tekenplaat die klopt voordat er gebouwd wordt.',
+  },
+  {
+    question: 'Kan ik zelf aan de slag gaan met mijn eigen e-commerce marketing strategie?',
+    answer:
+      'Zeker. Daarom delen we onze aanpak openbaar, inclusief <a href="/inzichten/">inzichten</a> over persona’s, offers, angles en creatives. De strategie-sessies zijn er voor brands die sneller willen: samen kom je in 90 dagen tot een getest en overdraagbaar systeem.',
+  },
+  {
+    question: 'Welke platformen gebruiken jullie voor e-commerce marketing strategie?',
+    answer:
+      'Meta (Facebook en Instagram) is ons zwaartepunt voor betaald bereik en testen. Daaromheen gebruiken we tools als TripleWhale voor attributie en winstinzicht, Shopify-data voor koopgedrag, en Google Analytics voor het totaalbeeld. Het platform is nooit het startpunt: de strategie wel.',
+  },
+  {
+    question: 'Hoe bepaalt Agency Architect de juiste marketing strategie voor mijn brand?',
+    answer:
+      'We beginnen bij jouw product, marges en klanten — niet bij een template. Daarna doorlopen we de drie pijlers: persona (voor wie zijn we er), offers (waarom nu kopen) en angles (welke invalshoek raakt). Alles wordt getest in de praktijk en bijgesteld op basis van data, totdat het systeem voorspelbaar werkt.',
+  },
+];
+
+const jsonLdNodes = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer.replace(/<[^>]+>/g, '') },
+    })),
   },
 ];
 ---
 
-<DienstPagina
-  eyebrow="E-commerce marketing strategie"
-  {title}
-  lede="Een e-commerce strategie begint niet bij één kanaal, maar bij je merk, product en klant. We zetten een hele strategie samen neer die al je platformen en de funnel eronder verbindt."
-  {trail}
-  valueBullets={[
-    'Eén overkoepelende strategie voor al je platformen',
-    'We zetten de hele strategie samen neer, niet losse fragmenten',
-    'Eerst akkoord op de strategie, dan pas bouwen',
-  ]}
-  symptoms={[
-    {
-      title: 'Steeds nieuwe tactiek, geen nieuwe strategie',
-      body: 'Meer kanalen en creatives op dezelfde plek is vooral meer varianten van dezelfde hypothese. Zonder strategie blijf je symptomen behandelen.',
-    },
-    {
-      title: 'Kanalen werken langs elkaar heen',
-      body: 'Facebook, Instagram en Google als losse posten zonder gezamenlijke strategie maken versnippering. E-commerce marketing draait om samenhang.',
-    },
-    {
-      title: 'Niet weten waar je heen wil',
-      body: 'Zonder strategie heb je budget en een hoop. Eerst akkoord op de aanpak, dan pas uitvoeren.',
-    },
-    {
-      title: 'Geen richting voor je team',
-      body: 'Een sterke strategie geeft richting aan al je discipline-werk, van strategie tot funnels en uitvoering.',
-    },
-  ]}
-  variabelen={variabelen}
-  variabelenIntro="Strategie vertaalt de variabelen onder je marketing naar één samenhangend systeem. Elke keuze is herleidbaar naar je strategie."
-  werkwijze={WERKWIJZE}
-  verdiepingTitle="Bekijk ook deze disciplines"
-  verdieping={verdieping}
-  ctaHeading="Weet je waar je e-commerce strategie heen moet?"
-  ctaBody="We beoordelen je strategie en aanpak — en zetten een plan neer waar je duurzaam mee groeit."
-/>
+<BaseLayout {title} {description} {jsonLdNodes}>
+  <div class="container section--tight">
+    <nav class="crumbs" aria-label="Kruimelpad">
+      {trail.map((t, i) => (
+        <span>
+          {i > 0 && <span aria-hidden="true"> / </span>}
+          {i === trail.length - 1 ? <span aria-current="page">{t.name}</span> : <a href={t.url}>{t.name}</a>}
+        </span>
+      ))}
+    </nav>
+  </div>
+
+  <!-- 1. Hero -->
+  <header class="hero-strategie">
+    <div class="container hero-strategie__inner">
+      <div class="hero-strategie__copy">
+        <p class="eyebrow">E-commerce marketing strategie</p>
+        <h1 class="hero-strategie__title">
+          <span class="hero-strategie__line">
+            <HeroTitleWord client:visible text="Van gokken" />
+          </span>
+          <span class="hero-strategie__line">
+            <HeroTitleWord client:visible text="Naar " /><HeroTitleWord client:visible text="groei." accent />
+          </span>
+        </h1>
+        <p class="hero-strategie__lede">
+          Voor brands die willen sturen op winst, voorspelbare groei en een eigen markt — zonder
+          concurrentie.
+        </p>
+        <p class="hero-strategie__sub">
+          Samen bouwen we een strategie waar je een brand op bouwt.
+        </p>
+        <div class="hero-strategie__ctas">
+          <a class="button button--primary" href="#plan-een-call">Plan een call in</a>
+          <a class="button button--outline" href="#aanpak-heading">Bekijk de aanpak ↓</a>
+        </div>
+        <ul class="hero-strategie__badges">
+          <li><Users size={16} aria-hidden="true" /> Max. 5 brands tegelijk</li>
+          <li><CalendarClock size={16} aria-hidden="true" /> 90 dagen systeem</li>
+        </ul>
+      </div>
+      <div class="hero-strategie__art">
+        <HeroSalesChart client:visible />
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. USP's -->
+  <section class="section usp-section" aria-labelledby="usps-heading">
+    <div class="container">
+      <h2 id="usps-heading" class="visually-hidden">Waarom Agency Architect</h2>
+      <FeatureSection
+        features={usps.map((u) => ({
+          title: u.title,
+          description: u.body,
+          icon: u.title === 'Op maat gemaakt' ? 'custom' : u.title === 'Schaalbaar' ? 'scale' : 'personal',
+        }))}
+      />
+    </div>
+  </section>
+
+  <!-- 3. Probleemherkenning: ROAS Roulette (bento 2x2 / carrousel mobiel) -->
+  <section class="section section--wash roulette-section" aria-labelledby="roulette-heading">
+    <div class="container roulette-section__container">
+      <p class="eyebrow">Probleemherkenning</p>
+      <h2 id="roulette-heading" class="section-title">ROAS Roulette</h2>
+      <p class="section-lede text-soft">
+        Gokken op je omzet, CPA en ROAS lijkt erbij te horen. Dat is niet zo.
+      </p>
+      <div class="bento" role="list" aria-label="Vier symptomen van onvoorspelbare e-commerce groei">
+        {symptomen.map((s) => (
+          <article
+            class:list={["bento__cell", { "bento__cell--image": s.image }]}
+            role="listitem"
+          >
+            <div class="bento__media">
+              {s.image ? (
+                <img
+                  class="bento__image"
+                  src={s.image}
+                  alt={s.alt}
+                  width={s.imgWidth}
+                  height={s.imgHeight}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <SymptomIllustration variant={s.variant} />
+              )}
+            </div>
+            <div class="bento__overlay">
+              <h3>{s.title}</h3>
+              <p class="text-soft">{s.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. De oplossing -->
+  <section class="section oplossing" aria-labelledby="oplossing-heading">
+    <div class="container split">
+      <div class="solution__text">
+        <p class="eyebrow">De oplossing</p>
+        <h2 id="oplossing-heading" class="section-title">Goed nieuws: dit is gemakkelijk op te lossen.</h2>
+        <p class="text-soft solution__body">
+          Brands willen sturen op winst, voorspelbare groei en een eigen markt, zonder concurrentie.
+          Dat hoeft niet af te hangen van intuïtie.
+        </p>
+        <p class="text-soft solution__body">
+          Binnen <strong>90 dagen</strong> heb je een getest en overdraagbaar systeem, waarmee je
+          weet welke persona’s, offers, invalshoeken en formats op Meta voor jouw brand werken.
+        </p>
+      </div>
+      <div class="solution__feed">
+        <AnimatedList client:visible items={notificaties} />
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Reviews -->
+  <section class="section section--wash testimonials" aria-labelledby="reviews-heading">
+    <div class="container container--narrow reviews">
+      <p class="eyebrow">Klant aan het woord</p>
+      <h2 id="reviews-heading" class="section-title reviews__title">Wat Social Road zegt</h2>
+      <TestimonialCarousel client:visible testimonials={testimonials} />
+    </div>
+  </section>
+
+  <!-- 6. Aanpak: 3 pijlers achter long-press -->
+  <section class="section aanpak" aria-labelledby="aanpak-heading">
+    <div class="container container--narrow aanpak__intro">
+      <p class="eyebrow">De aanpak</p>
+      <h2 id="aanpak-heading" class="section-title">E-commerce marketing strategie bestaat uit 3 pijlers</h2>
+    </div>
+    <div class="container">
+      <LongPressReveal client:visible pillars={pijlers} />
+    </div>
+  </section>
+
+  <!-- 7. De cirkel: Persona → Offers → Angles -->
+  <section class="section section--wash cirkel-section" aria-label="Persona, Offers en Angles vormen samen een cirkel">
+    <div class="container cirkel-section__container">
+      <div class="cirkel__art">
+        <svg viewBox="0 0 320 320" role="img" aria-label="Cirkeldiagram: Persona, Offers en Angles sluiten op elkaar aan">
+          <defs>
+            <marker id="cirkelArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 10 5 0 10z" fill="var(--color-accent-warm)" />
+            </marker>
+          </defs>
+          <circle cx="160" cy="160" r="104" fill="none" stroke="var(--color-border)" stroke-width="1.5" stroke-dasharray="3 6" />
+          <g class="cirkel__flow" fill="none" stroke="var(--color-accent-warm)" stroke-width="2" stroke-linecap="round" marker-end="url(#cirkelArrow)">
+            <path d="M160 56 A104 104 0 0 1 250 212" />
+            <path d="M250 212 A104 104 0 0 1 70 212" />
+            <path d="M70 212 A104 104 0 0 1 160 56" />
+          </g>
+          <g font-family="var(--font-sans)" font-weight="600" text-anchor="middle">
+            <g>
+              <circle cx="160" cy="56" r="34" fill="var(--color-ink)" />
+              <text x="160" y="61" fill="var(--color-on-ink)" font-size="14">Persona</text>
+            </g>
+            <g>
+              <circle cx="250" cy="212" r="34" fill="var(--color-ink)" />
+              <text x="250" y="217" fill="var(--color-on-ink)" font-size="14">Offers</text>
+            </g>
+            <g>
+              <circle cx="70" cy="212" r="34" fill="var(--color-ink)" />
+              <text x="70" y="217" fill="var(--color-on-ink)" font-size="14">Angles</text>
+            </g>
+          </g>
+          <text x="160" y="166" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--color-ink-soft)">elke ronde</text>
+          <text x="160" y="182" text-anchor="middle" font-family="var(--font-sans)" font-size="12" fill="var(--color-ink-soft)">scherpt op</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Principes (carrousel) -->
+  <section class="section principes-section" aria-labelledby="principes-heading">
+    <div class="container">
+      <p class="eyebrow">Principes</p>
+      <h2 id="principes-heading" class="section-title">Waar wij op bouwen</h2>
+      <Carousel client:visible items={principes} label="Onze vier principes" />
+    </div>
+  </section>
+
+  <!-- 9. Call to action -->
+  <section class="section cta-ink" aria-labelledby="cta-heading" id="plan-een-call">
+    <div class="container split">
+      <div>
+        <p class="eyebrow">Call to action</p>
+        <h2 id="cta-heading" class="section-title">Klaar om de volgende stap te zetten met jouw brand?</h2>
+        <p class="text-soft">Plan dan een call in. Zo werkt het:</p>
+        <ol class="cta-ink__steps">
+          <li>Laat je gegevens achter.</li>
+          <li>Thomas belt je, om een afspraak in te plannen. (5 min.)</li>
+          <li>Online kennismaking. (30 min.)</li>
+        </ol>
+        <a
+          class="button button--inverse"
+          href="mailto:hallo@agencyarchitect.nl?subject=Kennismaking%20e-commerce%20marketing%20strategie"
+        >
+          Plan een call in
+        </a>
+      </div>
+      <div class="cta-ink__stack">
+        <MessageStack client:visible messages={ctaMessages} />
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FAQ -->
+  <section class="section" aria-labelledby="faq-heading">
+    <div class="container">
+      <h2 id="faq-heading" class="section-title faq-title">Veelgestelde vragen</h2>
+      <Faq items={faq} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  /* Page-scoped classes are page-unique; global is required so the styles
+     also reach DOM rendered inside React islands (client:* hydration). */
+  /* ---------- Kruimels ---------- */
+  .crumbs {
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+  }
+  .crumbs a {
+    color: inherit;
+  }
+  .crumbs [aria-current='page'] {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero-strategie {
+    background-color: var(--color-paper);
+    padding-block: var(--space-3xl) var(--space-2xl);
+  }
+  .hero-strategie__inner {
+    display: grid;
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+  @media (min-width: 56rem) {
+    .hero-strategie__inner {
+      grid-template-columns: 7fr 5fr;
+    }
+  }
+  .hero-strategie__title {
+    max-inline-size: 20ch;
+    font-size: var(--text-3xl);
+    line-height: var(--leading-tight);
+    letter-spacing: -0.01em;
+    margin-block-start: var(--space-sm);
+    color: var(--color-ink);
+  }
+  .hero-strategie__lede {
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    margin-block-start: var(--space-lg);
+    max-inline-size: 52ch;
+    color: var(--color-ink-soft);
+  }
+  .hero-strategie__sub {
+    margin-block-start: var(--space-sm);
+    color: var(--color-ink-soft);
+  }
+  .hero-strategie__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-block-start: var(--space-xl);
+  }
+  .hero-strategie__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+    margin-block-start: var(--space-lg);
+    list-style: none;
+    padding: 0;
+  }
+  .hero-strategie__badges li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2xs);
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+  }
+  .hero-strategie__badges svg {
+    flex-shrink: 0;
+    color: var(--color-accent-warm);
+  }
+  .hero-strategie__art {
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+  }
+
+  /* Titel: twee losse regels, elk een Calligraph-instantie */
+  .hero-strategie__line {
+    display: block;
+  }
+  .hero-word--stable {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent-warm);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.12em;
+  }
+
+  /* HeroSalesChart (liveline) — de x-as (tijdlijn) heeft geen eigen aan/uit-
+     prop in liveline (drawTimeAxis wordt onvoorwaardelijk getekend, los van
+     de grid-prop). We croppen 'm daarom weg: .hero-sales-chart-crop heeft de
+     zichtbare vaste hoogte + overflow:hidden; .hero-sales-chart erin is iets
+     hoger (normale block-flow, GEEN position:absolute/calc() — dat gaf een
+     ResizeObserver-lus die de tab liet bevriezen) zodat de onderste as-strook
+     buiten de zichtbare zone overloopt. De +40px is een startschatting
+     (liveline's default pad.bottom ≈ 28px + tick/label-hoogte eronder) — in
+     de browser geverifieerd en zo nodig bijgesteld. */
+  .hero-sales-chart-crop {
+    inline-size: 100%;
+    block-size: 20rem;
+    overflow: hidden;
+  }
+  .hero-sales-chart {
+    inline-size: 100%;
+    block-size: 360px;
+  }
+  @media (max-width: 47.99rem) {
+    .hero-sales-chart-crop {
+      /* Houd de onderkant van de plot zichtbaar: de vorige 16rem cropte
+         de 0-lijn samen met de onderste grafiekzone weg. */
+      block-size: 20rem;
+    }
+  }
+  /* Liveline's toggle-chips (waarmee je losse lijnen kunt aan/uitzetten)
+     zijn <button>s zonder className-hooks — beide echte lijnen moeten
+     altijd zichtbaar blijven, dus de hele chip-rij (incl. het onzichtbare
+     3e "headroom"-chipje, zie HeroSalesChart.tsx) wordt verborgen. Zonder
+     klikbare chips is er ook geen manier meer om een lijn per ongeluk te
+     deselecteren. Kan breken bij een toekomstige liveline-versie-update
+     die de knoppen anders rendert. */
+  /* Liveline rendert de series-toggle in een ongenaamd inline-flex div.
+     Verberg alleen dat control-element, niet de grafiek of de canvas-y-as. */
+  .hero-sales-chart > div > div[style*="inline-flex"] {
+    display: none !important;
+  }
+  /* Liveline maakt bij multi-series drie legend-buttons aan in een
+     inline-flex-wrapper. Verberg alleen de legenda-controls. De y-as wordt
+     op het canvas getekend en blijft daardoor volledig intact. */
+  .hero-sales-chart button {
+    display: none !important;
+  }
+
+  /* ---------- USP's ---------- */
+  .aa-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 !important;
+    inline-size: 100% !important;
+    max-inline-size: none !important;
+    margin-inline: auto;
+    padding: 0 !important;
+  }
+  /* This feature block owns the full USP section. The surrounding section
+     keeps no extra white strip above, below, or beside the cards. */
+  .usp-section {
+    padding-block: 0 !important;
+  }
+  .usp-section > .container {
+    inline-size: 100% !important;
+    max-inline-size: none !important;
+    padding-inline: 0 !important;
+  }
+  .aa-feature-card {
+    position: relative;
+    display: flex;
+    min-block-size: clamp(14rem, 22vw, 20rem);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-block: clamp(2rem, 5vw, 5rem);
+    padding-inline: clamp(1.5rem, 5vw, 6rem);
+    text-align: center;
+    border-block: 1px solid var(--color-border);
+  }
+  .aa-feature-card:first-child {
+    border-inline-start: 1px solid var(--color-border);
+  }
+  .aa-feature-card:not(:last-child)::after {
+    position: absolute;
+    inset-block: 12%;
+    inset-inline-end: calc(var(--space-md) * -0.5);
+    inline-size: 1px;
+    content: '';
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-border),
+      transparent
+    );
+  }
+  .aa-feature-card .decor-icon {
+    color: var(--color-accent-warm);
+  }
+  .aa-feature-icon {
+    display: grid;
+    place-items: center;
+    min-block-size: 2rem;
+    color: var(--color-accent-warm);
+  }
+  .aa-feature-glyph {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .aa-feature-card h3 {
+    margin-block-start: var(--space-md);
+    font-size: var(--text-lg);
+  }
+  .aa-feature-card p {
+    max-inline-size: 38ch;
+    margin-block-start: var(--space-xs);
+    color: var(--color-ink-soft);
+  }
+  @media (max-width: 47.99rem) {
+    .aa-feature-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .aa-feature-card,
+    .aa-feature-card:first-child {
+      min-block-size: clamp(12rem, 46vw, 16rem);
+      border-inline: 0;
+    }
+    .aa-feature-card:not(:last-child)::after {
+      inset-block: auto;
+      inset-inline: 10%;
+      inset-block-end: 0;
+      inline-size: 80%;
+      block-size: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--color-border),
+        transparent
+      );
+    }
+  }
+
+  /* ---------- Bento / ROAS Roulette ---------- */
+  .roulette-section {
+    padding-block: clamp(3.5rem, 8vw, 8rem);
+  }
+  .roulette-section__container {
+    inline-size: 100%;
+    max-inline-size: none;
+    padding-inline: clamp(1.5rem, 5vw, 6rem);
+  }
+  .section-lede {
+    font-size: var(--text-lg);
+    margin-block-start: var(--space-sm);
+  }
+  .bento {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(1rem, 2vw, 2rem);
+    margin-block-start: clamp(2rem, 4vw, 4rem);
+  }
+  .bento__cell {
+    position: relative;
+    display: flex;
+    min-block-size: clamp(18rem, 30vw, 28rem);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: var(--color-white);
+    border: var(--border-hairline);
+    border-radius: 0.75rem;
+    padding: clamp(1.5rem, 4vw, 4rem);
+    box-shadow: 0 0.75rem 2rem rgba(0, 29, 81, 0.04);
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  }
+  .bento__media {
+    display: grid;
+    inline-size: 100%;
+    block-size: clamp(8rem, 14vw, 15rem);
+    min-block-size: 0;
+    place-items: center;
+    overflow: hidden;
+  }
+  .bento__media > .symptom-art {
+    display: block;
+    inline-size: auto;
+    max-inline-size: 100%;
+    block-size: 100%;
+    max-block-size: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+  .bento__image {
+    display: block !important;
+    inline-size: 100% !important;
+    min-inline-size: 0 !important;
+    max-inline-size: 100% !important;
+    block-size: 100% !important;
+    min-block-size: 0 !important;
+    max-block-size: 100% !important;
+    aspect-ratio: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+  /* The slot-machine artwork bleeds across the full tile. The text is a
+     foreground layer so the image can continue behind it without pushing the
+     heading and paragraph out of the card. */
+  .bento__cell--image {
+    isolation: isolate;
+    overflow: hidden;
+    background-color: var(--color-paper);
+    padding: 0;
+  }
+  .bento__cell--image .bento__media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    inline-size: 100% !important;
+    block-size: 100% !important;
+    overflow: hidden;
+    background-color: var(--color-paper);
+  }
+  .bento__cell--image .bento__image {
+    inline-size: 100% !important;
+    block-size: 100% !important;
+    max-inline-size: none !important;
+    max-block-size: none !important;
+    object-fit: cover !important;
+    object-position: center;
+    opacity: 0.88;
+  }
+  .bento__cell--image .bento__overlay {
+    position: relative;
+    z-index: 1;
+    inline-size: 100%;
+    margin-block-start: auto;
+    padding-block-start: clamp(3rem, 6vw, 6rem);
+    padding-block-end: clamp(0.75rem, 1.5vw, 1.5rem);
+    padding-inline: clamp(1rem, 2vw, 2rem);
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--color-paper) 78%, transparent) 45%,
+      var(--color-paper) 100%
+    );
+  }
+  .bento__cell--image .bento__overlay h3 {
+    margin-block-start: 0;
+    padding-inline: 0;
+    max-inline-size: 34rem;
+    font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+    line-height: var(--leading-tight);
+  }
+  .bento__cell--image .bento__overlay p {
+    inline-size: 100%;
+    margin-block-start: 0.3rem;
+    padding-inline: 0;
+    max-inline-size: 48ch;
+    font-size: var(--text-sm);
+    background-color: transparent;
+  }
+  .bento__cell:hover {
+    box-shadow: 0 1rem 2.5rem rgba(0, 29, 81, 0.09);
+    transform: translateY(-2px);
+  }
+  .bento__cell h3 {
+    margin-block-start: clamp(1.5rem, 3vw, 3rem);
+    font-size: var(--text-xl);
+  }
+  .bento__cell p {
+    margin-block-start: var(--space-xs);
+    max-inline-size: 48ch;
+  }
+  @media (min-width: 48rem) {
+    .bento {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: clamp(20rem, 28vw, 28rem);
+    }
+    .bento__cell {
+      min-block-size: 0;
+      block-size: 100%;
+    }
+    .bento__cell:nth-child(1) .bento__media,
+    .bento__cell:nth-child(4) .bento__media {
+      block-size: clamp(10rem, 15vw, 15rem);
+    }
+    /* Exact bento rhythm from the reference: wide / narrow, then narrow / wide. */
+    .bento__cell:nth-child(1),
+    .bento__cell:nth-child(4) {
+      grid-column: span 2;
+    }
+    .bento__cell:nth-child(2),
+    .bento__cell:nth-child(3) {
+      grid-column: span 1;
+      min-block-size: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bento__cell:hover {
+      transform: none;
+    }
+  }
+
+  /* ---------- Oplossing ---------- */
+  .oplossing > .container.split {
+    align-items: center;
+  }
+  .solution__body {
+    margin-block-start: var(--space-md);
+  }
+  .solution__body strong {
+    color: var(--color-ink);
+  }
+  .solution__feed {
+    min-block-size: 20rem;
+  }
+
+  /* AnimatedList */
+  .anim-list {
+    position: relative;
+    display: grid;
+    gap: 0.6rem;
+    padding-block: 0.5rem;
+  }
+  .anim-card {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background-color: var(--color-white);
+    border: var(--border-hairline);
+    border-radius: clamp(0.9rem, 1.6vw, 1.4rem);
+    padding: 0.9rem 1.1rem;
+    box-shadow: 0 8px 24px rgba(0, 29, 81, 0.1);
+  }
+  /* Rode unread-badge op het hoekje van de kaart, half binnen half buiten,
+       alleen op het nieuwste bericht (Zie AnimatedList.tsx: plaatst het bij pos 0). */
+    .anim-new-badge {
+      position: absolute;
+      inset-block-start: -0.42rem;
+      inset-inline-end: -0.42rem;
+      inline-size: 1.365rem;
+      block-size: 1.365rem;
+      border-radius: 50%;
+      background-color: #e02424;
+      border: 2px solid var(--color-white);
+    }
+  .anim-dot {
+    flex-shrink: 0;
+    inline-size: 0.65rem;
+    block-size: 0.65rem;
+    border-radius: 50%;
+    margin-block-start: 0.4rem;
+  }
+  .anim-logo {
+    flex-shrink: 0;
+    inline-size: 1.6rem;
+    block-size: 1.6rem;
+    object-fit: contain;
+    /* Verticaal centreren in de kaart, als los component, los van de tekst. */
+    margin-block: auto;
+  }
+  .anim-source {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent-warm);
+  }
+  .anim-title {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    margin-block-start: 0.15rem;
+  }
+  .anim-text {
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+    margin-block-start: 0.15rem;
+  }
+  .anim-time {
+    margin-inline-start: auto;
+    font-size: var(--text-xs);
+    color: var(--color-ink-soft);
+    flex-shrink: 0;
+  }
+
+  /* ---------- Reviews / testimonial carousel ---------- */
+  .reviews__title {
+    margin-block-start: var(--space-sm);
+    text-align: center;
+  }
+  .testimonial-carousel {
+    inline-size: 100%;
+    max-inline-size: 64rem;
+    margin: var(--space-xl) auto 0;
+  }
+  .testimonial-carousel__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+  }
+  .testimonial-carousel__image-frame {
+    position: relative;
+    z-index: 0;
+    inline-size: min(100%, 29.375rem);
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: clamp(1.25rem, 2vw, 2rem);
+    background: var(--color-paper);
+  }
+  .testimonial-carousel__image-layer,
+  .testimonial-carousel__image {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+  .testimonial-carousel__image {
+    object-fit: cover;
+    object-position: center;
+  }
+  .testimonial-carousel__card {
+    position: relative;
+    z-index: 1;
+    margin-inline-start: clamp(-5rem, -6vw, -2rem);
+    padding: clamp(1.5rem, 4vw, 3rem);
+    border: var(--border-hairline);
+    border-radius: clamp(1.25rem, 2vw, 2rem);
+    background: var(--color-white);
+    box-shadow: 0 1.5rem 3rem rgba(0, 29, 81, 0.14);
+  }
+  .testimonial-carousel__quote {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    line-height: var(--leading-relaxed);
+    white-space: pre-line;
+  }
+  .testimonial-carousel__author {
+    display: grid;
+    gap: 0.25rem;
+    margin-block-start: var(--space-lg);
+    padding-block-start: var(--space-md);
+    border-block-start: 1px solid var(--color-border);
+  }
+  .testimonial-carousel__author strong {
+    color: var(--color-ink);
+  }
+  .testimonial-carousel__author span {
+    color: var(--color-ink-soft);
+    font-size: var(--text-sm);
+  }
+  @media (max-width: 47.99rem) {
+    .testimonial-carousel__layout {
+      grid-template-columns: 1fr;
+    }
+    .testimonial-carousel__image-frame {
+      inline-size: 100%;
+      max-inline-size: 29.375rem;
+      margin-inline: auto;
+    }
+    .testimonial-carousel__card {
+      margin-block-start: -2rem;
+      margin-inline-start: 1rem;
+      margin-inline-end: 1rem;
+    }
+  }
+
+  /* ---------- Aanpak / LongPress ---------- */
+  .aanpak__intro {
+    text-align: center;
+    margin-block-end: var(--space-lg);
+  }
+  .lpr {
+    text-align: center;
+  }
+  .lpr__hint {
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+  .lpr__button {
+    margin-block-start: var(--space-lg);
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: var(--border-hairline);
+    border-radius: var(--radius-sm);
+    color: var(--color-ink);
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    transition: background-color var(--transition-fast);
+  }
+  .lpr__button:hover {
+    background-color: var(--color-blue-wash);
+  }
+  .lpr__button:active {
+    background-color: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+  .lpr__ring {
+    inline-size: 4.5rem;
+    block-size: 4.5rem;
+  }
+  .lpr__sub {
+    margin-block-start: var(--space-md);
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+  }
+  .lpr__grid {
+    display: grid;
+    gap: var(--space-lg);
+    margin-block-start: var(--space-lg);
+    text-align: start;
+  }
+  @media (min-width: 56rem) {
+    .lpr__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  /* De aanpak-kaarten volgen exact dezelfde vormtaal als de ROAS-bento.
+     Alleen de inhoud is beeldvrij. */
+  .lpr__card {
+    position: relative;
+    display: flex;
+    min-block-size: clamp(18rem, 30vw, 28rem);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: var(--color-white);
+    border: var(--border-hairline);
+    border-radius: 0.75rem;
+    padding: clamp(1.5rem, 4vw, 4rem);
+    box-shadow: 0 0.75rem 2rem rgba(0, 29, 81, 0.04);
+    transition: box-shadow var(--transition-fast), transform var(--transition-fast);
+  }
+  .lpr__card:hover {
+    box-shadow: 0 1rem 2.5rem rgba(0, 29, 81, 0.1);
+    transform: translateY(-0.2rem);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lpr__card {
+      transition: none;
+    }
+    .lpr__card:hover {
+      transform: none;
+    }
+  }
+  .lpr__nr {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-accent-warm);
+  }
+  .lpr__card h3 {
+    font-size: var(--text-xl);
+    margin-block-start: var(--space-xs);
+  }
+  .lpr__card p {
+    margin-block-start: var(--space-sm);
+    color: var(--color-ink-soft);
+  }
+  .lpr__cycle {
+    margin-block-start: var(--space-xl);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* ---------- Cirkel ---------- */
+  .cirkel-section {
+    /* Deze sectie bevat alleen de cirkelanimatie. Geen standaard 5.25rem
+       verticale sectieruimte eromheen, zodat het beeld compact blijft. */
+    padding-block: clamp(1rem, 2vw, 1.5rem);
+  }
+  .cirkel-section__container {
+    display: flex;
+    justify-content: center;
+  }
+  .cirkel__art {
+    display: flex;
+    justify-content: center;
+    inline-size: 100%;
+  }
+  .cirkel__art svg {
+    display: block;
+    inline-size: min(100%, 24rem);
+    max-inline-size: 24rem;
+    margin-inline: auto;
+  }
+  /* Bewegende pijlen: de flow trekt subtiel richting de volgende donkerblauwe cirkel. */
+  .cirkel__flow path {
+    stroke-dasharray: 12 220;
+    stroke-dashoffset: 220;
+    animation: cirkel-flow 3.6s linear infinite;
+  }
+  .cirkel__flow path:nth-child(2) {
+    animation-delay: -1.2s;
+  }
+  .cirkel__flow path:nth-child(3) {
+    animation-delay: -2.4s;
+  }
+  @keyframes cirkel-flow {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cirkel__flow path {
+      animation: none;
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .cirkel-section {
+      padding-block: 1rem;
+    }
+    .cirkel-section__container {
+      padding-inline: 1.5rem;
+    }
+    .cirkel__art svg {
+      inline-size: min(100%, 20rem);
+    }
+  }
+
+  /* ---------- Carrousel (principes) ---------- */
+  .principes-section .crs {
+    margin-block-start: clamp(2rem, 4vw, 3.5rem);
+  }
+  .crs__track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(86%, 24rem);
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-block-end: var(--space-sm);
+    scrollbar-width: none;
+  }
+  .crs__track::-webkit-scrollbar {
+    display: none;
+  }
+  .crs__slide {
+    position: relative;
+    min-block-size: clamp(20rem, 34vw, 28rem);
+    overflow: hidden;
+    scroll-snap-align: center;
+    background-color: var(--color-paper);
+    border: var(--border-hairline);
+    border-radius: 0.75rem;
+    isolation: isolate;
+  }
+  .crs__image {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .crs__slide::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    /* Egale overlay van 80% over de volledige kaart. Geen fade. */
+    background: rgba(250, 248, 245, 0.8);
+  }
+  .crs__overlay {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 0;
+    z-index: 1;
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    text-align: start;
+  }
+  .crs__nr {
+    font-weight: 600;
+    color: var(--color-accent-warm);
+  }
+  .crs__slide h3 {
+    max-inline-size: 28ch;
+    margin-block-start: var(--space-xs);
+    color: var(--color-ink);
+    font-size: var(--text-xl);
+    text-wrap: balance;
+  }
+  .crs__slide p {
+    max-inline-size: 56ch;
+    margin-block-start: var(--space-sm);
+    color: var(--color-ink);
+  }
+  .crs__controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-block-start: var(--space-md);
+  }
+  .crs__arrow {
+    inline-size: 44px;
+    block-size: 44px;
+    border: var(--border-hairline);
+    border-radius: 50%;
+    background: var(--color-white);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .crs__dots {
+    display: flex;
+    gap: var(--space-xs);
+  }
+  .crs__dot {
+    inline-size: 0.55rem;
+    block-size: 0.55rem;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-border);
+    cursor: pointer;
+  }
+  .crs__dot.is-active {
+    background: var(--color-accent-warm);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .crs__slide,
+    .crs__arrow,
+    .crs__dot {
+      transition: none;
+    }
+  }
+
+  /* ---------- CTA ---------- */
+  .cta-ink {
+    background-color: var(--color-ink);
+    color: var(--color-on-ink);
+  }
+  .cta-ink .eyebrow {
+    color: var(--color-on-ink-soft);
+  }
+  .cta-ink__steps {
+    margin-block: var(--space-lg);
+    padding-inline-start: 1.4rem;
+    display: grid;
+    gap: var(--space-xs);
+    color: var(--color-on-ink-soft);
+  }
+  .cta-ink :focus-visible {
+    outline-color: var(--color-on-ink);
+  }
+  .cta-ink__stack {
+    align-self: center;
+  }
+
+  /* MessageStack */
+  .mstack {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  .mstack__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    background-color: var(--color-white);
+    color: var(--color-ink);
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1.1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+  .mstack__icon {
+    flex-shrink: 0;
+    inline-size: 2.4rem;
+    block-size: 2.4rem;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background-color: var(--color-blue-wash);
+    color: var(--color-ink);
+  }
+  .mstack__icon svg {
+    inline-size: 1.2rem;
+    block-size: 1.2rem;
+  }
+  .mstack__source {
+    font-weight: 600;
+    font-size: var(--text-sm);
+  }
+  .mstack__body {
+    font-size: var(--text-sm);
+    color: var(--color-ink-soft);
+    margin-block-start: 0.15rem;
+  }
+  .mstack__time {
+    margin-inline-start: auto;
+    font-size: var(--text-xs);
+    color: var(--color-ink-soft);
+    flex-shrink: 0;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-title {
+    text-align: center;
+    margin-block-end: var(--space-lg);
+  }
+
+  /* ---------- Utility ---------- */
+  .visually-hidden {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>
