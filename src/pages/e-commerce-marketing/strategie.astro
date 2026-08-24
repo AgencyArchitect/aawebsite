@@ -35,11 +35,11 @@ const trail = [
 const usps = [
   {
     title: 'Op maat gemaakt',
-    body: 'Samen beseffen we dat jouw brand niets heeft aan copy-paste concepten. Elke keuze komt voort uit jouw product, jouw klant en jouw markt.',
+    body: 'Samen beseffen we dat jouw brand niets heeft aan copy-pasteconcepten.',
   },
   {
     title: 'Schaalbaar',
-    body: 'Van een handjevol werkende creatives naar voorspelbaar winstgevende concepten. Een systeem dat meegroeit, geen truc die slijt.',
+    body: 'Van een handjevol werkende creatives naar voorspelbaar winstgevende concepten.',
   },
   {
     title: 'Persoonlijk',
@@ -270,6 +270,12 @@ const jsonLdNodes = [
           title: u.title,
           description: u.body,
           icon: u.title === 'Op maat gemaakt' ? 'custom' : u.title === 'Schaalbaar' ? 'scale' : 'personal',
+          iconImage:
+            u.title === 'Op maat gemaakt'
+              ? '/images/ecom-strategie/op-maat-gemaakt.png'
+              : u.title === 'Schaalbaar'
+                ? '/images/ecom-strategie/schaalbaar.png'
+                : '/images/ecom-strategie/persoonlijk.png',
         }))}
       />
     </div>
@@ -736,8 +742,8 @@ const jsonLdNodes = [
 
   /* ---------- USP's ---------- */
   .usp-section {
-    background-color: var(--ecom-primary) !important;
-    color: var(--color-on-ink);
+    background-color: var(--ecom-background) !important;
+    color: var(--ecom-primary);
   }
   .aa-feature-grid {
     display: grid;
@@ -750,25 +756,35 @@ const jsonLdNodes = [
   .aa-feature-card {
     position: relative;
     display: flex;
-    min-block-size: clamp(16rem, 24vw, 22rem);
+    min-block-size: clamp(15rem, 24vw, 21rem);
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: var(--space-lg);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
     text-align: center;
-    border: 1px solid var(--color-on-ink-soft);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--ecom-primary);
+    border-radius: 1.5rem;
     background: var(--ecom-primary);
-    color: var(--color-on-ink);
+    color: var(--ecom-background);
+    box-shadow: 0 1.25rem 2.5rem rgba(7, 29, 81, 0.18);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   }
-  .aa-feature-card .decor-icon {
-    color: var(--ecom-accent);
+  .aa-feature-card:hover {
+    transform: translateY(-0.35rem);
+    box-shadow: 0 1.75rem 3.5rem rgba(7, 29, 81, 0.25);
   }
   .aa-feature-icon {
     display: grid;
     place-items: center;
-    min-block-size: 2rem;
+    inline-size: 4.5rem;
+    block-size: 4.5rem;
     color: var(--ecom-accent);
+  }
+  .aa-feature-image {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: contain;
   }
   .aa-feature-glyph {
     font-family: var(--font-serif);
@@ -777,21 +793,22 @@ const jsonLdNodes = [
   }
   .aa-feature-card h3 {
     margin-block-start: var(--space-md);
-    font-size: var(--text-lg);
-    color: var(--color-on-ink);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: #ffffff !important;
+    line-height: var(--leading-snug);
   }
   .aa-feature-card p {
     max-inline-size: 38ch;
     margin-block-start: var(--space-xs);
-    color: var(--color-on-ink-soft);
+    font-size: clamp(0.8925rem, 0.85rem + 0.2125vw, 1.0115rem);
+    line-height: var(--leading-normal);
+    color: var(--ecom-background);
   }
   @media (max-width: 47.99rem) {
     .aa-feature-grid {
       grid-template-columns: 1fr;
       gap: var(--space-lg);
-    }
-    .aa-feature-card {
-      border-color: var(--color-on-ink-soft);
     }
     .aa-feature-card {
       min-block-size: 0;

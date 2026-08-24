@@ -1,9 +1,8 @@
-import { DecorIcon } from '@/components/decor-icon';
-
 export type Feature = {
   title: string;
   description: string;
   icon: 'custom' | 'scale' | 'personal';
+  iconImage: string;
 };
 
 type FeatureSectionProps = {
@@ -17,12 +16,10 @@ type FeatureSectionProps = {
 export function FeatureSection({ features }: FeatureSectionProps) {
   return (
     <div className="aa-feature-grid" role="list" aria-label="Waarom Agency Architect">
-      {features.map((feature, index) => (
+      {features.map((feature) => (
         <article className="aa-feature-card" role="listitem" key={feature.title}>
-          <DecorIcon position="top-left" />
-          {index === features.length - 1 && <DecorIcon position="top-right" />}
           <div className="aa-feature-icon" aria-hidden="true">
-            <span className="aa-feature-glyph">{glyphs[feature.icon]}</span>
+            <img className="aa-feature-image" src={feature.iconImage} alt="" width="512" height="512" />
           </div>
           <h3>{feature.title}</h3>
           <p>{feature.description}</p>
