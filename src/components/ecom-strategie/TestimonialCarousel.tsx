@@ -5,6 +5,7 @@ export interface Testimonial {
   title: string;
   description: string;
   imageUrl: string;
+  reviewUrl?: string;
 }
 
 interface TestimonialCarouselProps {
@@ -55,6 +56,16 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
               <footer className="testimonial-carousel__author">
                 <strong>{testimonial.name}</strong>
                 <span>{testimonial.title}</span>
+                {testimonial.reviewUrl && (
+                  <a
+                    className="testimonial-carousel__review-link"
+                    href={testimonial.reviewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Zie de review →
+                  </a>
+                )}
               </footer>
             </motion.div>
           </AnimatePresence>

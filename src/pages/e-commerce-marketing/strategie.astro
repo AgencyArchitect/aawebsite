@@ -128,6 +128,7 @@ const testimonials = [
     title: 'Roald Mulder',
     description: socialRoadReview,
     imageUrl: '/images/klantreview-social-road-ecommerce.jpeg',
+    reviewUrl: 'https://share.google/7emGG3WHdNp0ZDAEq',
   },
 ];
 
@@ -203,7 +204,12 @@ const faq = [
   {
     question: 'Waarom heten jullie Agency Architect?',
     answer:
-      'Omdat we een strategie ontwerpen zoals een architect een gebouw ontwerpt: eerst het fundament en het blauwdruk, dan pas de bouw. Elke keuze — persona, offer, angle, funnel — staat op een tekenplaat die klopt voordat er gebouwd wordt.',
+      'Omdat we een strategie ontwerpen zoals een architect een gebouw ontwerpt: eerst het fundament en de blauwdruk, dan pas de bouw. Agency betekent de snelheid waarin je naar je doelen beweegt. Samen zorgen we ervoor dat jij naar je doelen toebeweegt, in het tempo dat jij wilt.',
+  },
+  {
+    question: 'Vanaf wanneer is e-commerce strategie nodig? Ben ik groot genoeg?',
+    answer:
+      'Je bent niet snel te vroeg met e-commerce strategie. Zodra je serieus een langetermijnmerk wilt opbouwen, helpt een duidelijke strategie je om betere keuzes te maken in product, doelgroep, aanbod, advertenties en groei. E-commerce strategie werkt niet alleen voor grote merken: ook als je nog aan het valideren bent, voorkomt een goed fundament dat je tijd en budget verspilt aan losse marketingacties. Je hoeft dus niet eerst een bepaalde omzet of omvang te bereiken. De vraag is vooral: wil je gericht bouwen aan meer winst, voorspelbare groei en een merk dat op termijn een goed leven of een succesvolle exit kan opleveren? Een e-commerce strategie maakt inzichtelijk hoe je van persona naar offer, angle, funnel en creatieve tests beweegt. Dat proces is praktisch en overzichtelijk. Je kunt een bedrijf niet duurzaam runnen, laten groeien of verkopen zonder strategie.',
   },
   {
     question: 'Kan ik zelf aan de slag gaan met mijn eigen e-commerce marketing strategie?',
@@ -996,6 +1002,21 @@ const jsonLdNodes = [
   .testimonial-carousel__author span {
     color: var(--color-ink-soft);
     font-size: var(--text-sm);
+  }
+  .testimonial-carousel__review-link {
+    inline-size: fit-content;
+    margin-block-start: var(--space-sm);
+    color: var(--color-accent-warm);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-underline-offset: 0.18em;
+  }
+  .testimonial-carousel__review-link:hover {
+    color: var(--color-ink);
+  }
+  .testimonial-carousel__review-link:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
   }
   @media (max-width: 47.99rem) {
     .testimonial-carousel__layout {
