@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import HeroTitleWord from '../../components/ecom-strategie/HeroTitleWord.tsx';
 import HeroSalesChart from '../../components/ecom-strategie/HeroSalesChart.tsx';
 import AnimatedList from '../../components/ecom-strategie/AnimatedList.tsx';
-import LongPressReveal from '../../components/ecom-strategie/LongPressReveal.tsx';
+import TextCarousel from '../../components/ecom-strategie/TextCarousel.tsx';
 import TestimonialCarousel from '../../components/ecom-strategie/TestimonialCarousel.tsx';
 
 const socialRoadReview = `Sinds 2025 werken wij met Quincy en Thomas van Agency Architect en dat is voor mij als ondernemer echt een gamechanger geweest.
@@ -16,7 +16,7 @@ Quincy brengt daarbovenop een bak aan ervaring in het agency-landschap. Zij ziet
 Wat ik vooral waardeer: het gaat niet om losse adviezen, maar om maandelijks structureel bouwen. Elke maand zetten we serieuze stappen. In focus, in structuur, in winstgevendheid en in positionering.
 
 Zeker in een tijdperk waarin AI het speelveld razendsnel verandert, is het cruciaal om niet alleen creatief te zijn, maar ook strategisch scherp te blijven. Agency Architect helpt ons precies op dat snijvlak.`; 
-import Carousel from '../../components/ecom-strategie/Carousel.tsx';
+
 import SymptomIllustration from '../../components/ecom-strategie/SymptomIllustration.astro';
 import Faq from '../../components/ecom-strategie/Faq.astro';
 import { FeatureSection } from '../../components/feature-section';
@@ -350,14 +350,14 @@ const jsonLdNodes = [
     </div>
   </section>
 
-  <!-- 6. Aanpak: 3 pijlers achter long-press -->
+  <!-- 6. Aanpak: 3 pijlers als één-kaart-carrousel -->
   <section class="section aanpak" aria-labelledby="aanpak-heading">
     <div class="container container--narrow aanpak__intro">
       <p class="eyebrow">De aanpak</p>
       <h2 id="aanpak-heading" class="section-title">E-commerce marketing strategie bestaat uit 3 pijlers</h2>
     </div>
     <div class="container">
-      <LongPressReveal client:visible pillars={pijlers} />
+      <TextCarousel client:visible items={pijlers} label="De drie pijlers van onze aanpak" />
     </div>
   </section>
 
@@ -398,12 +398,23 @@ const jsonLdNodes = [
     </div>
   </section>
 
-  <!-- 8. Principes (carrousel) -->
+  <!-- 8. Principes -->
   <section class="section principes-section" aria-labelledby="principes-heading">
     <div class="container">
       <p class="eyebrow">Principes</p>
       <h2 id="principes-heading" class="section-title">Waar wij op bouwen</h2>
-      <Carousel client:visible items={principes} label="Onze vier principes" />
+      <div class="principes-grid" aria-label="Onze vier principes">
+        {principes.map((principe, index) => (
+          <article class="principes-grid__tile">
+            <img class="principes-grid__image" src={principe.image} alt={principe.alt} width="1254" height="1254" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+            <div class="principes-grid__content">
+              <span class="principes-grid__nr">{String(index + 1).padStart(2, '0')}</span>
+              <h3>{principe.title}</h3>
+              <p>{principe.body}</p>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -572,7 +583,7 @@ const jsonLdNodes = [
   }
   @media (min-width: 970px) {
     .hero-strategie__inner {
-      grid-template-columns: 7fr 5fr;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     }
   }
   @media (max-width: 969px) {
@@ -669,6 +680,7 @@ const jsonLdNodes = [
     display: flex;
     align-items: center;
     inline-size: 100%;
+    min-inline-size: 0; /* laat de track krimpen onder een intrinsiek brede canvas */
   }
 
   /* Keep the Calligraph wrappers inline so the headline never breaks between
@@ -698,13 +710,23 @@ const jsonLdNodes = [
     overflow: hidden;
   }
   .hero-sales-chart {
-    inline-size: 100%;
-    block-size: 360px;
-    /* Liveline laat aan de linkerrand een canvas-fade staan. Op mobiel
-       maakt dat het begin van de lijnen onnodig vaag; de chart-wrapper
-       mag daarom niets maskeren of wegfaden. */
-    overflow: visible;
-  }
+      inline-size: 100%;
+      block-size: 360px;
+      min-inline-size: 0;
+      /* Liveline laat aan de linkerrand een canvas-fade staan. Op mobiel
+         maakt dat het begin van de lijnen onnodig vaag; de chart-wrapper
+         mag daarom niets maskeren of wegfaden. */
+      overflow: visible;
+    }
+    /* De grafiek (canvas) is dynamisch: vult altijd de vaste wrapper en mag
+       nooit breder worden dan die wrapper, zodat hij nooit buiten de
+       hero-container / viewport steekt (de wrapper is de vaste container). */
+    .hero-sales-chart canvas {
+      display: block;
+      inline-size: 100% !important;
+      max-inline-size: 100% !important;
+      block-size: 100% !important;
+    }
   @media (max-width: 969px) {
     .hero-sales-chart-crop {
       /* Houd de onderkant van de plot zichtbaar: de vorige 16rem cropte
@@ -1076,6 +1098,15 @@ const jsonLdNodes = [
     margin-block-start: var(--space-sm);
     text-align: center;
   }
+  /* Center de heading-kolom (eyebrow + titel) altijd. De testreview-carrousel
+     eronder is zelf width:100% met eigen horizontale marges en blijft dus
+     volledig breed, terwijl de kopjes netjes gecentreerd staan. */
+  .testimonials .reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
   .testimonial-carousel {
     inline-size: 100%;
     max-inline-size: 64rem;
@@ -1154,109 +1185,125 @@ const jsonLdNodes = [
     }
   }
 
-  /* ---------- Aanpak / LongPress ---------- */
+  /* ---------- Aanpak / één-kaart-carrousel ---------- */
   .aanpak__intro {
-    text-align: center;
-    margin-block-end: var(--space-lg);
-  }
-  .lpr {
-    text-align: center;
-  }
-  .lpr__hint {
-    font-size: var(--text-lg);
-    font-weight: 600;
-  }
-  .lpr__button {
-    margin-block-start: var(--space-lg);
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    background: none;
-    border: var(--border-hairline);
-    border-radius: var(--radius-sm);
-    color: var(--color-ink);
-    padding: var(--space-lg) var(--space-2xl);
-    font-size: var(--text-lg);
-    font-weight: 600;
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: none;
-    transition: background-color var(--transition-fast);
+    justify-content: center;
+    text-align: center;
+    margin-inline: auto;
+    margin-block-end: var(--space-xl);
   }
-  .lpr__button:hover {
-    background-color: var(--color-blue-wash);
+  .aanpak__intro .eyebrow,
+  .aanpak__intro .section-title {
+    text-align: center;
   }
-  .lpr__button:active {
-    background-color: var(--color-ink);
-    color: var(--color-on-ink);
+  .tcrs {
+    inline-size: 100%;
+    max-inline-size: 56rem;
+    margin-inline: auto;
   }
-  .lpr__ring {
-    inline-size: 4.5rem;
-    block-size: 4.5rem;
-  }
-  .lpr__sub {
-    margin-block-start: var(--space-md);
-    font-size: var(--text-sm);
-    color: var(--color-ink-soft);
-  }
-  .lpr__grid {
+  .tcrs__track {
     display: grid;
-    gap: var(--space-lg);
-    margin-block-start: var(--space-lg);
-    text-align: start;
+    grid-auto-flow: column;
+    grid-auto-columns: 100%;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
   }
-  @media (min-width: 56rem) {
-    .lpr__grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  .tcrs__track::-webkit-scrollbar {
+    display: none;
   }
-  /* De aanpak-kaarten volgen exact dezelfde vormtaal als de ROAS-bento.
-     Alleen de inhoud is beeldvrij. */
-  .lpr__card {
+  .tcrs__slide {
     position: relative;
     display: flex;
-    min-block-size: clamp(18rem, 30vw, 28rem);
+    min-block-size: clamp(26rem, 52vw, 32rem);
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    background-color: var(--color-white);
+    justify-content: center;
+    overflow: hidden;
+    scroll-snap-align: center;
+    background-color: var(--color-paper);
     border: var(--border-hairline);
     border-radius: 0.75rem;
-    padding: clamp(1.5rem, 4vw, 4rem);
     box-shadow: 0 0.75rem 2rem rgba(0, 29, 81, 0.04);
     transition: box-shadow var(--transition-fast), transform var(--transition-fast);
   }
-  .lpr__card:hover {
+  .tcrs__slide:hover {
     box-shadow: 0 1rem 2.5rem rgba(0, 29, 81, 0.1);
     transform: translateY(-0.2rem);
   }
-  @media (prefers-reduced-motion: reduce) {
-    .lpr__card {
-      transition: none;
-    }
-    .lpr__card:hover {
-      transform: none;
-    }
+  .tcrs__content {
+    display: flex;
+    inline-size: 100%;
+    min-block-size: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(2rem, 4vw, 3.5rem);
+    text-align: center;
   }
-  .lpr__nr {
-    font-size: var(--text-sm);
+  .tcrs__nr {
+    font-size: clamp(0.875rem, 1.1vw, 1rem);
     font-weight: 600;
     color: var(--color-accent-warm);
   }
-  .lpr__card h3 {
-    font-size: var(--text-xl);
-    margin-block-start: var(--space-xs);
-  }
-  .lpr__card p {
+  .tcrs__slide h3 {
+    max-inline-size: 40ch;
     margin-block-start: var(--space-sm);
+    margin-inline: auto;
+    font-size: clamp(1.6rem, 3.2vw, 2.75rem);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
+  }
+  .tcrs__slide p {
+    max-inline-size: 70ch;
+    margin-block-start: var(--space-md);
+    margin-inline: auto;
+    font-size: clamp(1.05rem, 1.9vw, 1.6rem);
+    line-height: var(--leading-relaxed);
     color: var(--color-ink-soft);
   }
-  .lpr__cycle {
-    margin-block-start: var(--space-xl);
-    font-weight: 600;
-    text-align: center;
+  .tcrs__controls {
+    position: relative;
+    z-index: 60; /* boven de zwevende nav (z-50) zodat de pijlen/dots altijd klikbaar blijven */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    margin-block-start: var(--space-md);
+  }
+  .tcrs__arrow,
+  .crs__arrow {
+    display: grid;
+    inline-size: 44px;
+    block-size: 44px;
+    place-items: center;
+    border: var(--border-hairline);
+    border-radius: 50%;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    cursor: pointer;
+  }
+  .tcrs__dots,
+  .crs__dots {
+    display: flex;
+    gap: var(--space-xs);
+  }
+  .tcrs__dot,
+  .crs__dot {
+    inline-size: 0.55rem;
+    block-size: 0.55rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-border);
+    cursor: pointer;
+  }
+  .tcrs__dot.is-active,
+  .crs__dot.is-active {
+    background: var(--color-accent-warm);
   }
 
   /* ---------- Cirkel ---------- */
@@ -1316,132 +1363,111 @@ const jsonLdNodes = [
     }
   }
 
-  /* ---------- Carrousel (principes) ---------- */
-  .principes-section .crs {
-    margin-block-start: clamp(2rem, 4vw, 3.5rem);
-  }
-  @media (min-width: 970px) {
-    .principes-section .crs__track {
-      grid-auto-flow: initial;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      overflow: visible;
-      scroll-snap-type: none;
-    }
-    .principes-section .crs__slide {
-      min-inline-size: 0;
-    }
-    .principes-section .crs__controls {
-      display: none;
-    }
-  }
-  .crs__track {
+  /* ---------- Principes / vier statische tegels ---------- */
+  .principes-grid {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: min(86%, 24rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: var(--space-md);
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    padding-block-end: var(--space-sm);
-    scrollbar-width: none;
+    inline-size: 100%;
+    max-inline-size: 75rem;
+    margin-block-start: clamp(2rem, 4vw, 3.5rem);
+    margin-inline: auto;
   }
-  @media (max-width: 969px) {
-    .principes-section .crs__track {
-      grid-auto-columns: min(88%, 24rem);
-      padding-inline-end: 12%;
-    }
-  }
-  .crs__track::-webkit-scrollbar {
-    display: none;
-  }
-  .crs__slide {
+  .principes-grid__tile {
     position: relative;
-    min-block-size: clamp(20rem, 34vw, 28rem);
+    display: flex;
+    min-block-size: clamp(22rem, 32vw, 26rem);
+    flex-direction: column;
     overflow: hidden;
-    scroll-snap-align: center;
     background-color: var(--color-paper);
     border: var(--border-hairline);
     border-radius: 0.75rem;
     isolation: isolate;
   }
-  .crs__image {
+  .principes-grid__image {
     position: absolute;
     inset: 0;
-    z-index: -2;
+    z-index: 0;
     display: block;
     inline-size: 100%;
     block-size: 100%;
     object-fit: cover;
     object-position: center;
   }
-  .crs__slide::after {
+  .principes-grid__tile::after {
     content: '';
     position: absolute;
     inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    /* Egale overlay van 80% over de volledige kaart. Geen fade. */
-    background: rgba(250, 248, 245, 0.8);
-  }
-  .crs__overlay {
-    position: absolute;
-    inset-inline: 0;
-    inset-block-end: 0;
     z-index: 1;
-    padding: clamp(1.25rem, 3vw, 2.5rem);
+    pointer-events: none;
+    background: rgba(250, 248, 245, 0.82);
+  }
+  .principes-grid__content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-block-size: 100%;
+    flex: 1;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: clamp(2rem, 4vw, 3.5rem);
     text-align: start;
   }
-  .crs__nr {
+  .principes-grid__nr {
+    font-size: clamp(0.8rem, 1vw, 0.95rem);
     font-weight: 600;
     color: var(--color-accent-warm);
   }
-  .crs__slide h3 {
-    max-inline-size: 28ch;
-    margin-block-start: var(--space-xs);
-    color: var(--color-ink);
-    font-size: var(--text-xl);
-    text-wrap: balance;
-  }
-  .crs__slide p {
-    max-inline-size: 56ch;
+  .principes-grid__tile h3 {
+    max-inline-size: 22ch;
     margin-block-start: var(--space-sm);
     color: var(--color-ink);
+    font-size: clamp(1.15rem, 1.55vw, 1.65rem);
+    line-height: var(--leading-tight);
+    text-wrap: balance;
   }
-  .crs__controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-md);
+  .principes-grid__tile p {
+    max-inline-size: 34ch;
     margin-block-start: var(--space-md);
-  }
-  .crs__arrow {
-    inline-size: 44px;
-    block-size: 44px;
-    border: var(--border-hairline);
-    border-radius: 50%;
-    background: var(--color-white);
     color: var(--color-ink);
-    cursor: pointer;
+    font-size: clamp(0.9rem, 1.05vw, 1rem);
+    line-height: var(--leading-relaxed);
   }
-  .crs__dots {
-    display: flex;
-    gap: var(--space-xs);
-  }
-  .crs__dot {
-    inline-size: 0.55rem;
-    block-size: 0.55rem;
-    border: 0;
-    border-radius: 50%;
-    background: var(--color-border);
-    cursor: pointer;
-  }
-  .crs__dot.is-active {
-    background: var(--color-accent-warm);
+  @media (max-width: 73.125rem) {
+    .principes-grid {
+      grid-template-columns: 1fr;
+    }
+    /* Gestapeld (mobiel/tablet) houden de tegels dezelfde hoogte als op desktop. */
+    .principes-grid__tile {
+      min-block-size: 26rem;
+    }
+    /* Tegel-vullend: vergroot de reactieve lettergrootte zodat de tekst
+       de volle-breedte tegel lekker opvult. */
+    .principes-grid__tile h3 {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      max-inline-size: 40ch;
+    }
+    .principes-grid__tile p {
+      font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+      max-inline-size: 60ch;
+    }
   }
   @media (prefers-reduced-motion: reduce) {
-    .crs__slide,
-    .crs__arrow,
-    .crs__dot {
+    .tcrs__slide,
+    .tcrs__arrow,
+    .tcrs__dot {
       transition: none;
+    }
+    .tcrs__slide:hover {
+      transform: none;
+    }
+  }
+  @media (max-width: 47.99rem) {
+    .tcrs__slide {
+      min-block-size: 26rem;
+    }
+    .tcrs__content {
+      padding: 1.5rem;
     }
   }
 
