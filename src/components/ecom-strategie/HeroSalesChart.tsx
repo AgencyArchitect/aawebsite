@@ -215,16 +215,18 @@ export default function HeroSalesChart() {
       data: metPoints,
       value: metPoints[metPoints.length - 1].value,
       color: '#001d51', // = var(--color-ink), het imperial-blue merkkleur
-      // Geen label: voorkomt dat Liveline een ingebouwde serielegenda tekent.
-      label: '',
+      // Label wordt alleen naast het bewegende eindpunt getoond; de legenda
+      // zelf wordt via CSS verborgen.
+      label: 'Met Agency Architect',
     },
     {
       id: 'zonder-agency-architect',
       data: zonderPoints,
       value: zonderPoints[zonderPoints.length - 1].value,
       color: '#8a5a2b', // = var(--color-accent-warm) ("brons")
-      // Lege string voorkomt de ingebouwde serielegenda; de y-as blijft wel zichtbaar.
-      label: '',
+      // Label wordt alleen naast het bewegende eindpunt getoond; de legenda
+      // zelf wordt via CSS verborgen.
+      label: 'Zonder Agency Architect',
     },
     {
       id: 'headroom',
