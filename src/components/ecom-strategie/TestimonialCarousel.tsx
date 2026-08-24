@@ -63,7 +63,7 @@ export default function TestimonialCarousel({ testimonials }: TestimonialCarouse
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Zie de review →
+                    {'zie de review -->'}
                   </a>
                 )}
               </footer>
