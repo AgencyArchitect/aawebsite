@@ -84,7 +84,7 @@ export default function Hero22({
   headingLine1 = 'Niet nog meer creatives.',
   headingLine2Prefix = 'Wel weten wat de',
   headingHighlight = 'volgende',
-  description = 'Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen, schaalbare creative strategy voor Meta opbouwen. Geen gokwerk, geen eenheidsworst, geen permanente afhankelijkheid van een externe partij.',
+  description = 'Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen, schaalbare creative strategy voor Meta opbouwen.',
   primaryCtaLabel = 'Gratis Meta Audit',
   primaryCtaHref = '/creative-scale-audit/',
   secondaryCtaLabel = 'Zo werk ik',
@@ -106,7 +106,7 @@ export default function Hero22({
         viewport={{ once: true, amount: 0.34 }}
         variants={sectionVariants}
       >
-        <div className="relative z-10 grid flex-1 grid-cols-1 items-start gap-10 pt-14 lg:grid-cols-[minmax(0,0.88fr)_minmax(28rem,1fr)] lg:pt-20 2xl:mt-30">
+        <div className="relative z-10 grid flex-1 grid-cols-1 content-start items-start gap-10 pt-4 md:pt-5 lg:grid-cols-[minmax(0,0.88fr)_minmax(28rem,1fr)] lg:pt-6 2xl:mt-6">
           <div className="max-w-4xl">
             <motion.p variants={copyVariants} className="eyebrow">
               E-commerce Meta marketing
@@ -135,7 +135,7 @@ export default function Hero22({
 
             <motion.div
               variants={copyVariants}
-              className="mt-7 flex flex-wrap items-center gap-5"
+              className="mt-7 flex flex-col items-start gap-4"
             >
               <a
                 href={primaryCtaHref}
@@ -154,7 +154,7 @@ export default function Hero22({
 
             <motion.div
               variants={copyVariants}
-              className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3"
+              className="mt-8 flex flex-col items-start gap-3"
             >
               {['Merk-eigen strategie', 'Onderbouwd schalen', 'Geen afhankelijkheid van externe partijen'].map((usp) => (
                 <span key={usp} className="inline-flex items-center gap-2 text-[clamp(0.82rem,0.75rem+0.3vw,0.95rem)] font-medium text-[#33486d]">
