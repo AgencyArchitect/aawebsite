@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AuditCTA from '../components/AuditCTA.astro';
 import ArticleCard from '../components/ArticleCard.astro';
+import Hero22 from '../components/ui/Hero22.tsx';
 import { SITE, getLiveTopics, getPublishedArticles, topicUrl } from '../lib/site';
 
 const topics = await getLiveTopics();
@@ -17,41 +18,7 @@ const articles = (await getPublishedArticles()).filter((a) =>
   description="Growth consultancy voor creative Meta advertising. Voor founders van gezonde e-commerce merken die willen schalen zonder te gokken op de volgende creative."
 >
   <!-- 1. Hero -->
-  <section class="hero">
-    <div class="container hero__inner">
-      <div class="hero__text">
-        <p class="eyebrow">E-commerce Meta marketing</p>
-        <h1 class="hero__heading">
-          Niet nóg meer creatives.<br />Wél weten wat de volgende goede beslissing is.
-        </h1>
-        <p class="lede hero__lede">
-          Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen, schaalbare
-          creative strategy voor Meta opbouwen. Geen gokwerk, geen eenheidsworst, geen permanente
-          afhankelijkheid van een externe partij.
-        </p>
-        <a class="button button--primary" href="/creative-scale-audit/">Gratis Meta Audit</a>
-      </div>
-
-      <div class="hero__tile">
-        <div class="meta-tile" role="img" aria-label="Meta">
-          <svg viewBox="0 0 287.56 191" role="img" aria-hidden="true">
-            <defs>
-              <linearGradient id="heroMetaBlue" gradientUnits="userSpaceOnUse" x1="0" y1="150" x2="287.56" y2="40">
-                <stop offset="0" stop-color="#0082fb" />
-                <stop offset="0.5" stop-color="#0075f2" />
-                <stop offset="1" stop-color="#0064e1" />
-              </linearGradient>
-            </defs>
-            <g fill="url(#heroMetaBlue)">
-              <path d="M31.06,126c0,11,2.41,19.41,5.56,24.51A19,19,0,0,0,53.19,160c8.1,0,15.51-2,29.79-21.76,11.44-15.83,24.92-38,34-52l15.36-23.6c10.67-16.39,23-34.61,37.18-47C181.07,5.6,193.54,0,206.09,0c21.07,0,41.14,12.21,56.5,35.11,16.81,25.08,25,56.67,25,89.27,0,19.38-3.82,33.62-10.32,44.87C271,180.13,258.72,191,238.13,191V160c17.63,0,22-16.2,22-34.74,0-26.42-6.16-55.74-19.73-76.69-9.63-14.86-22.11-23.94-35.84-23.94-14.85,0-26.8,11.2-40.23,31.17-7.14,10.61-14.47,23.54-22.7,38.13l-9.06,16c-18.2,32.27-22.81,39.62-31.91,51.75C84.74,183,71.12,191,53.19,191c-21.27,0-34.72-9.21-43-23.09C3.34,156.6,0,141.76,0,124.85Z"/>
-              <path d="M24.49,37.3C38.73,15.35,59.28,0,82.85,0c13.65,0,27.22,4,41.39,15.61,15.5,12.65,32,33.48,52.63,67.81l7.39,12.32c17.84,29.72,28,45,33.93,52.22,7.64,9.26,13,12,19.94,12,17.63,0,22-16.2,22-34.74l27.4-.86c0,19.38-3.82,33.62-10.32,44.87C271,180.13,258.72,191,238.13,191c-12.8,0-24.14-4.16-36.68-16-9.64-9.08-20.91-25.21-29.58-39.71L146.08,92.6c-12.94-21.62-24.81-37.74-31.68-45C107,39.36,97.51,29.42,82.35,29.42c-12.27,0-22.69,8.61-31.41,21.79Z"/>
-              <path d="M82.35,29.42c-12.27,0-22.69,8.61-31.41,21.79C38.61,69.74,31.06,97.7,31.06,124.54c0,11,2.41,19.41,5.56,24.51L10.14,166.35C3.34,156.6,0,141.76,0,124.85,0,93.86,8.51,61.56,24.49,37.3,38.73,15.35,59.28,0,82.85,0Z"/>
-            </g>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Hero22 client:load />
 
   <!-- 2. Twee pijlers voor e-commerce groei -->
   <section class="section section--wash" aria-labelledby="pillars-heading">
@@ -150,69 +117,72 @@ const articles = (await getPublishedArticles()).filter((a) =>
   />
 </BaseLayout>
 
-<style>
-  /* 1. Hero */
-  .hero {
-    padding-block: var(--space-3xl) var(--space-2xl);
-    background-color: var(--color-paper);
-  }
-
-  .hero__inner {
+<style is:global>
+  /* AnimatedList (zelfde styling als op de e-commerce strategie-pagina,
+     hier globaal zodat het React-eiland in de hero het bereikt). */
+  .anim-list {
+    position: relative;
     display: grid;
-    gap: var(--space-2xl);
-    align-items: center;
+    gap: clamp(0.4rem, 1vw, 0.6rem);
+    padding-block: clamp(0.35rem, 0.8vw, 0.5rem);
   }
-
-  @media (min-width: 56rem) {
-    .hero__inner {
-      grid-template-columns: 7fr 5fr;
-    }
-  }
-
-  .hero__heading {
-    max-inline-size: 22ch;
-    margin-block-start: var(--space-md);
-    font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.9rem);
-    color: var(--color-ink);
-  }
-
-  .hero__lede {
-    margin-block: var(--space-lg);
-    max-inline-size: 52ch;
-    color: var(--color-ink-soft);
-  }
-
-  .hero__tile {
+  .anim-card {
+    position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    gap: clamp(0.6rem, 1.2vw, 0.75rem);
+    background-color: var(--color-white);
+    border: var(--border-hairline);
+    border-radius: clamp(0.8rem, 1.6vw, 1.4rem);
+    padding: clamp(0.75rem, 1.4vw, 1rem) clamp(0.9rem, 1.6vw, 1.1rem);
+    box-shadow: 0 8px 24px rgba(0, 29, 81, 0.1);
   }
-
-  .meta-tile {
-    border: 0;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    padding: clamp(3rem, 7vw, 5.5rem);
-    width: min(100%, 30rem);
-    aspect-ratio: 1;
-    border-radius: 50px;
-    background: #e0e0e0;
-    box-shadow:
-      20px 20px 60px #bebebe,
-      -20px -20px 60px #ffffff;
-    transition: box-shadow 180ms ease, transform 180ms ease;
+  .anim-new-badge {
+    position: absolute;
+    inset-block-start: -0.42rem;
+    inset-inline-end: -0.42rem;
+    inline-size: 1.365rem;
+    block-size: 1.365rem;
+    border-radius: 50%;
+    background-color: #e02424;
+    border: 2px solid var(--color-white);
   }
-
-  .meta-tile svg {
-    width: 100%;
-    height: auto;
-    display: block;
+  .anim-dot {
+    flex-shrink: 0;
+    inline-size: clamp(0.55rem, 0.9vw, 0.65rem);
+    block-size: clamp(0.55rem, 0.9vw, 0.65rem);
+    border-radius: 50%;
+    margin-block-start: 0.4rem;
   }
-
-  .meta-tile:focus-visible {
-    outline: 2px solid #0064e1;
-    outline-offset: 4px;
+  .anim-logo {
+    flex-shrink: 0;
+    inline-size: clamp(1.35rem, 2.4vw, 1.6rem);
+    block-size: clamp(1.35rem, 2.4vw, 1.6rem);
+    object-fit: contain;
+    margin-block: auto;
+  }
+  .anim-source {
+    font-size: clamp(0.68rem, 0.6rem + 0.2vw, 0.83rem);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-accent-warm);
+  }
+  .anim-title {
+    font-weight: 600;
+    font-size: clamp(0.82rem, 0.72rem + 0.3vw, 0.95rem);
+    margin-block-start: 0.15rem;
+  }
+  .anim-text {
+    font-size: clamp(0.78rem, 0.7rem + 0.25vw, 0.9rem);
+    color: var(--color-ink-soft);
+    margin-block-start: 0.15rem;
+  }
+  .anim-time {
+    margin-inline-start: auto;
+    font-size: clamp(0.66rem, 0.58rem + 0.2vw, 0.8rem);
+    color: var(--color-ink-soft);
+    flex-shrink: 0;
   }
 
   /* Shared section heading */
