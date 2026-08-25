@@ -124,10 +124,10 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
                 aria-haspopup={hasChildren ? "true" : undefined}
                 onClick={hasChildren && !canHover ? (e) => { e.preventDefault(); toggleMenu(item.label); } : undefined}
                 className={cn(
-                  "relative cursor-pointer text-sm font-semibold rounded-full transition-all duration-300 text-foreground/80 hover:text-primary inline-flex items-center gap-1.5 py-2",
-                  padX,
-                  isActive && "bg-black/5 text-primary"
-                )}
+                                    "relative cursor-pointer font-semibold rounded-full transition-all duration-300 text-foreground/80 hover:text-primary inline-flex items-center gap-1.5 py-2 text-[clamp(0.8rem,0.68rem+0.35vw,0.95rem)]",
+                                    padX,
+                                    isActive && "bg-black/5 text-primary"
+                                  )}
               >
                 <span className="hidden md:inline-flex items-center gap-1.5">
                   {item.label}
@@ -156,13 +156,13 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
               <AnimatePresence>
                 {hasChildren && isOpen && (
                   <>
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full h-3 w-[560px]" />
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full h-3 w-[620px]" />
                     <motion.div
                       initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] min-w-[560px] rounded-2xl bg-white shadow-xl border border-black/5 overflow-hidden"
+                      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] w-[620px] rounded-2xl bg-white shadow-xl border border-black/5 overflow-hidden"
                     >
                       <div className="grid grid-cols-3 gap-0">
                         {groups!.map((group) => (
@@ -181,7 +181,7 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
                                   key={link.href}
                                   href={link.href}
                                   className={cn(
-                                    "block px-3 py-1.5 text-sm font-medium text-foreground/70 hover:bg-black/5 hover:text-primary rounded-lg transition-colors whitespace-nowrap",
+                                    "block px-3 py-1.5 text-[13px] leading-snug font-medium text-foreground/70 hover:bg-black/5 hover:text-primary rounded-lg transition-colors",
                                     childActive && "bg-black/5 text-primary font-semibold"
                                   )}
                                 >
