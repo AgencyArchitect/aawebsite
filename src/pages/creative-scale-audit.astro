@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AuditForm from '../components/AuditForm.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 const trail = [
@@ -108,23 +107,18 @@ const faqJsonLd = {
       </div>
 
       <aside class="audit-form-panel" aria-labelledby="form-heading">
-        <h2 id="form-heading">Vraag de audit aan</h2>
+        <h2 id="form-heading">Plan de audit in</h2>
         <p class="text-soft">
-          Vier velden, twee minuten. We beoordelen elke aanvraag persoonlijk en nemen telefonisch
-          contact op.
+          Kies een moment dat jou uitkomt. In het gesprek beoordelen we je aanvraag persoonlijk.
         </p>
-        <AuditForm />
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/thomas-agencyarchitect/30min?hide_event_type_details=1&hide_gdpr_banner=1"
+          style="min-width:320px;height:700px;"
+        ></div>
+        <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
       </aside>
     </div>
-
-    <section class="section--tight" aria-labelledby="next-steps">
-      <h2 id="next-steps">Wat er na je aanvraag gebeurt</h2>
-      <p class="prose">
-        We bekijken je merk, je website en je publiek zichtbare advertenties. Binnen twee werkdagen
-        bellen we je om de audit en de eerstvolgende stap door te nemen. Past het niet, dan zeggen
-        we dat ook: liever een kort eerlijk gesprek dan een lang vrijblijvend traject.
-      </p>
-    </section>
 
     <section class="section--tight" aria-labelledby="faq-heading">
       <h2 id="faq-heading">Veelgestelde vragen</h2>
@@ -187,6 +181,11 @@ const faqJsonLd = {
 
   .audit-form-panel h2 {
     font-size: var(--text-xl);
+  }
+
+  .audit-form-panel .calendly-inline-widget {
+    inline-size: 100%;
+    margin-block-start: var(--space-md);
   }
 
   .faq {
