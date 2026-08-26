@@ -1,4 +1,13 @@
 ---
+import {
+  Breadcrumb,
+  BreadcrumbList,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '../components/ui/breadcrumb';
+
 interface Props {
   trail: { name: string; url: string }[];
 }
@@ -17,80 +26,25 @@ const jsonLd = {
   })),
 };
 ---
-
-<nav aria-label="Kruimelpad" class="breadcrumbs">
-  <ol>
+<Breadcrumb>
+  <BreadcrumbList>
     {
-      trail.map((crumb, i) => (
-        <li>
-          {i < trail.length - 1 ? (
-            <a href={crumb.url}>{crumb.name}</a>
-          ) : (
-            <span aria-current="page">{crumb.name}</span>
-          )}
-        </li>
-      ))
+      trail.map((crumb, i) => {
+        const isLast = i === trail.length - 1;
+        return (
+          <>
+            {i > 0 && <BreadcrumbSeparator />}
+            <BreadcrumbItem>
+              {isLast ? (
+                <BreadcrumbPage>{crumb.name}</BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink href={crumb.url}>{crumb.name}</BreadcrumbLink>
+              )}
+            </BreadcrumbItem>
+          </>
+        );
+      })
     }
-  </ol>
-</nav>
+  </BreadcrumbList>
+</Breadcrumb>
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
-
-<style>
-  .breadcrumbs ol {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: clamp(0.2rem, 1.5vw, var(--space-xs));
-    font-size: clamp(0.62rem, 2.65vw, var(--text-sm));
-    color: var(--color-ink-soft);
-    white-space: nowrap;
-    overflow: hidden;
-    inline-size: 100%;
-    min-inline-size: 0;
-  }
-
-  .breadcrumbs {
-    display: block;
-    max-inline-size: 100%;
-    min-inline-size: 0;
-    overflow: hidden;
-  }
-
-  .breadcrumbs li {
-    min-inline-size: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .breadcrumbs li:last-child {
-    flex: 1 1 auto;
-  }
-
-  @media (max-width: 47.99rem) {
-    .breadcrumbs ol {
-      font-size: clamp(0.58rem, 2.45vw, 0.75rem);
-      line-height: 1.35;
-      gap: 0.18rem;
-    }
-
-    .breadcrumbs li:not(:last-child)::after {
-      margin-inline-start: 0.18rem;
-    }
-  }
-
-  .breadcrumbs li:not(:last-child)::after {
-    content: '/';
-    margin-inline-start: clamp(0.2rem, 1.5vw, var(--space-xs));
-    color: var(--color-accent-warm);
-  }
-
-  .breadcrumbs a {
-    color: var(--color-ink-soft);
-  }
-
-  .breadcrumbs [aria-current] {
-    color: var(--color-ink);
-  }
-</style>

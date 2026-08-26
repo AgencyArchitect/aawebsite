@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import HeroTitleWord from '../../components/ecom-strategie/HeroTitleWord.tsx';
 import HeroSalesChart from '../../components/ecom-strategie/HeroSalesChart.tsx';
 import AnimatedList from '../../components/ecom-strategie/AnimatedList.tsx';
@@ -220,15 +221,8 @@ const jsonLdNodes = [
 ---
 
 <BaseLayout {title} {description} {jsonLdNodes}>
-  <div class="container strategie-breadcrumbs">
-    <nav class="crumbs" aria-label="Kruimelpad">
-      {trail.map((t, i) => (
-        <span>
-          {i > 0 && <span aria-hidden="true"> / </span>}
-          {i === trail.length - 1 ? <span aria-current="page">{t.name}</span> : <a href={t.url}>{t.name}</a>}
-        </span>
-      ))}
-    </nav>
+  <div class="container section--tight">
+    <Breadcrumbs {trail} />
   </div>
 
   <!-- 1. Hero -->
@@ -530,50 +524,10 @@ const jsonLdNodes = [
 
   /* Page-scoped classes are page-unique; global is required so the styles
      also reach DOM rendered inside React islands (client:* hydration). */
-  /* ---------- Kruimels ---------- */
-  .crumbs {
-    display: flex;
-    align-items: center;
-    inline-size: 100%;
-    min-inline-size: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    font-size: clamp(0.58rem, 2.45vw, 0.75rem);
-    line-height: 1.35;
-    color: var(--color-ink-soft);
-  }
-  .crumbs > span {
-    min-inline-size: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .crumbs > span:last-child {
-    flex: 1 1 auto;
-  }
-  @media (max-width: 47.99rem) {
-    .strategie-breadcrumbs {
-      inline-size: 100%;
-      min-inline-size: 0;
-      overflow: hidden;
-      padding-inline: 24px;
-      box-sizing: border-box;
-    }
-  }
-  .crumbs a {
-    color: inherit;
-  }
-  .crumbs [aria-current='page'] {
-    color: var(--color-ink);
-    font-weight: 600;
-  }
-
   /* ---------- Hero ---------- */
   .hero-strategie {
     background-color: var(--color-paper);
     padding-block: clamp(2rem, 5vw, 4rem) clamp(1rem, 2vw, 1.75rem);
-  }
-  .strategie-breadcrumbs {
-    padding-block: clamp(1rem, 2vw, 1.5rem) clamp(0.5rem, 1vw, 0.75rem);
   }
   .hero-strategie__inner {
     display: grid;
@@ -598,10 +552,6 @@ const jsonLdNodes = [
     }
     .hero-strategie {
       padding-block-start: 1.5rem;
-      padding-block-end: 0.5rem;
-    }
-    .strategie-breadcrumbs {
-      padding-block-start: 0.75rem;
       padding-block-end: 0.5rem;
     }
     .hero-strategie__copy,
