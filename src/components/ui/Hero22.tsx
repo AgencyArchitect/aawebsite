@@ -87,7 +87,7 @@ export default function Hero22({
   description = 'Agency Architect helpt founders van gezonde e-commerce merken een merk-eigen, schaalbare creative strategy voor Meta opbouwen.',
   primaryCtaLabel = 'Gratis Meta Audit',
   primaryCtaHref = '/creative-scale-audit/',
-  secondaryCtaLabel = 'Zo werk ik',
+  secondaryCtaLabel = 'Over ons',
   secondaryCtaHref = '/over/',
   backgroundImage = 'https://assets.watermelon.sh/hero-22-bg.avif',
 }: Hero22Props) {
@@ -146,7 +146,7 @@ export default function Hero22({
               </a>
               <a
                 href={secondaryCtaHref}
-                className="inline-flex min-h-11 items-center justify-center rounded-sm px-7 text-[0.78rem] font-semibold text-neutral-900 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)] backdrop-blur-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-white/15 hover:shadow-[inset_0_0_0_1px_rgba(0,0,0,0.14)] active:scale-[0.96]"
+                className="inline-flex min-h-11 items-center justify-center rounded-sm px-7 text-[0.78rem] font-semibold text-[#001d51] shadow-[inset_0_0_0_1.5px_#001d51] backdrop-blur-sm transition-[background-color,box-shadow,transform] duration-200 ease-out hover:bg-[#001d51]/5 hover:shadow-[inset_0_0_0_1.5px_#001d51] active:scale-[0.96]"
               >
                 {secondaryCtaLabel}
               </a>

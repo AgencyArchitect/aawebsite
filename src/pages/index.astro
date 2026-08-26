@@ -3,10 +3,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import AuditCTA from '../components/AuditCTA.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import Hero22 from '../components/ui/Hero22.tsx';
-import { SITE, getLiveTopics, getPublishedArticles, topicUrl } from '../lib/site';
-
-const topics = await getLiveTopics();
-const platforms = topics.filter((t) => t.data.level === 'platform');
+import SplitFlapText from '../components/ui/SplitFlapText.jsx';
+import ComparisonBlock from '../components/ui/comparison-2.tsx';
+import WorkflowCards from '../components/WorkflowCards.tsx';
+import { getPublishedArticles } from '../lib/site';
 
 const articles = (await getPublishedArticles()).filter((a) =>
   ['waarom-je-beste-ad-je-grootste-risico-is', 'cpa-stijgt-nieuwe-creatives-niet-oplossing', 'de-hook-is-geen-zin-maar-een-hypothese'].includes(a.id),
@@ -20,80 +20,222 @@ const articles = (await getPublishedArticles()).filter((a) =>
   <!-- 1. Hero -->
   <Hero22 client:load />
 
-  <!-- 2. Twee pijlers voor e-commerce groei -->
-  <section class="section section--wash" aria-labelledby="pillars-heading">
-    <div class="container">
-      <p class="eyebrow">Twee pijlers voor e-commerce groei</p>
-      <h2 id="pillars-heading" class="section-title">Waar we in groeien</h2>
+  <!-- 2. Split Flap board -->
+  <section class="section splitflap-section" aria-labelledby="splitflap-heading">
+    <div class="container splitflap-section__inner">
+      <h2 id="splitflap-heading" class="section-title splitflap-section__title">
+        Herkenbaar?
+      </h2>
+      <SplitFlapText
+        client:load
+        words={['HOGE ATC', 'ROAS <2,5', 'MEER BUDGET', 'MEER CREATIVES', 'AD FATIGUE']}
+        flipDuration={0.12}
+        stagger={0.06}
+        cycleDelay={2400}
+        charset="alphanumeric"
+        flipsPerChar={8}
+        tileColor="#faf8f5"
+        textColor="#001d51"
+        tileRadius={10}
+        gap={6}
+        fontSize="clamp(1.5rem, 4.5vw, 3.2rem)"
+        loop
+        padTo={13}
+      />
 
-      <div class="grid-2 pillar-grid">
-        {
-          platforms.map((platform) => (
-            <article class="pillar">
-              <h3 class="pillar__title">
-                <a href={topicUrl(platform)}>{platform.data.title}</a>
-              </h3>
-              <p class="text-soft pillar__desc">{platform.data.description}</p>
-              <a class="pillar__cta" href={topicUrl(platform)}>Bekijk de aanpak →</a>
-            </article>
-          ))
-        }
+      <div class="splitflap-section__copy">
+              <p class="splitflap-section__lede">
+                Voor webshops die winstgevend zijn, maar moeite hebben om performance op te schalen uit Meta advertenties.
+              </p>
+              <div class="splitflap-section__cols">
+                <div class="splitflap-section__col">
+                  <p>
+                    Als de <strong>ROAS lager is dan 2,5</strong>, dan ben je niet te laat. Maar juist aan het begin.
+                  </p>
+                  <p>
+                    Bij een te lage ROAS — of een schommelende ROAS — ervaren brands een lagere, onvoorspelbare
+                    winstmarge. En hebben daardoor minder buffer en budget, om op te schalen.
+                  </p>
+                  <p>
+                    Brands verliezen hiermee hun publiek. En de concurrentie wint die doelgroep die geen performance meer bediend wordt.
+                  </p>
+                  <p>
+                    In plaats van te fixen wat er misgaat, zien brands nieuwe creatives, geleend geld of nieuwe
+                    producten/offers testen als de oplossing.
+                  </p>
+                </div>
+                <div class="splitflap-section__col">
+                  <p class="splitflap-section__key">
+                    Om erachter te komen dat dat het niet is.
+                  </p>
+                  <p>
+                    Marketing voelt als gokken. Concurrentie groeit. En brands raken onzeker over hun eigen toekomst.
+                  </p>
+                  <p>
+                    Doelen en investeringen worden uitgesteld, targets niet gehaald en je betaalt jezelf als laatste uit.
+                    Dit is niet nodig.
+                  </p>
+                  <p class="splitflap-section__closing">
+                    Het ligt niet aan de brand en het product. Maar aan de creative strategy en het systeem achter de brand.
+                  </p>
+                </div>
+              </div>
+            </div>
+    </div>
+  </section>
+
+  <!-- 3. De diensten waarmee Agency Architect dit uitvoert -->
+  <section class="section section--wash pillars-section" aria-labelledby="pillars-heading">
+    <div class="container">
+      <div class="pillars-copy pillars-copy--beige">
+        <p class="pillars-copy__lede">
+          Creative strategy voor brands hoeft niet ingewikkeld te zijn. Het is schaalbaar weten wat er
+          getest wordt. Gebaseerd op persona's, offers en invalshoeken/angles, die vooraf bepaald zijn.
+        </p>
+
+        <div class="pillars-copy__cols">
+          <div class="pillars-copy__col">
+            <p>
+              Voor e-commerce brands die willen opschalen: ze zijn te druk om dit zelf te doen.
+            </p>
+            <p>
+              Eigenaren zijn al druk met finance, webshop aanpassingen, customer support, leveranciers
+              vinden en meer. Ads moeten daar ook nog bij passen. Dat werkt niet.
+            </p>
+            <p>
+              Het alternatief? Een freelancer of een agency. Al lijkt het in het begin goed te gaan;
+              beiden doen ook geen creative strategy.
+            </p>
+            <p>
+              Helaas zien brands niks meer dan copy-paste concepten, goede excusjes en matig voldoende
+              resultaten.
+            </p>
+            <p>
+              E-commerce brands die willen opschalen hebben niks aan een agency of freelancer, die
+              hetzelfde trucje kopieert van hun andere klanten.
+            </p>
+          </div>
+          <div class="pillars-copy__col">
+            <p>
+              En daar komt Agency Architect om de hoek kijken.
+            </p>
+            <p>
+              Waar freelancers goed zijn in media buying, mist het component creatives. Qua ideatie en
+              product- en marktonderzoek.
+            </p>
+            <p>
+              En waar agencies dat wel doen voor e-commerce brands, mist het gevoel van klant zijn.
+              Veel copy-paste werk — zelfs in de WhatsApp en Slack berichten die accountmanagers rondsturen.
+            </p>
+            <p class="pillars-copy__key">
+              En nog belangrijker: Hoe kunnen e-commerce brands opschalen, met een strategie die niet van hun is?
+              En die ze zelf niet eens begrijpen?
+            </p>
+          </div>
+        </div>
+
+        <div class="pillars-closing">
+                  <div class="pillars-closing__text">
+                    <p>
+                      Agency Architect helpt e-commerce brands opschalen door een merkeigen creative strategy te
+                      bepalen — samen met de eigenaar. En deze vervolgens ook uit te voeren.
+                    </p>
+                    <p>
+                      Geen kopieer-plakwerk. Geen eenmalige campagnes en concepten. Samen vinden we unieke
+                      concepten, die schaalbaar zijn. En niet eenmalig goed werken. Met winst, vrijheid en
+                      voorspelbare groei als doel.
+                    </p>
+                    <p class="pillars-copy__concept">
+                      Zodat e-commerce founders weer concentreren op wat ertoe doet: familie, droomleven en de
+                      wereld veroveren.
+                    </p>
+                  </div>
+                  <div class="pillars-closing__art">
+                              <svg class="cirkel" viewBox="0 0 460 460" role="img" aria-label="Cirkeldiagram: Creative strategy, Media buying en Tracking &amp; Reporting sluiten op elkaar aan">
+                                <defs>
+                                  <marker id="cirkelArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                    <path d="M0 0 10 5 0 10z" fill="var(--color-accent-warm)" />
+                                  </marker>
+                                </defs>
+                                <circle cx="230" cy="230" r="150" fill="none" stroke="var(--color-border)" stroke-width="1.5" stroke-dasharray="3 6" />
+                                <g class="cirkel__flow" fill="none" stroke="var(--color-accent-warm)" stroke-width="2" stroke-linecap="round" marker-end="url(#cirkelArrow)">
+                                  <path d="M230 80 A150 150 0 0 1 380 230" />
+                                  <path d="M380 230 A150 150 0 0 1 230 380" />
+                                  <path d="M230 380 A150 150 0 0 1 80 230" />
+                                  <path d="M80 230 A150 150 0 0 1 230 80" />
+                                </g>
+                                <g font-family="var(--font-sans)" font-weight="600" text-anchor="middle">
+                                  <g>
+                                    <circle cx="230" cy="80" r="50" fill="var(--color-ink)" />
+                                    <text x="230" y="75" fill="var(--color-on-ink)" font-size="12.5">Creative</text>
+                                    <text x="230" y="91" fill="var(--color-on-ink)" font-size="12.5">strategy</text>
+                                  </g>
+                                  <g>
+                                    <circle cx="380" cy="230" r="50" fill="var(--color-ink)" />
+                                    <text x="380" y="225" fill="var(--color-on-ink)" font-size="12.5">Media</text>
+                                    <text x="380" y="241" fill="var(--color-on-ink)" font-size="12.5">buying</text>
+                                  </g>
+                                  <g>
+                                    <circle cx="230" cy="380" r="50" fill="var(--color-ink)" />
+                                    <text x="230" y="385" fill="var(--color-on-ink)" font-size="13">Creative</text>
+                                  </g>
+                                  <g>
+                                    <circle cx="80" cy="230" r="50" fill="var(--color-ink)" />
+                                    <text x="80" y="228" fill="var(--color-on-ink)" font-size="12">Tracking &amp;</text>
+                                    <text x="80" y="244" fill="var(--color-on-ink)" font-size="12">Reporting</text>
+                                  </g>
+                                </g>
+                                <text x="230" y="222" text-anchor="middle" font-family="var(--font-serif)" font-style="italic" font-size="19.5" fill="var(--color-ink-soft)">Agency</text>
+                                <text x="230" y="244" text-anchor="middle" font-family="var(--font-serif)" font-style="italic" font-size="19.5" fill="var(--color-ink-soft)">Architect</text>
+                              </svg>
+                            </div>
+                </div>
+      </div>
+
+      <div class="diensten-block">
+        <p class="eyebrow">De diensten</p>
+        <h2 id="pillars-heading" class="section-title">Disciplines waarmee Agency Architect dit uitvoert:</h2>
+
+        <div class="grid-2 pillar-grid">
+          <article class="pillar">
+            <h3 class="pillar__title">
+              <a href="/e-commerce-marketing/">E-commerce marketing</a>
+            </h3>
+            <p class="text-soft pillar__desc">
+              De volledige marketing-aanpak voor webshops die winstgevend willen schalen: strategie, creatives, media buying en rapportage als één systeem.
+            </p>
+            <a class="pillar__cta" href="/e-commerce-marketing/">Bekijk de aanpak →</a>
+          </article>
+          <article class="pillar">
+            <h3 class="pillar__title">
+              <a href="/e-commerce-marketing/instagram-marketing/adverteren/">Instagram advertising</a>
+            </h3>
+            <p class="text-soft pillar__desc">
+              Adverteren op Instagram als ontdekkings- en bewijskanaal, binnen dezelfde merkeigen creative strategy.
+            </p>
+            <a class="pillar__cta" href="/e-commerce-marketing/instagram-marketing/adverteren/">Bekijk de aanpak →</a>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 3. Zo werk ik -->
-  <section class="section" aria-labelledby="werkwijze-heading">
-    <div class="container">
+  <!-- 4. De oplossing: waarom Agency Architect anders is -->
+  <ComparisonBlock client:load />
+
+  <!-- 5. Zo werk ik -->
+  <section class="section werkwijze-section" aria-labelledby="werkwijze-heading">
+    <div class="container werkwijze-section__inner">
       <p class="eyebrow">Zo werk ik</p>
       <h2 id="werkwijze-heading" class="section-title">Vier stappen</h2>
 
       <ol class="werkwijze">
-        <li class="werkwijze__step">
-          <span class="werkwijze__nr" aria-hidden="true">01</span>
-          <div>
-            <h3>Analyse</h3>
-            <p class="text-soft">
-              We duiken in je Meta-ad account en toetsen de markt. Markt- en productonderzoek, en
-              dat balen we samen tot één unieke creative strategy voor jouw merk.
-            </p>
-          </div>
-        </li>
-        <li class="werkwijze__step">
-          <span class="werkwijze__nr" aria-hidden="true">02</span>
-          <div>
-            <h3>Strategie</h3>
-            <p class="text-soft">
-              We bespreken de strategie én jouw echte doel: hoe vliegen we dit aan, waar wil je
-              heen — ook internationaal. Eerst akkoord, dan pas bouwen.
-            </p>
-          </div>
-        </li>
-        <li class="werkwijze__step">
-          <span class="werkwijze__nr" aria-hidden="true">03</span>
-          <div>
-            <h3>Uitvoering</h3>
-            <p class="text-soft">
-              We schalen één campagne of land op en maken het proces overzichtelijk — zodat het
-              daarna op élke campagne en land toepasbaar is. Een groeimachine.
-            </p>
-          </div>
-        </li>
-        <li class="werkwijze__step">
-          <span class="werkwijze__nr" aria-hidden="true">04</span>
-          <div>
-            <h3>Meten &amp; schalen</h3>
-            <p class="text-soft">
-              Elke maand: nieuwe campagnes, producten, concurrent-acquisitie, cashflow. Blijven
-              groeien, stap voor stap.
-            </p>
-          </div>
-        </li>
+        <WorkflowCards client:load />
       </ol>
     </div>
   </section>
 
-  <!-- 4. Kennisbank -->
+  <!-- 6. Kennisbank -->
   <section class="section section--wash" aria-labelledby="kennisbank-heading">
     <div class="container">
       <div class="kennisbank__head">
@@ -110,7 +252,7 @@ const articles = (await getPublishedArticles()).filter((a) =>
     </div>
   </section>
 
-  <!-- 5. CTA -->
+  <!-- 7. CTA -->
   <AuditCTA
     heading="Weten waar je staat?"
     body="We beoordelen de schaalbaarheid van je Meta- en creative-aanpak — en waar je volgende euro het meest onderbouwd heen kan."
@@ -118,6 +260,90 @@ const articles = (await getPublishedArticles()).filter((a) =>
 </BaseLayout>
 
 <style is:global>
+  /* Split Flap sectie (na de hero) */
+  .splitflap-section {
+    background-color: var(--color-ink);
+    color: var(--color-on-ink);
+    padding-block: var(--space-2xl) var(--space-3xl);
+    overflow: hidden;
+  }
+  .splitflap-section__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .splitflap-section__eyebrow {
+    color: var(--color-on-ink-soft);
+    margin-inline: auto;
+  }
+  .splitflap-section__title {
+    margin-block: var(--space-xs) var(--space-lg);
+    max-inline-size: 20ch;
+  }
+  .splitflap-section .split-flap-text {
+    max-inline-size: 100%;
+    overflow-x: auto;
+    margin-inline: auto;
+    justify-content: center;
+  }
+
+  .splitflap-section__copy {
+    margin-inline: auto;
+    margin-block-start: var(--space-xl);
+    color: var(--color-on-ink-soft);
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.92rem + 0.25vw, 1.12rem);
+    line-height: 1.65;
+    text-align: left;
+  }
+  .splitflap-section__copy p {
+    margin-block: var(--space-sm);
+  }
+  .splitflap-section__cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md) var(--space-2xl);
+    margin-block-start: var(--space-md);
+  }
+  .splitflap-section__col > * + * {
+    margin-block-start: var(--space-sm);
+  }
+  .splitflap-section__copy strong {
+    color: var(--color-on-ink);
+    font-weight: 700;
+  }
+  .splitflap-section__lede {
+    max-inline-size: 62ch;
+    margin-inline: auto;
+    text-align: center;
+    font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.45rem);
+    line-height: 1.4;
+    color: var(--color-on-ink);
+    font-weight: 600;
+    margin-block-end: var(--space-md);
+  }
+  .splitflap-section__key {
+    font-size: clamp(1.08rem, 1rem + 0.3vw, 1.28rem);
+    color: var(--color-on-ink);
+    font-weight: 600;
+  }
+  .splitflap-section__closing {
+    font-size: clamp(1.08rem, 1rem + 0.3vw, 1.28rem);
+    color: var(--color-on-ink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 760px) {
+    .splitflap-section__copy {
+      text-align: left;
+    }
+    .splitflap-section__cols {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+
   /* AnimatedList (zelfde styling als op de e-commerce strategie-pagina,
      hier globaal zodat het React-eiland in de hero het bereikt). */
   .anim-list {
@@ -228,36 +454,266 @@ const articles = (await getPublishedArticles()).filter((a) =>
     text-decoration-thickness: 1px;
   }
 
-  /* 3. Zo werk ik */
+  .pillars-copy {
+    margin-block-start: var(--space-2xl);
+    padding-block-start: var(--space-2xl);
+    border-block-start: var(--border-hairline);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.92rem + 0.25vw, 1.12rem);
+    line-height: 1.65;
+  }
+  .pillars-copy--beige {
+    background: #f6f4f0;
+    border-block-start: 0;
+    border-radius: 24px;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    margin-block-start: 0;
+    margin-block-end: var(--space-2xl);
+  }
+  .pillars-copy--beige .pillars-closing {
+    border-block-start-color: var(--color-border, #d9dde6);
+  }
+
+  .diensten-block {
+    background: #001d51;
+    border-radius: 24px;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    color: #fff;
+    position: relative;
+    isolation: isolate;
+    z-index: 2;
+  }
+  .diensten-block .eyebrow {
+    color: var(--color-on-ink-soft);
+  }
+  .diensten-block .section-title {
+    color: #fff;
+  }
+  .diensten-block .pillar-grid {
+    position: relative;
+    z-index: 1;
+  }
+  .diensten-block .pillar__title a,
+  .diensten-block .pillar__cta {
+    color: #fff;
+    position: relative;
+    z-index: 5;
+    display: inline-block;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+  .diensten-block .pillar__desc {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .diensten-block .pillar {
+    border-block-start-color: rgba(255, 255, 255, 0.2);
+    position: relative;
+  }
+  .diensten-block .pillar__cta {
+    margin-block-start: var(--space-md);
+  }
+  .pillars-copy p {
+    margin-block: var(--space-sm);
+  }
+  .pillars-copy strong {
+    color: var(--color-accent-warm);
+    font-weight: 700;
+  }
+  .pillars-copy__lede {
+    font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.45rem);
+    line-height: 1.4;
+    color: var(--color-ink);
+    font-weight: 600;
+    max-inline-size: var(--width-content);
+    margin-block-end: var(--space-md);
+  }
+  .pillars-copy__cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md) var(--space-2xl);
+    margin-block-start: var(--space-md);
+  }
+  .pillars-copy__col > * + * {
+    margin-block-start: var(--space-sm);
+  }
+  .pillars-copy__key {
+    font-size: clamp(1.08rem, 1rem + 0.3vw, 1.28rem);
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+  .pillars-closing {
+    margin-block-start: var(--space-xl);
+    padding-block-start: var(--space-lg);
+    border-block-start: var(--border-hairline);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+  .pillars-closing__text p {
+    margin-block: var(--space-sm);
+    max-inline-size: var(--width-content);
+  }
+  .pillars-closing__art {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* ---------- Cirkel / 4 disciplines-cyclus ----------
+     Zelfde stijl als de "De cirkel"-animatie op de strategie-pagina. */
+  .cirkel {
+    display: block;
+    inline-size: min(100%, 24rem);
+    max-inline-size: 24rem;
+    margin-inline: auto;
+  }
+  /* Bewegende pijlen: de flow trekt subtiel richting de volgende donkerblauwe cirkel. */
+  .cirkel__flow path {
+    stroke-dasharray: 12 260;
+    stroke-dashoffset: 260;
+    animation: cirkel-flow 4s linear infinite;
+  }
+  .cirkel__flow path:nth-child(2) {
+    animation-delay: -1s;
+  }
+  .cirkel__flow path:nth-child(3) {
+    animation-delay: -2s;
+  }
+  .cirkel__flow path:nth-child(4) {
+    animation-delay: -3s;
+  }
+  @keyframes cirkel-flow {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cirkel__flow path {
+      animation: none;
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+    }
+  }
+  .pillars-copy__concept {
+    font-size: clamp(1.08rem, 1rem + 0.3vw, 1.28rem);
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  @media (max-width: 760px) {
+    .pillars-copy__cols {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+    .pillars-closing {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+  }
+
+  /* 3. Zo werk ik — vaste stapelkaarten (actieve stap in donkerblauw) */
+  .werkwijze-section__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .werkwijze-section .section-title {
+    text-align: center;
+  }
   .werkwijze {
     list-style: none;
     margin: 0;
     padding: 0;
     max-inline-size: var(--width-wide);
+    inline-size: 100%;
   }
-
-  .werkwijze__step {
+  .wf {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .wf__stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    inline-size: min(100%, 48rem);
+  }
+  .wf__card {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: var(--space-lg);
-    padding-block: var(--space-lg);
-    border-block-start: var(--border-hairline);
+    align-items: center;
+    inline-size: 100%;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.25rem, 2.5vw, 2rem);
+    background: var(--color-white);
+    border: var(--border-hairline);
+    border-inline-start: 3px solid var(--color-accent-warm);
+    border-radius: 18px;
+    color: var(--color-ink);
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-sans);
+    transition: background-color 0.35s ease, color 0.35s ease,
+      border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
   }
-
-  .werkwijze__nr {
+  .wf__card:hover:not(.wf__card--active) {
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 29, 81, 0.1);
+  }
+  .wf__card--active {
+    background: var(--color-ink);
+    border-inline-start-color: var(--color-accent-warm);
+    color: var(--color-on-ink);
+    box-shadow: 0 1rem 2.5rem rgba(0, 29, 81, 0.22);
+  }
+  .wf__nr {
     font-family: var(--font-serif);
     font-size: var(--text-xl);
+    font-weight: 700;
     color: var(--color-accent-warm);
     min-inline-size: 2.5ch;
   }
-
-  .werkwijze__step h3 {
-    font-size: var(--text-xl);
+  .wf__card--active .wf__nr {
+    color: var(--color-accent-warm);
   }
-
-  .werkwijze__step .text-soft {
+  .wf__body {
+    display: flex;
+    flex-direction: column;
+  }
+  .wf__title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    line-height: 1.25;
+    color: inherit;
+  }
+  .wf__text {
     margin-block-start: var(--space-xs);
     max-inline-size: var(--width-content);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+  .wf__card--active .wf__text {
+    color: var(--color-on-ink-soft);
+  }
+  .wf__dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-block-start: var(--space-lg);
+  }
+  .wf__dot {
+    inline-size: 0.55rem;
+    block-size: 0.55rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--color-border);
+    cursor: pointer;
+  }
+  .wf__dot.is-active {
+    background: var(--color-accent-warm);
   }
 
   /* 4. Kennisbank */

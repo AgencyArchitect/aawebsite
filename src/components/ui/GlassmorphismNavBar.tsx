@@ -92,10 +92,10 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
   return (
     <div
       ref={rootRef}
-      className={cn("fixed bottom-0 sm:top-0 left-1/2 -translate-x-1/2 z-50 mb-6 sm:pt-6", className)}
+      className={cn("pointer-events-none fixed bottom-0 sm:top-0 left-1/2 -translate-x-1/2 z-50 mb-6 sm:pt-6", className)}
     >
       <div
-        className="flex items-center gap-3 py-1 px-1 rounded-full shadow-lg transition-all duration-300 bg-background/30 border border-black/5"
+        className="pointer-events-auto flex items-center gap-3 py-1 px-1 rounded-full shadow-lg transition-all duration-300 bg-background/30 border border-black/5"
         style={{
           backdropFilter: "blur(20px) saturate(180%)",
           WebkitBackdropFilter: "blur(20px) saturate(180%)",
