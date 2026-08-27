@@ -8,6 +8,7 @@ topic: facebook/adverteren
 tags: [meta-marketing, creative-strategy, creatief-acquisitiesysteem, roas, creative-fatigue]
 featured: false
 summary: "Meta advertenties strategie is meer dan meer creatives maken. Het is een systeem: onderzoek, hypothesen, testen en documentatie op basis van persona, offer, angle en format."
+seoTitle: "Meta advertenties strategie: het creatief acquisitiesysteem"
 sources: []
 relatedSlugs: [ad-fatigue-herkennen-voordat-cpa-het-vertelt, roas-zegt-niet-wat-je-denkt-dat-het-zegt]
 cta: true
@@ -126,7 +127,7 @@ Een advertentie kan omzet genereren die zich over vier maanden uitspreidt. Daaro
 
 Dat betekent dat 5-15 creatives van de 100 winnaars worden. En deze 5-15 dragen de winstgevendheid van jouw bedrijf, om op door te schalen.
 
-Wil jij concreter weten, aan de hand van jouw Meta ad account data, hoeveel creatives jij moet maken? En bijna voorspellen hoeveel je nodig hebt om (meer) winnende creatives te scoren? Klik dan hier voor de Gratis Creative Calculator. Het vertelt je direct hoeveel creatives je iedere maand moet testen, om je doelen te behalen.
+Wil jij concreter weten, aan de hand van jouw Meta ad account data, hoeveel creatives jij moet maken? En bijna voorspellen hoeveel je nodig hebt om (meer) winnende creatives te scoren? **[Vraag dan je gratis Meta Audit aan](https://agencyarchitect.nl/creative-scale-audit/)**. Het vertelt je direct waar je creatieve systeem vastloopt en waar je op de nieuwe maand moet testen.
 
 ### Kwaliteitsdrempel boven kwantiteit
 
