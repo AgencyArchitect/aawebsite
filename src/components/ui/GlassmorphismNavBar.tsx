@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, User, Lightbulb, ChevronDown, Store } from "lucide-react";
+import { Home, User, ChevronDown, Store } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ECOMMERCE_GROUPS } from "@/lib/nav";
 
@@ -13,8 +13,8 @@ interface GlassmorphismNavBarProps {
 /**
  * Route-aware glassmorphism navigation (light theme).
  *
- * Een enkele "E-commerce marketing" trigger opent een submenu met twee
- * categorieën (Facebook, Instagram), elk met hun eigen pagina's. De actieve
+ * Een enkele "E-commerce marketing" trigger opent een submenu met de
+ * E-commerce pagina's. De actieve
  * indicator ("lamp") volgt de geselecteerde tab en slipt vanaf de vorige pagina
  * (via sessionStorage) in plaats van altijd vanaf Home.
  *
@@ -43,7 +43,6 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
       return "E-commerce marketing";
     }
     if (path === "/") return "Home";
-    if (path.startsWith("/inzichten/")) return "Inzichten";
     if (path.startsWith("/over/")) return "Over";
     return "Home";
   }
@@ -85,7 +84,6 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
   const listItems: ListItem[] = [
     { label: "Home", url: "/", icon: Home },
     { label: "E-commerce marketing", url: "/e-commerce-marketing/", icon: Store, groups: ECOMMERCE_GROUPS },
-    { label: "Inzichten", url: "/inzichten/", icon: Lightbulb },
     { label: "Over", url: "/over/", icon: User },
   ];
 
@@ -156,15 +154,15 @@ export function GlassmorphismNavBar({ className }: GlassmorphismNavBarProps) {
               <AnimatePresence>
                 {hasChildren && isOpen && (
                   <>
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full h-3 w-[620px]" />
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full h-3 w-[240px]" />
                     <motion.div
                       initial={{ opacity: 0, y: -6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -6 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] w-[620px] rounded-2xl bg-white shadow-xl border border-black/5 overflow-hidden"
+                      className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+0.75rem)] w-[240px] rounded-2xl bg-white shadow-xl border border-black/5 overflow-hidden"
                     >
-                      <div className="grid grid-cols-3 gap-0">
+                      <div className="grid grid-cols-1 gap-0">
                         {groups!.map((group) => (
                           <div key={group.label} className="p-2">
                             <a

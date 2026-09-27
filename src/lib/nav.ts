@@ -23,7 +23,7 @@ export interface NavItem {
   groupLabel?: string;
 }
 
-/** De submenu-tak voor de "E-commerce marketing" trigger. */
+/** Het submenu voor de "E-commerce marketing" trigger. */
 export const ECOMMERCE_GROUPS: NavGroup[] = [
   {
     label: 'E-commerce marketing',
@@ -33,30 +33,6 @@ export const ECOMMERCE_GROUPS: NavGroup[] = [
       { label: 'E-commerce strategie', href: '/e-commerce-marketing/strategie/' },
       { label: 'Creative strategist', href: '/e-commerce-marketing/creative-strategist/' },
       { label: 'Black Friday strategie', href: '/e-commerce-marketing/black-friday-strategie/' },
-    ],
-  },
-  {
-    label: 'Facebook',
-    href: '/e-commerce-marketing/facebook-marketing/',
-    links: [
-      { label: 'Facebook marketing', href: '/e-commerce-marketing/facebook-marketing/' },
-      { label: 'Facebook strategie', href: '/e-commerce-marketing/facebook-marketing/strategie/' },
-      { label: 'Facebook advertising', href: '/e-commerce-marketing/facebook-marketing/adverteren/' },
-      { label: 'Facebook funnels', href: '/e-commerce-marketing/facebook-marketing/funnels/' },
-      { label: 'Facebook copywriting', href: '/e-commerce-marketing/facebook-marketing/copywriting/' },
-      { label: 'Facebook organisch', href: '/e-commerce-marketing/facebook-marketing/organisch/' },
-    ],
-  },
-  {
-    label: 'Instagram',
-    href: '/e-commerce-marketing/instagram-marketing/',
-    links: [
-      { label: 'Instagram marketing', href: '/e-commerce-marketing/instagram-marketing/' },
-      { label: 'Instagram strategie', href: '/e-commerce-marketing/instagram-marketing/strategie/' },
-      { label: 'Instagram advertising', href: '/e-commerce-marketing/instagram-marketing/adverteren/' },
-      { label: 'Instagram funnels', href: '/e-commerce-marketing/instagram-marketing/funnels/' },
-      { label: 'Instagram copywriting', href: '/e-commerce-marketing/instagram-marketing/copywriting/' },
-      { label: 'Instagram organisch', href: '/e-commerce-marketing/instagram-marketing/organisch/' },
     ],
   },
 ];
@@ -69,6 +45,5 @@ export const NAV_ITEMS = [
     href: '/e-commerce-marketing/',
     groups: ECOMMERCE_GROUPS,
   },
-  { label: 'Inzichten', href: '/inzichten/' },
   { label: 'Over', href: '/over/' },
 ];

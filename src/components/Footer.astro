@@ -1,8 +1,6 @@
 ---
-import { SITE, getLiveTopics, topicUrl } from '../lib/site';
+import { SITE } from '../lib/site';
 
-const topics = await getLiveTopics();
-const platforms = topics.filter((t) => t.data.level === 'platform');
 const year = new Date().getFullYear();
 ---
 
@@ -17,35 +15,10 @@ const year = new Date().getFullYear();
         </p>
       </div>
 
-      {
-        platforms.map((platform) => {
-          const disciplines = topics.filter(
-            (t) => t.data.level === 'discipline' && t.data.platform === platform.data.platform,
-          );
-          return (
-            <nav aria-label={platform.data.title}>
-              <p class="site-footer__heading">
-                <a href={topicUrl(platform)}>{platform.data.title}</a>
-              </p>
-              {disciplines.length > 0 && (
-                <ul>
-                  {disciplines.map((d) => (
-                    <li>
-                      <a href={topicUrl(d)}>{d.data.title}</a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </nav>
-          );
-        })
-      }
-
       <nav aria-label="Overig">
         <p class="site-footer__heading">Agency Architect</p>
         <ul>
           <li><a href="/creative-scale-audit/">Creative Scale Audit</a></li>
-          <li><a href="/inzichten/">Inzichten</a></li>
           <li><a href="/werkwijze/">Werkwijze</a></li>
           <li><a href="/over/">Over</a></li>
           <li><a href="/contact/">Contact</a></li>
@@ -99,7 +72,7 @@ const year = new Date().getFullYear();
 
   @media (min-width: 56rem) {
     .site-footer__grid {
-      grid-template-columns: 2fr 1fr 1fr 1fr;
+      grid-template-columns: 2fr 1fr;
     }
   }
 
